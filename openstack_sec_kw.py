@@ -17,6 +17,7 @@ counter = 0
 
 if __name__=='__main__':
    bugID2Dump = []
+   bugMSG2Dump = []
    with open(launchpad_file_name) as f:
         content = f.readlines()
    with open(sec_kw_file_name) as f_:
@@ -42,6 +43,7 @@ if __name__=='__main__':
               if(sec_kw in lpad_mesg):
                       sec_flag = True
                       matching_sec_kw=sec_kw
+                      bugMSG2Dump.append(lpad_mesg)
           if (sec_flag):
                  match_cnt += 1
                  print 'FOUND STH!!!'
@@ -61,3 +63,10 @@ if __name__=='__main__':
        str2write = str2write + str(id_) + ',' + '\n'
 
    utility.dumpContentIntoFile(str2write, '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/REPORTIDS_WITH_SEC_OST.csv')
+   '''
+   DUMP REPORTS AS STR
+   '''
+   str2write = ''
+   for report_ in bugMSG2Dump:
+       str2write = str2write + report_ + ',' + '\n'
+   utility.dumpContentIntoFile(str2write, '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/BURN_AFTER_READING_OST.csv')

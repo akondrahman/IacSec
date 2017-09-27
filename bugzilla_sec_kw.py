@@ -15,7 +15,8 @@ not_exist_list = [10179904, 10131433, 1021152, 1021519, 1037104, 1041577, 106041
 
 counter = 0
 if __name__=='__main__':
-   bugID2Dump = []
+   bugID2Dump  = []
+   bugMSG2Dump = []
    #bug_obj = bugzilla.Bugzilla(url="https://bugzilla.mozilla.org/rest/", api_key="mWYEjiA4nOsii23LqFSuhotZyXJic5hRmMc5bFdm")
    #URL = "https://partner-bugzilla.redhat.com"
    #bug_obj = bugzilla.Bugzilla(URL, api_key="mWYEjiA4nOsii23LqFSuhotZyXJic5hRmMc5bFdm")
@@ -46,6 +47,7 @@ if __name__=='__main__':
                   if(sec_kw in comment_msg):
                       sec_flag = True
                       matching_sec_kw=sec_kw
+                      bugMSG2Dump.append(comment_msg)
           if (sec_flag):
                  match_cnt += 1
                  print 'FOUND STH!!!'
@@ -65,3 +67,10 @@ if __name__=='__main__':
        str2write = str2write + str(id_) + ',' + '\n'
 
    utility.dumpContentIntoFile(str2write, '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/REPORTIDS_WITH_SEC_MOZ.csv')
+   '''
+   DUMP REPORTS AS STR
+   '''
+   str2write = ''
+   for report_ in bugMSG2Dump:
+       str2write = str2write + report_ + ',' + '\n'
+   utility.dumpContentIntoFile(str2write, '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/BURN_AFTER_READING_MOZ.csv')
