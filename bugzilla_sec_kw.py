@@ -29,22 +29,25 @@ if __name__=='__main__':
    bug_ids = [int(bug_id) for bug_id in bug_ids]
    bug_ids = [bug_id for bug_id in bug_ids if bug_id not in not_exist_list]
    valid_bug_cnt = len(bug_ids)
+   match_cnt = 0
    print 'before filtering:{}, after filtering:{}'.format(len(content), valid_bug_cnt)
    for bug_id in bug_ids:
        counter += 1
-       #print bug_id
-       #print '='*50
+       matching_sec_kw = 'LOL'
+       sec_flag = False
        try:
           the_bug = bugzilla_obj.get(bug_id)  #put numeric ID here
           comments = the_bug.get_comments()
           for comment_obj in comments:
               comment_msg =  comment_obj.text
-              comment_msg =  [token_.strip() for token_ in comment_msg]
-              comment_msg =  [token_.lower() for token_ in comment_msg]
-              common =  len(set(comment_msg).intersection(sec_kw_content))
-              if (common > 0):
+              for sec_kw in sec_kw_content:
+                  if(sec_kw in comment_msg):
+                      sec_flag = True
+                      matching_sec_kw=sec_kw
+          if (sec_flag):
+                 match_cnt += 1
                  print 'FOUND STH!!!'
-                 print 'BUGID:{},BUGMESSAGE:{}'.format(bug_id,comment_msg)
+                 print 'BUGID:{},MATCHING-KW:{},MATCH-CNT:{}'.format(bug_id, matching_sec_kw, match_cnt)
                  print '*'*25
           print '='*50
           print "Processed {} bug IDs, {} left".format(counter, valid_bug_cnt - counter)
