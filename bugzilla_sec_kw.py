@@ -7,6 +7,7 @@ and check for secuirty key words
 #import bugzilla
 import numpy as np
 import bugsy
+import utility
 bugzilla_obj = bugsy.Bugsy(api_key="mWYEjiA4nOsii23LqFSuhotZyXJic5hRmMc5bFdm")
 bugzilla_file_name = 'moz.bug.ids.txt'
 sec_kw_file_name   = 'sec.kws.txt'
@@ -14,6 +15,7 @@ not_exist_list = [10179904, 10131433, 1021152, 1021519, 1037104, 1041577, 106041
 
 counter = 0
 if __name__=='__main__':
+   bugID2Dump = []
    #bug_obj = bugzilla.Bugzilla(url="https://bugzilla.mozilla.org/rest/", api_key="mWYEjiA4nOsii23LqFSuhotZyXJic5hRmMc5bFdm")
    #URL = "https://partner-bugzilla.redhat.com"
    #bug_obj = bugzilla.Bugzilla(URL, api_key="mWYEjiA4nOsii23LqFSuhotZyXJic5hRmMc5bFdm")
@@ -48,9 +50,18 @@ if __name__=='__main__':
                  match_cnt += 1
                  print 'FOUND STH!!!'
                  print 'BUGID:{},MATCHING-KW:{},MATCH-CNT:{}'.format(bug_id, matching_sec_kw, match_cnt)
+                 bugID2Dump.append(bug_id)
                  print '*'*25
           print '='*50
           print "Processed {} bug IDs, {} left".format(counter, valid_bug_cnt - counter)
           print '='*50
        except Exception as b_e:
           print 'Caught exception for:', str(bug_id) + ':' + b_e.message
+   '''
+   DUMP LIST AS STR
+   '''
+   str2write = ''
+   for id_ in bugID2Dump:
+       str2write = str2write + str(id_) + ',' + '\n'
+
+   utility.dumpContentIntoFile(str2write, '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/REPORTIDS_WITH_SEC_MOZ.csv')
