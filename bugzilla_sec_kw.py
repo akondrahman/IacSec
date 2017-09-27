@@ -43,6 +43,7 @@ if __name__=='__main__':
               comment_msg =  [token_.lower() for token_ in comment_msg]
               common =  len(set(comment_msg).intersection(sec_kw_content))
               if (common > 0):
+                 print 'FOUND STH!!!'
                  print 'BUGID:{},BUGMESSAGE:{}'.format(bug_id,comment_msg)
                  print '*'*25
           print '='*50
