@@ -34,7 +34,7 @@ if __name__=='__main__':
           comments = the_bug.get_comments()
           for comment_obj in comments:
               print comment_obj.text
-          print '='*50
-          print "Processed {} bug IDs, {} left".format(counter, valid_bug_cnt - counter
-      except BugsyException as b_e:
-          print 'Caught exception for:', bug_id + ':' + b_e
+          print "Processed {} bug IDs, {} left".format(counter, valid_bug_cnt - counter)
+          print '='*50          
+       except Exception as b_e:
+          print 'Caught exception for:', str(bug_id) + ':' + b_e
