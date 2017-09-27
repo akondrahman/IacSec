@@ -68,5 +68,10 @@ if __name__=='__main__':
    '''
    str2write = ''
    for report_ in bugMSG2Dump:
+       try:
+          report_ = report_.strip()
+          report_ = unicode(report_, errors='ignore')
+       except TypeError:
+          report_ = report_.strip()
        str2write = str2write + report_ + ',' + '\n'
    utility.dumpContentIntoFile(str2write, '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/BURN_AFTER_READING_OST.csv')

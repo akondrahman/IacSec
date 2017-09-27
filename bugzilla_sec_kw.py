@@ -72,5 +72,6 @@ if __name__=='__main__':
    '''
    str2write = ''
    for report_ in bugMSG2Dump:
+       report_ = unicode(report_, errors='ignore')       
        str2write = str2write + report_ + ',' + '\n'
    utility.dumpContentIntoFile(str2write, '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/BURN_AFTER_READING_MOZ.csv')
