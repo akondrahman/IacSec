@@ -70,8 +70,20 @@ if __name__=='__main__':
    '''
    DUMP REPORTS AS STR
    '''
-   str2write = ''
+   report_no = 0
    for report_ in bugMSG2Dump:
-       report_ = unicode(report_, errors='ignore')       
-       str2write = str2write + report_ + ',' + '\n'
-   utility.dumpContentIntoFile(str2write, '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/BURN_AFTER_READING_MOZ.csv')
+       report_no += 1
+       tokens = report_.split(' ')
+       report_ = ''
+       for token_ in tokens:
+         try:
+            token_ = token_.encode('ascii', 'ignore').decode('ascii')
+            token_ = token_.strip()
+            token_ = token_.lower()
+         except TypeError:
+            token_ = token_.lower()
+            token_ = token_.strip()
+         report_ = report_ + token_ + ' '
+       file2save = str(report_no) + '_BURN_AFTER_READING.txt'
+       utility.dumpContentIntoFile(report_, '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/MOZ/' + file2save)
+       report_ = ''
