@@ -22,7 +22,8 @@ if __name__=='__main__':
         content = f.readlines()
    with open(sec_kw_file_name) as f_:
         sec_kw_content = f_.readlines()
-   sec_kw_content = [lower(sec_kw) for sec_kw in sec_kw_content]
+   sec_kw_content = [sec_kw.strip() for sec_kw in sec_kw_content]
+   sec_kw_content = [sec_kw.lower() for sec_kw in sec_kw_content]
    bug_ids = [x.strip() for x in content]
    bug_ids = np.unique(bug_ids)
    bug_ids = [int(bug_id) for bug_id in bug_ids]
@@ -38,7 +39,8 @@ if __name__=='__main__':
           comments = the_bug.get_comments()
           for comment_obj in comments:
               comment_msg =  comment_obj.text
-              comment_msg =  [lower(token_) for token_ in comment_msg]
+              comment_msg =  [token_.strip() for token_ in comment_msg]
+              comment_msg =  [token_.lower() for token_ in comment_msg]
               common =  len(set(comment_msg).intersection(sec_kw_content))
               if (common > 0):
                  print 'BUGID:{},BUGMESSAGE:{}'.format(bug_id,comment_msg)
