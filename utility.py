@@ -16,7 +16,7 @@ def dumpContentIntoFile(strP, fileP):
     return str(os.stat(fileP).st_size)
 
 
-def getPuppetFileDetails(the_ds_file):
+def getFileFromCSV(the_ds_file):
     all_file_content = []
     with open(the_ds_file, 'rU') as file_:
       reader_ = csv.reader(file_)
@@ -25,5 +25,5 @@ def getPuppetFileDetails(the_ds_file):
         full_path_of_file  = row_[1]  # the file name from dataset
         with open(full_path_of_file, 'rU') as the_file:
              content_full = the_file.read()
-             all_file_content.append(content_full)   ### each file conent is now one big string 
+             all_file_content.append(content_full)   ### each file conent is now one big string
     return all_file_content
