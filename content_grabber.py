@@ -36,5 +36,8 @@ if __name__=='__main__':
             file_counter += 1
             print '='*25 + ':'*3 + str(file_counter)   + ':'*3  + 'START!' + '='*25
             print file_content
+            print '*'*10
+            print 'DECISION===>:'
+            print '*'*10
             print '='*25 + ':'*3   + str(file_counter) + ':'*3  + 'END!!!' + '='*25
     print '-'*100
