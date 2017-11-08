@@ -34,7 +34,7 @@ if __name__=='__main__':
     for ds_ in list_of_ds:
         for file_content in ds_:
             file_counter += 1
-            print '='*25 + str(file_counter) + 'START!' + '='*25
+            print '='*25 + ':'*3 + str(file_counter)   + ':'*3  + 'START!' + '='*25
             print file_content
-            print '='*25 + str(file_counter) + 'END!!!' + '='*25
+            print '='*25 + ':'*3   + str(file_counter) + ':'*3  + 'END!!!' + '='*25
     print '-'*100
