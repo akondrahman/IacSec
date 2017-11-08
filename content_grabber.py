@@ -15,13 +15,21 @@ openstack_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Tree/dataset
 wikimedia_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Tree/dataset/PHASE7_WIKI_FULL_DATASET.csv'
 
 
-bastion_files   = utility.getFileFromCSV(bastion_file)
-cisco_files     = utility.getFileFromCSV(cisco_file)
-mirantis_files  = utility.getFileFromCSV(mirantis_file)
-mozilla_files   = utility.getFileFromCSV(mozilla_file)
-openstack_files = utility.getFileFromCSV(openstack_file)
-wikimedia_files = utility.getFileFromCSV(wikimedia_file)
 
 
-list_of_files = [bastion_files,  cisco_files, mirantis_files,
-                 mozilla_files , openstack_files, wikimedia_files]
+if __name__=='__main__':
+    bastion_files   = utility.getFileFromCSV(bastion_file)
+    cisco_files     = utility.getFileFromCSV(cisco_file)
+    mirantis_files  = utility.getFileFromCSV(mirantis_file)
+    mozilla_files   = utility.getFileFromCSV(mozilla_file)
+    openstack_files = utility.getFileFromCSV(openstack_file)
+    wikimedia_files = utility.getFileFromCSV(wikimedia_file)
+
+    file_counter = 0
+    list_of_ds = [bastion_files,  cisco_files, mirantis_files, mozilla_files , openstack_files, wikimedia_files]
+    for ds_ in list_of_ds:
+        for file_content in ds_:
+            file_counter += 1
+            print '='*25 + str(file_counter) + 'START!' + '='*25
+            print file_content
+            print '='*25 + str(file_counter) + 'END!!!' + '='*25
