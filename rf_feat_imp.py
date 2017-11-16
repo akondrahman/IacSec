@@ -5,6 +5,7 @@ Wednesday
 Feature importance for IaC Metrics using RF
 '''
 import numpy as np
+import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 
 def readDataset(fileParam, dataTypeFlag=True):
@@ -13,6 +14,13 @@ def readDataset(fileParam, dataTypeFlag=True):
   else:
         data_set_to_return = np.genfromtxt(fileParam, delimiter=',', skip_header=1,  dtype='str')
   return data_set_to_return
+
+def getColumnNames(file_name_param, col_indicies2del):
+    ds_   = pd.read_csv(file_name_param)
+    temp_ = list(my_dataframe.columns.values)
+    for col_ in col_indicies2del:
+        del temp_[-col_]
+    return temp_
 
 def calcFeatureImp(feature_vec, label_vec):
     theRndForestModel = RandomForestClassifier()
@@ -36,4 +44,7 @@ if __name__=='__main__':
    non_defected_file_count = len([x_ for x_ in all_labels if x_==0.0])
    print "No of. defects={}, non-defects={}".format(defected_file_count, non_defected_file_count)
    print "-"*50
+   feature_names = getColumnNames(ds_file_name, [0, 1, feature_cols])
+   print feature_names
+
    calcFeatureImp(all_features, all_labels)
