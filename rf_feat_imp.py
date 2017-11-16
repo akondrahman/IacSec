@@ -41,17 +41,31 @@ def calcFeatureImp(feature_vec, label_vec, feature_names_param, output_file, rep
         for imp_vec_index in xrange(len(feat_imp_vector)):
             feat_imp_val = round(feat_imp_vector[imp_vec_index], 5)
             str2write = str2write +  str(feat_imp_val) + ','
-            print 'Anti-pattern:{}, score:{}'.format(feature_names_param[imp_vec_index], feat_imp_val)
-            print '-'*25
+            # print 'Anti-pattern:{}, score:{}'.format(feature_names_param[imp_vec_index], feat_imp_val)
+            # print '-'*25
         str2write = str2write + '\n'
     str2write = header_str + '\n' + str2write
     output_status= dumpContentIntoFile(str2write, output_file)
     print 'Dumped the RF FEATURE IMPORTANCE file of {} bytes'.format(output_status)
 
 if __name__=='__main__':
-   ds_file_name       = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/OCT17_BASTION_FULL_PROCESS_DATASET.csv'
-   output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/BASTION.csv'
+   # ds_file_name       = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/OCT17_BASTION_FULL_PROCESS_DATASET.csv'
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/BASTION.csv'
 
+   # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/OCT17_CISCO_FULL_PROCESS_DATASET.csv'
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/CISCO.csv'
+
+   # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/OCT17_MIRANTIS_FULL_PROCESS_DATASET.csv'
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/MIRANTIS.csv'
+
+   # ds_file_name       = "/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/MultiTasking_MOZ_FULL_PROCESS_DATASET.csv"
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/MOZILLA.csv'
+
+   # ds_file_name="/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/MultiTasking_OPENSTACK_PROCESS_DATASET.csv"
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/OPENSTACK.csv'
+
+   # ds_file_name="/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/MultiTasking_WIKI_FULL_PROCESS_DATASET.csv"
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/WIKIMEDIA.csv'
 
 
    full_ds=readDataset(ds_file_name)
