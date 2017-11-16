@@ -21,14 +21,22 @@ def getColumnNames(file_name_param, start, end ):
     temp_ = temp_[start:end]
     return temp_
 
-def calcFeatureImp(feature_vec, label_vec, feature_names_param):
+def calcFeatureImp(feature_vec, label_vec, feature_names_param, repeat=10):
+    header_str, str2write= '', ''
+    for name_ in feature_names_param:
+        header_str = header_str + name_
     theRndForestModel = RandomForestClassifier()
     theRndForestModel.fit(feature_vec, label_vec)
     feat_imp_vector=theRndForestModel.feature_importances_
     #print feat_imp_vector
-    for imp_vec_index in xrange(len(feat_imp_vector)):
-        print 'Anti-pattern:{}, score:{}'.format(feature_names_param[imp_vec_index], round(feat_imp_vector[imp_vec_index], 3))
-        print '-'*25
+
+    for ind_ in xrange(repeat):
+        for imp_vec_index in xrange(len(feat_imp_vector)):
+            feat_imp_val = round(feat_imp_vector[imp_vec_index], 5)
+            str2write = str2write +  str(feat_imp_val) + ','
+            print 'Anti-pattern:{}, score:{}'.format(feature_names_param[imp_vec_index], feat_imp_val)
+            print '-'*25
+        str2write = str2write + '\n'
 
 if __name__=='__main__':
    ds_file_name = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/OCT17_BASTION_FULL_PROCESS_DATASET.csv'
