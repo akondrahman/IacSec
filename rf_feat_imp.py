@@ -7,6 +7,7 @@ Feature importance for IaC Metrics using RF
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
+import os
 
 def readDataset(fileParam, dataTypeFlag=True):
   if dataTypeFlag:
@@ -49,7 +50,7 @@ def calcFeatureImp(feature_vec, label_vec, feature_names_param, output_file, rep
 
 if __name__=='__main__':
    ds_file_name       = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/OCT17_BASTION_FULL_PROCESS_DATASET.csv'
-   output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/rf_feat_imp/BASTION.csv'
+   output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/BASTION.csv'
 
 
 
