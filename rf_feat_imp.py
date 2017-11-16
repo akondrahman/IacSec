@@ -16,6 +16,11 @@ def readDataset(fileParam, dataTypeFlag=True):
 
 def calcFeatureImp(feature_vec, label_vec):
     theRndForestModel = RandomForestClassifier()
+    theRndForestModel.fit(feature_vec, label_vec)
+    feat_imp_vector=theRndForestModel.feature_importances_
+    print feat_imp_vector
+    #for imp_vec in feat_imp_vector:
+
 
 if __name__=='__main__':
    ds_file_name = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/OCT17_BASTION_FULL_PROCESS_DATASET.csv'
@@ -31,4 +36,4 @@ if __name__=='__main__':
    non_defected_file_count = len([x_ for x_ in all_labels if x_==0.0])
    print "No of. defects={}, non-defects={}".format(defected_file_count, non_defected_file_count)
    print "-"*50
-   #calcFeatureImp(full_ds)
+   calcFeatureImp(all_features, all_labels)
