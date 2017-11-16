@@ -21,10 +21,16 @@ def getColumnNames(file_name_param, start, end ):
     temp_ = temp_[start:end]
     return temp_
 
-def calcFeatureImp(feature_vec, label_vec, feature_names_param, repeat=10):
+def dumpContentIntoFile(strP, fileP):
+    fileToWrite = open( fileP, 'w')
+    fileToWrite.write(strP)
+    fileToWrite.close()
+    return str(os.stat(fileP).st_size)
+
+def calcFeatureImp(feature_vec, label_vec, feature_names_param, output_file, repeat=10):
     header_str, str2write= '', ''
     for name_ in feature_names_param:
-        header_str = header_str + name_
+        header_str = header_str + name_ + ','
     theRndForestModel = RandomForestClassifier()
     theRndForestModel.fit(feature_vec, label_vec)
     feat_imp_vector=theRndForestModel.feature_importances_
@@ -37,9 +43,13 @@ def calcFeatureImp(feature_vec, label_vec, feature_names_param, repeat=10):
             print 'Anti-pattern:{}, score:{}'.format(feature_names_param[imp_vec_index], feat_imp_val)
             print '-'*25
         str2write = str2write + '\n'
+    str2write = header_str + '\n' + str2write
+    output_status= dumpContentIntoFile(str2write, output_file)
+    print 'Dumped the RF FEATURE IMPORTANCE file of {} bytes'.format(output_status)
 
 if __name__=='__main__':
-   ds_file_name = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/OCT17_BASTION_FULL_PROCESS_DATASET.csv'
+   ds_file_name       = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/OCT17_BASTION_FULL_PROCESS_DATASET.csv'
+   output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/rf_feat_imp/BASTION.csv'
 
 
 
@@ -50,9 +60,5 @@ if __name__=='__main__':
    all_labels  =  full_ds[:, feature_cols]
    defected_file_count     = len([x_ for x_ in all_labels if x_==1.0])
    non_defected_file_count = len([x_ for x_ in all_labels if x_==0.0])
-   print "No of. defects={}, non-defects={}".format(defected_file_count, non_defected_file_count)
-   print "-"*50
    feature_names = getColumnNames(ds_file_name, 2, feature_cols)
-   #print feature_names
-
-   calcFeatureImp(all_features, all_labels, feature_names)
+   calcFeatureImp(all_features, all_labels, feature_names, output_file_param)
