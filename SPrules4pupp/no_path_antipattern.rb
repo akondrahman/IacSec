@@ -1,7 +1,7 @@
 =begin
 Akond Rahman
 Nov 24, 2017
-See if path values contain anti-patterns
+See if path values contain the anti-pattern contains drive letter 
 =end
 PuppetLint.new_check(:no_hardcode_key) do
 
