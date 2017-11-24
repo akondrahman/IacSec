@@ -15,7 +15,15 @@ PuppetLint.new_check(:no_hardcode_key) do
                #print "#{path_sym_cnt} \n"
                ##first check if value is a directory or file, if valeu contains at least two slashes then proceed
                if path_sym_cnt1 > 1 or path_sym_cnt2 > 1
-                  print "#{token_val_str} \n"
+                  #print "#{token_val_str} \n"
+                  token_val_str=token_val_str.downcase
+                  if token_val_str.include? "c:"
+                     notify :warning, {
+                        message: 'Do not use Windows drive letters in path',
+                        line:    value_token.line,
+                        column:  value_token.column,
+                        token:   value_token
+                     }
                end
            end
        end
