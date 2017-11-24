@@ -6,9 +6,10 @@ See if path values contain anti-patterns
 PuppetLint.new_check(:no_hardcode_key) do
 
   def check
-       resource_indexes.each do |resource|
-           resource[:param_tokens].each do |param_token|
-               value_token   = param_token.next_code_token.next_code_token
+       #resource_indexes.each do |resource|
+           #resource[:param_tokens].each do |param_token|
+               #value_token   = param_token.next_code_token.next_code_token
+           tokens.each do |value_token|               
                token_val_str = value_token.value
                path_sym_cnt1  = token_val_str.count('/')
                path_sym_cnt2  = token_val_str.count('\\')
@@ -24,8 +25,9 @@ PuppetLint.new_check(:no_hardcode_key) do
                         column:  value_token.column,
                         token:   value_token
                      }
+                  end
                end
            end
-       end
+       #end
   end
 end
