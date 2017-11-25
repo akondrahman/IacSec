@@ -11,7 +11,23 @@ rule "MYRULE001", "SSH keys hould not be hard-coded" do
         #print "#{exec_reso}"
         cmd_str = resource_attribute(exec_reso, 'command').to_s
         #print "#{cmd_str}"
-        cmd_str.match(/ssh-rsa\s(\w)*/) ? true : false 
+        cmd_str.match(/ssh-rsa\s(\w)*/) ? true : false ## for ruby regex see http://rubular.com/
      end
+  end
+end
+
+
+rule "MYRULE002", "Drive letter should not be in path" do
+  tags %w{security akondrahman}
+  recipe do |ast_, filename_|
+      #puts filename_.inspect
+      ###read cookbook line by line to see if drive letter appears
+      text_content=File.open(filename_).read
+      text_content.gsub!(/\r\n?/, "\n")
+      text_content.each_line do |line_as_str|
+         line_as_str = line_as_str.downcase
+         line_as_str.match(/(\w)*c:(\w)*/) ? true : false
+      end
+
   end
 end
