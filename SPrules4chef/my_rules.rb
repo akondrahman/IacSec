@@ -26,7 +26,8 @@ rule "MYRULE002", "Drive letter should not be in path" do
       text_content.gsub!(/\r\n?/, "\n")
       text_content.each_line do |line_as_str|
          line_as_str = line_as_str.downcase
-         line_as_str.match(/(\w)*c:(\w)*/) ? true : false
+         if(line_as_str.include?('c:'))
+           print "#{line_as_str} \n"
       end
 
   end
