@@ -20,7 +20,8 @@ PuppetLint.new_check(:no_hardcode_key) do
               #print "-----\n"
               notify :warning, {
                   message: 'Do not expose bug information',
-                  line:    lineNo
+                  line:    lineNo,
+                  column:   5   #no columsn for comment lines so assignning a dummy one to keep puppet-lint happy
               }
            end
         end
