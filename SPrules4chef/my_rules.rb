@@ -10,7 +10,8 @@ rule "MYRULE001", "SSH keys hould not be hard-coded" do
      find_resources(ast_, :type => 'execute').select do |exec_reso|
         #print "#{exec_reso}"
         cmd_str = resource_attribute(exec_reso, 'command').to_s
-        print "#{cmd_str}"
+        #print "#{cmd_str}"
+        cmd_str.match(/ssh-rsa\s(\w)*/) ? true : false 
      end
   end
 end
