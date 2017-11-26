@@ -34,3 +34,23 @@ rule "MYRULE002", "Drive letter should not be in path" do
       end
   end
 end
+
+
+
+rule "MYRULE003", "Suspicious comments" do
+  tags %w{security akondrahman}
+  recipe do |ast_, filename_|
+      matchCnt = 0
+      lines  = []
+      text_content=File.open(filename_).read
+      text_content.gsub!(/\r\n?/, "\n")
+      text_content.each_line do |line_as_str|
+         if line_as_str.include?('#')
+            single_line = line_as_str.downcase
+            if (single_line.include?('bug') || single_line.include?('hack') || single_line.include?('fixme') || single_line.include?('later') || single_line.include?('later2') || single_line.include?('todo'))
+               print "MYRULE003: Suspicious comment \n"
+            end
+         end
+      end
+  end
+end
