@@ -29,8 +29,10 @@ rule "MYRULE002", "Drive letter should not be in path" do
          line_as_str = line_as_str.downcase
          if(line_as_str.include?('c:'))
            matchCnt += 1
+           #print "#{matchCnt}"
+           #print "-----\n"
          end
       end
+      #matchCnt > 0 ? true : false
   end
-  matchCnt 
 end
