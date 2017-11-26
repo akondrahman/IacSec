@@ -28,11 +28,9 @@ rule "MYRULE002", "Drive letter should not be in path" do
       text_content.each_line do |line_as_str|
          line_as_str = line_as_str.downcase
          if line_as_str.include?('c:')
-            matchCnt += 1
+            #matchCnt += 1
+            print "MYRULE002: Drive letter should not be in path"
          end
-      end
-      if (matchCnt > 0)
-        print "MYRULE002: Do not use drive letter in path; occured #{matchCnt} times."
       end
   end
 end
