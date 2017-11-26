@@ -29,7 +29,7 @@ rule "MYRULE002", "Drive letter should not be in path" do
          line_as_str = line_as_str.downcase
          if line_as_str.include?('c:')
             #matchCnt += 1
-            print "MYRULE002: Drive letter should not be in path"
+            print "MYRULE002: Drive letter should not be in path \n"
          end
       end
   end
