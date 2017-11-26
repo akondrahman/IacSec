@@ -19,20 +19,20 @@ end
 
 rule "MYRULE002", "Drive letter should not be in path" do
   tags %w{security akondrahman}
-  matchCnt = 0
   recipe do |ast_, filename_|
-      #puts filename_.inspect
+      matchCnt = 0
+      lines  = []
       ###read cookbook line by line to see if drive letter appears
       text_content=File.open(filename_).read
       text_content.gsub!(/\r\n?/, "\n")
       text_content.each_line do |line_as_str|
          line_as_str = line_as_str.downcase
-         if(line_as_str.include?('c:'))
-           matchCnt += 1
-           #print "#{matchCnt}"
-           #print "-----\n"
+         if line_as_str.include?('c:')
+            matchCnt += 1
          end
       end
-      #matchCnt > 0 ? true : false
+      if (matchCnt > 0)
+        print "MYRULE002: Do not use drive letter in path; occured #{matchCnt} times."
+      end
   end
 end
