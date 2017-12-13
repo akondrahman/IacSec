@@ -26,9 +26,20 @@ def getAllChefScripts(root_path):
                          print 'DECISION===>:'
                          print '*'*10
                          print '='*25 + ':'*3   + str(valid_file) + ':'*3  + 'END!!!' + '='*25
+        # print root
 
-
+def getValidRepos(file_):
+    all_repo_list = []
+    with open(file_, 'rU') as file_:
+      reader_ = csv.reader(file_)
+      next(reader_, None)
+      for row_ in reader_:
+          repo_name = row_[0]
+          all_repo_list.append(repo_name)
+    return all_repo_list
 
 if __name__=='__main__':
     root_dir = '/Users/akond/CHEF_REPOS/github-downloads/'
-    getAllChefScripts(root_dir)
+    valid_repos=getValidRepos(root_dir + 'eligible_repos.csv')
+    print 'Total valid repos:', len(valid_repos)
+    getAllChefScripts(valid_repos)

@@ -1,7 +1,7 @@
 '''
 Akond Rahman
 Nov 08, 2017
-Content grabber for S&P project
+Content grabber for S&P project (Puppet Scripts)
 Wednesday
 '''
 
