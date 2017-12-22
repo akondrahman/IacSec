@@ -58,14 +58,20 @@ if __name__=='__main__':
    # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/NO-COMM-AGE/MIR.csv'
    # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/MIRANTIS.csv'
 
+   # ds_file_name       = "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/reproc/DEFECT-Datasets/MOZILLA_DEFECT_DATASET.csv"
    # ds_file_name       = "/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/NO-COMM-AGE/MOZ.csv"
    # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/MOZILLA.csv'
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/emse/FI_MOZILLA.csv'
 
+   # ds_file_name       = "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/reproc/DEFECT-Datasets/OPENSTACK_DEFECT_DATASET.csv"
    # ds_file_name="/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/NO-COMM-AGE/OST.csv"
    # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/OPENSTACK.csv'
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/emse/FI_OPENSTACK.csv'   
 
+   # ds_file_name       = "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/reproc/DEFECT-Datasets/WIKIMEDIA_DEFECT_DATASET.csv"
    # ds_file_name="/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/NO-COMM-AGE/WIK.csv"
    # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/WIKIMEDIA.csv'
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/emse/FI_WIKIMEDIA.csv'   
 
 
    full_ds=readDataset(ds_file_name)
