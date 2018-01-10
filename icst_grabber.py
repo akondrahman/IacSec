@@ -9,9 +9,10 @@ import os
 import numpy as np
 import cPickle as pickle
 def getContent(list_of_ds):
-    counter = 0
-    dictOfAllFiles, dict2Ret = {}, {}
+    counter, ds_index = 0, 0
+    dictOfAllFiles, dict2Ret, org_dict = {}, {}, {}
     for ds_ in list_of_ds:
+            ds_index += 1
             print 'Processing:', ds_
             print '-'*100
             with open(ds_, 'rU') as file_:
@@ -24,6 +25,7 @@ def getContent(list_of_ds):
                 if os.path.exists(full_path_of_file):
                    if full_path_of_file not in dictOfAllFiles:
                       dictOfAllFiles[full_path_of_file] = [ categ_of_file ]
+                      org_dict[full_path_of_file] = ds_index
                    else:
                       dictOfAllFiles[full_path_of_file] = dictOfAllFiles[full_path_of_file] + [ categ_of_file ]
     print 'Total valid scripts:', len(dictOfAllFiles)
@@ -34,9 +36,9 @@ def getContent(list_of_ds):
                with open(k_, 'rU') as the_file:
                     the_content = the_file.read()
                if ((len(uniq)==1) and (uniq[0]=='N')):
-                 dict2Ret[counter] = (the_content, '0')
+                 dict2Ret[counter] = (the_content, '0', org_dict[k_])
                else:
-                 dict2Ret[counter] = (the_content, '1')
+                 dict2Ret[counter] = (the_content, '1', org_dict[k_])
     return dict2Ret
 
 
@@ -51,4 +53,4 @@ if __name__=='__main__':
    all_file_dump=getContent(ds_list)
    pickle.dump( all_file_dump, open( "SCRIPT.LABELS.DUMP", "wb" ) )
    all_script_dict = pickle.load( open('SCRIPT.LABELS.DUMP', 'rb'))
-   # print all_script_dict   
+   # print all_script_dict

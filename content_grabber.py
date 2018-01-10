@@ -26,11 +26,13 @@ if __name__=='__main__':
     wikimedia_files = utility.getFileFromCSV(wikimedia_file)
 
     bas_fcount, cis_fcount, mir_fcount, moz_fcount, ost_fcount, wik_fcount = len(bastion_files), len(cisco_files), len(mirantis_files), len(mozilla_files), len(openstack_files), len(wikimedia_files)
-    tot_fil_cnt = bas_fcount + cis_fcount + mir_fcount + moz_fcount + ost_fcount + wik_fcount
+    # tot_fil_cnt = bas_fcount + cis_fcount + mir_fcount + moz_fcount + ost_fcount + wik_fcount
+    tot_fil_cnt = cis_fcount + mir_fcount + moz_fcount + ost_fcount + wik_fcount
     print 'Total files to analyze:', tot_fil_cnt
     print '-'*100
     file_counter = 0
-    list_of_ds = [bastion_files,  cisco_files, mirantis_files, mozilla_files , openstack_files, wikimedia_files]
+    # list_of_ds = [bastion_files,  cisco_files, mirantis_files, mozilla_files , openstack_files, wikimedia_files]
+    list_of_ds = [cisco_files, mirantis_files, mozilla_files , openstack_files, wikimedia_files]
     for ds_ in list_of_ds:
         for file_content in ds_:
             file_counter += 1
