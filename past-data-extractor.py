@@ -5,6 +5,7 @@ Script to extract time wise data extract
 '''
 import os
 import shutil
+import subprocess
 
 def get_immediate_subdirs(a_dir):
     return [name for name in os.listdir(a_dir)
@@ -19,6 +20,7 @@ def generatePastData(folder_path, y_p, m_p):
                 folder2create = folder_path + dir_ + '-' + year_ + '-' + mont_ + '/'
                 print '='*50
                 print folder2create
+                print '-'*25
                 if((os.path.exists(folder2create))==False):
                   try:
                       shutil.copytree(srcFolder, folder2create)
@@ -26,7 +28,7 @@ def generatePastData(folder_path, y_p, m_p):
                       now  do a reset
                       '''
                       cdCommand            = "cd " + folder2create + " ; "
-                      date2reset           = year_ + '-' + mont_ + '-' + '25'
+                      date2reset           = year_ + '-' + mont_ + '-' + '28'  ## 28 th of the month 
                       commitCommand        = "git checkout `git rev-list -n 1 --before='"+ date2reset +"' master`"
                       command2Run          = cdCommand + commitCommand
                       subprocess.check_output(['bash','-c', command2Run])
