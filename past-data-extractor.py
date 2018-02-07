@@ -7,7 +7,7 @@ import os
 
 
 def generatePastData(folder_path, y_p, m_p):
-    all_dirs = [x[0] for x in os.walk(folder_path)]
+    all_dirs = [x[0] for x in os.listdir(folder_path) if os.path.isdir(x[0])]
     for dir_ in all_dirs:
         for year_ in y_p:
             for mont_ in m_p:
