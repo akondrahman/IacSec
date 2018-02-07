@@ -55,9 +55,23 @@ if __name__=='__main__':
     # print '-'*100
     # getAllChefScripts(valid_repos, root_dir, repo_25stars)
 
-    root_dir = '/Users/akond/CHEF_REPOS/github-downloads/valid_100_repos/'
-    valid_repos=getValidRepos(root_dir + 'final_eligible_repos.csv')
-    repo_100stars=getStarredRepos(root_dir + 'valid_100star_repos.txt')
+    # root_dir = '/Users/akond/CHEF_REPOS/github-downloads/valid_100_repos/'
+    # valid_repos=getValidRepos(root_dir + 'final_eligible_repos.csv')
+    # repo_100stars=getStarredRepos(root_dir + 'valid_100star_repos.txt')
+    # print 'Total valid repos:', len(valid_repos)
+    # print '-'*100
+    # getAllChefScripts(valid_repos, root_dir, repo_100stars)
+
+    # root_dir = '/Users/akond/CHEF_REPOS/github-downloads/org_wise/'
+    # valid_repos=getValidRepos(root_dir + 'final_valid_repo_names_v2.txt')
+    # repo_100stars=getStarredRepos(root_dir + 'final_valid_repo_names_v2.txt') ### V2 exlcudes chef-cookbooks
+    # print 'Total valid repos:', len(valid_repos)
+    # print '-'*100
+    # getAllChefScripts(valid_repos, root_dir, repo_100stars)
+
+    root_dir = '/Users/akond/CHEF_REPOS/github-downloads/org_wise/'
+    valid_repos=getValidRepos(root_dir + 'final_valid_repo_names_v3.txt')
+    repo_100stars=getStarredRepos(root_dir + 'final_valid_repo_names_v3.txt') ### V3 inlcudes 3 orgs
     print 'Total valid repos:', len(valid_repos)
     print '-'*100
     getAllChefScripts(valid_repos, root_dir, repo_100stars)
