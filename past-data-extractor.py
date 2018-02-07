@@ -29,7 +29,7 @@ def generatePastData(folder_path, y_p, m_p):
                       '''
                       cdCommand            = "cd " + folder2create + " ; "
                       date2reset           = year_ + '-' + mont_ + '-' + '28'  ## 28 th of the month
-                      commitCommand        = "git checkout `git rev-list -n 1 --before='"+ date2reset +"' master`"
+                      commitCommand        = "git checkout -f `git rev-list -n 1 --before='"+ date2reset +"' master`"
                       command2Run          = cdCommand + commitCommand
                       try:
                           subprocess.check_output(['bash','-c', command2Run])
@@ -49,9 +49,12 @@ if __name__=='__main__':
    # y_list = ['2006', '2007', '2008', '2009', '2010','2011', '2012', '2013', '2014', '2015', '2016']
    # m_list = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 
+   # folder2walk = '/Users/akond/SECU_REPOS/ostk-pupp/'
+   # y_list      = ['2011', '2012', '2013', '2014', '2015', '2016']
+   # m_list      = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 
-   folder2walk = '/Users/akond/SECU_REPOS/special-care/'
-   y_list = ['2006', '2007', '2008', '2009', '2010','2011', '2012', '2013', '2014', '2015', '2016']
-   m_list = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+   folder2walk = '/Users/akond/SECU_REPOS/berg-chef/'
+   y_list      = ['2011', '2012', '2013', '2014', '2015', '2016']
+   m_list      = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 
    generatePastData(folder2walk, y_list, m_list)
