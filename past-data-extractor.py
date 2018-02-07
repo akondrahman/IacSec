@@ -31,7 +31,10 @@ def generatePastData(folder_path, y_p, m_p):
                       date2reset           = year_ + '-' + mont_ + '-' + '28'  ## 28 th of the month
                       commitCommand        = "git checkout `git rev-list -n 1 --before='"+ date2reset +"' master`"
                       command2Run          = cdCommand + commitCommand
-                      subprocess.check_output(['bash','-c', command2Run])
+                      try:
+                          subprocess.check_output(['bash','-c', command2Run])
+                      except subprocess.Error as subpro_err:
+                             print 'Subprocess error:', subpro_err
                   except shutil.Error as err_:
                       print 'Directory not copied, error:', err_
                 print '='*50
@@ -42,8 +45,13 @@ if __name__=='__main__':
    # m_list = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 
 
-   folder2walk = '/Users/akond/SECU_REPOS/wiki-pupp/'
-   y_list = ['2011', '2012', '2013', '2014', '2015', '2016']
+   # folder2walk = '/Users/akond/SECU_REPOS/wiki-pupp/'
+   # y_list = ['2006', '2007', '2008', '2009', '2010','2011', '2012', '2013', '2014', '2015', '2016']
+   # m_list = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+
+
+   folder2walk = '/Users/akond/SECU_REPOS/special-care/'
+   y_list = ['2006', '2007', '2008', '2009', '2010','2011', '2012', '2013', '2014', '2015', '2016']
    m_list = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 
    generatePastData(folder2walk, y_list, m_list)
