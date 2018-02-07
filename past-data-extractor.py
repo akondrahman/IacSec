@@ -28,7 +28,7 @@ def generatePastData(folder_path, y_p, m_p):
                       now  do a reset
                       '''
                       cdCommand            = "cd " + folder2create + " ; "
-                      date2reset           = year_ + '-' + mont_ + '-' + '28'  ## 28 th of the month 
+                      date2reset           = year_ + '-' + mont_ + '-' + '28'  ## 28 th of the month
                       commitCommand        = "git checkout `git rev-list -n 1 --before='"+ date2reset +"' master`"
                       command2Run          = cdCommand + commitCommand
                       subprocess.check_output(['bash','-c', command2Run])
@@ -37,7 +37,12 @@ def generatePastData(folder_path, y_p, m_p):
                 print '='*50
 
 if __name__=='__main__':
-   folder2walk = '/Users/akond/SECU_REPOS/test-pup/'
+   # folder2walk = '/Users/akond/SECU_REPOS/test-pup/'
+   # y_list = ['2011', '2012', '2013', '2014', '2015', '2016']
+   # m_list = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+
+
+   folder2walk = '/Users/akond/SECU_REPOS/wiki-pupp/'
    y_list = ['2011', '2012', '2013', '2014', '2015', '2016']
    m_list = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 
