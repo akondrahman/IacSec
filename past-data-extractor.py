@@ -5,9 +5,12 @@ Script to extract time wise data extract
 '''
 import os
 
+def get_immediate_subdirs(a_dir):
+    return [name for name in os.listdir(a_dir)
+            if os.path.isdir(os.path.join(a_dir, name))]
 
 def generatePastData(folder_path, y_p, m_p):
-    all_dirs = [x[0] for x in os.listdir(folder_path) if os.path.isdir(x[0])]
+    all_dirs = get_immediate_subdirs(folder_path)
     for dir_ in all_dirs:
         for year_ in y_p:
             for mont_ in m_p:
