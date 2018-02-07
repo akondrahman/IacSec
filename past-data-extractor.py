@@ -20,10 +20,18 @@ def generatePastData(folder_path, y_p, m_p):
                 print '='*50
                 print folder2create
                 if((os.path.exists(folder2create))==False):
-                try:
-                   shutil.copytree(srcFolder, folder2create)
-                except shutil.Error err_:
-                   print 'Directory not copied, error:', err_
+                  try:
+                      shutil.copytree(srcFolder, folder2create)
+                      '''
+                      now  do a reset
+                      '''
+                      cdCommand            = "cd " + folder2create + " ; "
+                      date2reset='Dec 15 ' + time_
+                      commitCommand        = "git checkout `git rev-list -1 --before='"+ date2reset +"' master`"
+                      command2Run          = cdCommand + commitCommand
+                      subprocess.check_output(['bash','-c', command2Run])
+                  except shutil.Error as err_:
+                      print 'Directory not copied, error:', err_
                 print '='*50
 
 if __name__=='__main__':
