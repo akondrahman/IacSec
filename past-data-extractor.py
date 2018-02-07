@@ -16,7 +16,7 @@ def generatePastData(folder_path, y_p, m_p):
         srcFolder = folder_path + dir_ + '/'
         for year_ in y_p:
             for mont_ in m_p:
-                folder2create = srcFolder + year_ + '-' + mont_ + '/'
+                folder2create = folder_path + dir_ + '-' + year_ + '-' + mont_ + '/'
                 print '='*50
                 print folder2create
                 if((os.path.exists(folder2create))==False):
@@ -26,8 +26,8 @@ def generatePastData(folder_path, y_p, m_p):
                       now  do a reset
                       '''
                       cdCommand            = "cd " + folder2create + " ; "
-                      date2reset='Dec 15 ' + time_
-                      commitCommand        = "git checkout `git rev-list -1 --before='"+ date2reset +"' master`"
+                      date2reset           = year_ + '-' + mont_ + '-' + '25'
+                      commitCommand        = "git checkout `git rev-list -n 1 --before='"+ date2reset +"' master`"
                       command2Run          = cdCommand + commitCommand
                       subprocess.check_output(['bash','-c', command2Run])
                   except shutil.Error as err_:
