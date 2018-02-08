@@ -20,12 +20,13 @@ def sniffSmells(path_to_dir):
        for file_ in files_:
            if file_.endswith(constants.PP_EXT) or (file_.endswith(constants.CH_EXT) and (constants.CH_DIR in file_)):
              if checkValidity(file_):
+                 full_p_file = os.path.join(root_, file_)
                  if file_.endswith(constants.PP_EXT):
-                    print "Started analyzing:", os.path.join(root_, file_)
-                    pupp_engine.runLinter(file_)
+                    print "Started analyzing:",full_p_file
+                    pupp_engine.runLinter(full_p_file)
                  else:
-                    print "Started analyzing:", os.path.join(root_, file_)
-                    chef_engine.runLinter(file_)
+                    print "Started analyzing:", full_p_file
+                    chef_engine.runLinter(full_p_file)
              else:
-                print "Not analyzing, failed validity checks:", os.path.join(root_, file_)
+                print "Not analyzing, failed validity checks:", full_p_file
              print "="*50

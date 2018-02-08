@@ -13,7 +13,9 @@ DOT = '.'
 EXCEPTION = 'EXCEPTION:::'
 ### PUPPET LINT AND ITS RULES
 PP_LINT_TOOL = 'puppet-lint -l'
-PP_RULE_HARDCODE = '../SPrules4pupp/no_hardcode_key.rb'
+PP_RULE_HARDCODE  = '../SPrules4pupp/no_hardcode_key.rb'
+PP_RULE_SUSP_COMM = '../SPrules4pupp/no_susp_comments.rb'
 ### PUPPET TMP LOG
-REDIRECT = '>'
+REDIRECT_NEW = '>'
+REDIRECT_APP = '>>'
 OUTPUT_TMP_LOG = 'TMP.LOG'
