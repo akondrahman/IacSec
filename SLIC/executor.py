@@ -23,7 +23,8 @@ def sniffSmells(path_to_dir):
                  full_p_file = os.path.join(root_, file_)
                  if file_.endswith(constants.PP_EXT):
                     print "Started analyzing:",full_p_file
-                    pupp_engine.runLinter(full_p_file)
+                    secu_lint_outp = pupp_engine.runLinter(full_p_file)
+                    print secu_lint_outp
                  else:
                     print "Started analyzing:", full_p_file
                     chef_engine.runLinter(full_p_file)
