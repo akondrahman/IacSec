@@ -11,6 +11,8 @@ TEST_DIR_SPEC = 'spec/'
 TEST_DIR_ACCE = 'acceptance/'
 DOT = '.'
 EXCEPTION = 'EXCEPTION:::'
+BASH_CMD  = 'bash'
+BASH_FLAG = '-c'
 ### PUPPET LINT AND ITS RULES
 PP_LINT_TOOL = 'puppet-lint -l'
 PP_RULE_HARDCODE  = '../SPrules4pupp/no_hardcode_key.rb'
@@ -23,3 +25,9 @@ OUTPUT_TMP_LOG = 'TMP.LOG'
 PUPP_SUSP='SECURITY:::SUSPICOUS_COMMENTS:::'
 PUPP_HARD='SECURITY:::HARD_CODED_KEY:::'
 NEWLINE = '\n'
+
+#### CHEF ZONE
+### PUPPET LINT AND ITS RULES
+CHEF_LINT_TOOL = 'foodcritic -l'
+# CHEF_RULE_HARDCODE  = '../SPrules4pupp/no_hardcode_key.rb'
+# CHEF_RULE_SUSP_COMM = '../SPrules4pupp/no_susp_comments.rb'
