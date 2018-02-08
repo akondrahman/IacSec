@@ -17,13 +17,16 @@ def checkValidity(file_path):
 def sniffSmells(path_to_dir):
     for root_, dirs, files_ in os.walk(path_to_dir):
        for file_ in files_:
-           if file_.endswith(constants.PP_EXT) or (file_.endswith(constants.CH_EXT) and (constants.CH_DIR in file_)):
-             if checkValidity(file_):
+           if (file_.endswith(constants.PP_EXT) or file_.endswith(constants.CH_EXT)):
                  full_p_file = os.path.join(root_, file_)
-                 if os.path.exists(full_p_file):
+                 if (os.path.exists(full_p_file) and checkValidity(full_p_file)):
                     print 'Analyzing:', full_p_file
                     secu_lint_outp = lint_engine.runLinter(full_p_file)
                     print secu_lint_outp
-             else:
-                print "Not analyzing, failed validity checks:", full_p_file
-             print "="*50
+                 else if (os.path.exists(full_p_file) and constants.CH_DIR in full_p):
+                    print 'Analyzing:', full_p_file
+                    secu_lint_outp = lint_engine.runLinter(full_p_file)
+                    print secu_lint_outp
+                 else:
+                    print "Not analyzing, failed validity checks:", full_p_file
+                 print "="*50
