@@ -6,7 +6,7 @@ This file holds all constants
 
 PP_EXT = '.pp'
 CH_EXT = '.rb'
-CH_DIR = 'recipe'
+CH_DIR = 'recipes'
 TEST_DIR_SPEC = 'spec/'
 TEST_DIR_ACCE = 'acceptance/'
 DOT = '.'
@@ -25,7 +25,7 @@ CHEF_LINT_TOOL = 'foodcritic -I'
 # CHEF_RULE_HARDCODE  = '../SPrules4pupp/no_hardcode_key.rb'
 CHEF_ALL_RULES = '../SPrules4chef/my-rules/my_rules.rb'
 
-###### FOLLOWING APPLICABLE FOR CHEF AND PUPPET 
+###### FOLLOWING APPLICABLE FOR CHEF AND PUPPET
 ### OUTPUT TMP LOG
 REDIRECT_NEW = '>'
 REDIRECT_APP = '>>'

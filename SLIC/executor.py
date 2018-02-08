@@ -19,11 +19,11 @@ def sniffSmells(path_to_dir):
        for file_ in files_:
            if (file_.endswith(constants.PP_EXT) or file_.endswith(constants.CH_EXT)):
                  full_p_file = os.path.join(root_, file_)
-                 if (os.path.exists(full_p_file) and checkValidity(full_p_file)):
+                 if (os.path.exists(full_p_file) and checkValidity(full_p_file) and (full_p_file.endswith(constants.CH_EXT)==False)):
                     print 'Analyzing:', full_p_file
                     secu_lint_outp = lint_engine.runLinter(full_p_file)
                     print secu_lint_outp
-                 else if (os.path.exists(full_p_file) and constants.CH_DIR in full_p):
+                 elif (os.path.exists(full_p_file) and (constants.CH_DIR in full_p_file) and (full_p_file.endswith(constants.PP_EXT)==False)):
                     print 'Analyzing:', full_p_file
                     secu_lint_outp = lint_engine.runLinter(full_p_file)
                     print secu_lint_outp
