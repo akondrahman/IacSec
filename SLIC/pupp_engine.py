@@ -20,17 +20,19 @@ def generateOutput(path2file):
            print constants.EXCEPTION + str(e_)
         # raise RuntimeError("command '{}' return with error (code {}): {}".format(e_.cmd, e_.returncode, e_.output))
 
-def getHardCodeCount():
+def getOutputLines():
     file_ = open(constants.OUTPUT_TMP_LOG, 'rU', errors='ignore'):
     file_str = file_.read()
     file_lines = file_str.split(constants.NEWLINE)
+    return file_lines
+
+def getHardCodeCount():
+    file_lines = getOutputLines()
     cnt2ret = sum(constants.PUPP_HARD in s_ for s_ in file_lines)
     return cnt2ret
 
 def getSuspCommCount():
-    file_ = open(constants.OUTPUT_TMP_LOG, 'rU', errors='ignore'):
-    file_str = file_.read()
-    file_lines = file_str.split(constants.NEWLINE)
+    file_lines = getOutputLines()
     cnt2ret = sum(constants.PUPP_SUSP in s_ for s_ in file_lines)
     return cnt2ret
 
