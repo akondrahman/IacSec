@@ -1,4 +1,4 @@
-=begin 
+=begin
 Akond Rahman
 First attempt
 write plugin for puppet-lint to check hardcoded ssh keys
@@ -14,7 +14,7 @@ PuppetLint.new_check(:no_hardcode_key) do
                #print "#{value_token.value}"
                if token_val_str.include? "ssh-rsa"
                   notify :warning, {
-                     message: 'Do not use hard-coded SSH keys. Use secret management tools for Puppet such as Hiera',
+                     message: 'SECURITY:::HARD_CODED_KEY:::Do not use hard-coded SSH keys. Use secret management tools',
                      line:    value_token.line,
                      column:  value_token.column,
                      token:   value_token
