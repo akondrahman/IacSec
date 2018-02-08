@@ -9,13 +9,13 @@ import os
 
 def generateOutput(path2file):
     ## Add rules to check automatically here
-    rulesToCheck = [constants.PP_RULE_HARDCODE, constants.PP_RULE_SUSP_COMM]
+    if(path2file.endswith(constants.PP_EXT)):
+        rulesToCheck = [constants.PP_RULE_HARDCODE, constants.PP_RULE_SUSP_COMM]
+        command2exec = constants.PP_LINT_TOOL + ' ' + rule_ + ' ' + path2file + ' ' + constants.REDIRECT_APP + ' ' + constants.OUTPUT_TMP_LOG
+    else:
+        rulesToCheck = [constants.CHEF_ALL_RULES]
+        command2exec = constants.CHEF_LINT_TOOL + ' ' + rule_ + ' ' + path2file + ' ' + constants.REDIRECT_APP + ' ' + constants.OUTPUT_TMP_LOG
     for rule_ in rulesToCheck:
-        ##
-        if(path2path2file.endswith(constants.PP_EXT)):
-           command2exec = constants.PP_LINT_TOOL + ' ' + rule_ + ' ' + path2file + ' ' + constants.REDIRECT_APP + ' ' + constants.OUTPUT_TMP_LOG
-        else:
-           command2exec = constants.CHEF_LINT_TOOL + ' ' + rule_ + ' ' + path2file + ' ' + constants.REDIRECT_APP + ' ' + constants.OUTPUT_TMP_LOG
         try:
            # print command2exec
            subprocess.check_output([constants.BASH_CMD, constants.BASH_FLAG, command2exec])
@@ -31,12 +31,12 @@ def getOutputLines():
 
 def getHardCodeCount():
     file_lines = getOutputLines()
-    cnt2ret = sum(constants.PUPP_HARD in s_ for s_ in file_lines)
+    cnt2ret = sum(constants.LINT_HARD in s_ for s_ in file_lines)
     return cnt2ret
 
 def getSuspCommCount():
     file_lines = getOutputLines()
-    cnt2ret = sum(constants.PUPP_SUSP in s_ for s_ in file_lines)
+    cnt2ret = sum(constants.LINT_SUSP in s_ for s_ in file_lines)
     return cnt2ret
 
 def parseOutput():

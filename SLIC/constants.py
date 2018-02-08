@@ -17,17 +17,20 @@ BASH_FLAG = '-c'
 PP_LINT_TOOL = 'puppet-lint -l'
 PP_RULE_HARDCODE  = '../SPrules4pupp/no_hardcode_key.rb'
 PP_RULE_SUSP_COMM = '../SPrules4pupp/no_susp_comments.rb'
-### PUPPET TMP LOG
-REDIRECT_NEW = '>'
-REDIRECT_APP = '>>'
-OUTPUT_TMP_LOG = 'TMP.LOG'
-### PUPPET OUTPUT PARSING
-PUPP_SUSP='SECURITY:::SUSPICOUS_COMMENTS:::'
-PUPP_HARD='SECURITY:::HARD_CODED_KEY:::'
-NEWLINE = '\n'
+
 
 #### CHEF ZONE
 ### PUPPET LINT AND ITS RULES
-CHEF_LINT_TOOL = 'foodcritic -l'
+CHEF_LINT_TOOL = 'foodcritic -I'
 # CHEF_RULE_HARDCODE  = '../SPrules4pupp/no_hardcode_key.rb'
-# CHEF_RULE_SUSP_COMM = '../SPrules4pupp/no_susp_comments.rb'
+CHEF_ALL_RULES = '../SPrules4chef/my-rules/my_rules.rb'
+
+###### FOLLOWING APPLICABLE FOR CHEF AND PUPPET 
+### OUTPUT TMP LOG
+REDIRECT_NEW = '>'
+REDIRECT_APP = '>>'
+OUTPUT_TMP_LOG = 'TMP.LOG'
+### LINT OUTPUT PARSING
+LINT_SUSP='SECURITY:::SUSPICOUS_COMMENTS:::'
+LINT_HARD='SECURITY:::HARD_CODED_KEY:::'
+NEWLINE = '\n'
