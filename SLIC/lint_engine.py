@@ -11,12 +11,13 @@ def generateOutput(path2file):
     ## Add rules to check automatically here
     if(path2file.endswith(constants.PP_EXT)):
         rulesToCheck = [constants.PP_RULE_HARDCODE, constants.PP_RULE_SUSP_COMM]
-        command2exec = constants.PP_LINT_TOOL + ' ' + rule_ + ' ' + path2file + ' ' + constants.REDIRECT_APP + ' ' + constants.OUTPUT_TMP_LOG
+        lintToolCmd = constants.PP_LINT_TOOL
     else:
         rulesToCheck = [constants.CHEF_ALL_RULES]
-        command2exec = constants.CHEF_LINT_TOOL + ' ' + rule_ + ' ' + path2file + ' ' + constants.REDIRECT_APP + ' ' + constants.OUTPUT_TMP_LOG
+        lintToolCmd = constants.CHEF_LINT_TOOL
     for rule_ in rulesToCheck:
         try:
+           command2exec = lintToolCmd + ' ' + rule_ + ' ' + path2file + ' ' + constants.REDIRECT_APP + ' ' + constants.OUTPUT_TMP_LOG
            # print command2exec
            subprocess.check_output([constants.BASH_CMD, constants.BASH_FLAG, command2exec])
         except subprocess.CalledProcessError as e_:
