@@ -5,6 +5,8 @@ Executor : detects the script type, and triggers the linter
 '''
 import os
 import constants
+import pupp_engine
+import chef_engine
 
 def checkValidity(file_path):
     # skip files that are in hidden directories, and in spec folders
@@ -18,7 +20,12 @@ def sniffSmells(path_to_dir):
        for file_ in files_:
            if file_.endswith(constants.PP_EXT) or (file_.endswith(constants.CH_EXT) and (constants.CH_DIR in file_)):
              if checkValidity(file_):
-                print "Started analyzing:", os.path.join(root_, file_)
+                 if file_.endswith(constants.PP_EXT):
+                    print "Started analyzing:", os.path.join(root_, file_)
+                    pupp_engine.runLinter(file_)
+                 else:
+                    print "Started analyzing:", os.path.join(root_, file_)
+                    chef_engine.runLinter(file_)
              else:
                 print "Not analyzing, failed validity checks:", os.path.join(root_, file_)
              print "="*50
