@@ -43,5 +43,6 @@ if __name__=='__main__':
 
 
    str2Dump = generateData(ds_path)
-   out_byt  = dumpContentIntoFile(str2str2Dump, out_file)
+   str2Dump = 'FILE,' + 'MONTH,' + '\n' + str2Dump 
+   out_byt  = dumpContentIntoFile(str2Dump, out_file)
    print 'Dumped a file of {} bytes'.format(out_byt)
