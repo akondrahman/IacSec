@@ -38,11 +38,31 @@ def generateData(path_to_dir):
 
 
 if __name__=='__main__':
-   ds_path  = '/Users/akond/SECU_REPOS/test-pupp/'
-   out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/test.csv'
+   # ds_path  = '/Users/akond/SECU_REPOS/test-pupp/'
+   # out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/test.csv'
 
+   # ds_path  = '/Users/akond/SECU_REPOS/wiki-pupp/'
+   # out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/WIKI.csv'
+
+   # ds_path  = '/Users/akond/SECU_REPOS/ostk-pupp/'
+   # out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/OSTK.csv'
+
+   # ds_path  = '/Users/akond/SECU_REPOS/mozi-pupp/'
+   # out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/MOZI.csv'
+
+   # ds_path  = '/Users/akond/SECU_REPOS/expr-chef/'
+   # out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/EXPR.csv'
+
+   # ds_path  = '/Users/akond/SECU_REPOS/clcr-chef/'
+   # out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/CLCR.csv'
+
+   # ds_path  = '/Users/akond/SECU_REPOS/cdat-chef/'
+   # out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/CDAT.csv'
+
+   # ds_path  = '/Users/akond/SECU_REPOS/berg-chef/'
+   # out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/BERG.csv'
 
    str2Dump = generateData(ds_path)
-   str2Dump = 'FILE,' + 'MONTH,' + '\n' + str2Dump 
+   str2Dump = 'FILE,' + 'MONTH,' + '\n' + str2Dump
    out_byt  = dumpContentIntoFile(str2Dump, out_file)
    print 'Dumped a file of {} bytes'.format(out_byt)

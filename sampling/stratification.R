@@ -74,7 +74,29 @@ stratified <- function(df, group, size, select = NULL,
 
 #######################MY CODE ############################
 set.seed(1)
-data_to_sample <- read.csv("test.csv")
+# data_to_sample <- read.csv("test.csv")
+
+# data_to_sample <- read.csv("WIKI.csv")
+# out_file       <- "STRATIFIED_WIKI.csv"
+
+# data_to_sample <- read.csv("OSTK.csv")
+# out_file       <- "STRATIFIED_OSTK.csv"
+
+# data_to_sample <- read.csv("MOZI.csv")
+# out_file       <- "STRATIFIED_MOZI.csv"
+
+# data_to_sample <- read.csv("EXPR.csv")
+# out_file       <- "STRATIFIED_EXPR.csv"
+
+# data_to_sample <- read.csv("CLCR.csv")
+# out_file       <- "STRATIFIED_CLCR.csv"
+
+# data_to_sample <- read.csv("CDAT.csv")
+# out_file       <- "STRATIFIED_CDAT.csv"
+
+# data_to_sample <- read.csv("BERG.csv")
+# out_file       <- "STRATIFIED_BERG.csv"
+
 print("===============HEAD=============")
 head(data_to_sample) 
 print("================================")
@@ -82,7 +104,10 @@ print("===============SUMMARY=============")
 summary(data_to_sample)
 print("================================")
 print("===============RESULTS=============")
-stratified(data_to_sample, "MONTH", 0.1)
+# out_df <- stratified(data_to_sample, "MONTH", 0.0025)  # 0.0025 means 0.25%, used for Puppet 
+out_df <- stratified(data_to_sample, "MONTH", 0.01)  # 0.01 means 1%, used for Chef 
+print(head(out_df))
+write.csv(out_df, file = out_file, row.names=FALSE)
 print("================================")
 t2 <- Sys.time()
 print(t2 - t1)  # 
