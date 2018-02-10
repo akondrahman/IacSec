@@ -32,24 +32,27 @@ def getOutputLines():
 
 def getHardCodeCount():
     file_lines = getOutputLines()
+    line2ret = [ s_ for s_ in file_lines if constants.LINT_HARD in s_]
     cnt2ret = sum(constants.LINT_HARD in s_ for s_ in file_lines)
-    return cnt2ret
+    return cnt2ret, line2ret
 
 def getSuspCommCount():
     file_lines = getOutputLines()
+    line2ret = [ s_ for s_ in file_lines if constants.LINT_SUSP in s_]
     cnt2ret = sum(constants.LINT_SUSP in s_ for s_ in file_lines)
-    return cnt2ret
+    return cnt2ret, line2ret
 
 def parseOutput():
     rul_hardcode_cnt, rul_susp_comm_cnt = 0, 0
     num_lines = sum(1 for line_ in open(constants.OUTPUT_TMP_LOG))
     print 'Genrated a log file of {} lines'.format(num_lines)
     if num_lines > 0:
-        rul_hardcode_cnt  = getHardCodeCount()
-        rul_susp_comm_cnt = getSuspCommCount()
+        rul_hardcode_cnt,  rul_hardcode_lin   = getHardCodeCount()
+        rul_susp_comm_cnt, rul_susp_comm_lin  = getSuspCommCount()
 
-    output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt)
-    return output2ret
+    output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt)  # this will be expanded
+    str2ret    = (rul_hardcode_lin, rul_susp_comm_lin) # this will be expanded 
+    return output2ret, str2ret
 def runLinter(full_path_file):
     #1. run linter with custom rules
     generateOutput(full_path_file)
