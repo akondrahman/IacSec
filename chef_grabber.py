@@ -58,12 +58,14 @@ def getStratifiedChefScripts(ds_path_p):
                 cnt_file += 1
                 with open(file2read, 'rU') as the_file:
                      content_full = the_file.read()
-                     print '='*25 + ':'*3 + str(valid_file)   + ':'*3  + 'START!' + '='*25
+                     print '='*25 + ':'*3 + str(cnt_file)   + ':'*3  + 'START!' + '='*25
+                     print file2read
+                     print '='*25 + ':'*3 + str(cnt_file)   + ':'*3  + 'START!' + '='*25
                      print content_full
                      print '*'*10
                      print 'DECISION===>:'
                      print '*'*10
-                     print '='*25 + ':'*3   + str(valid_file) + ':'*3  + 'END!!!' + '='*25
+                     print '='*25 + ':'*3   + str(cnt_file) + ':'*3  + 'END!!!' + '='*25
     return cnt_file
 
 if __name__=='__main__':
@@ -95,5 +97,11 @@ if __name__=='__main__':
     # print '-'*100
     # getAllChefScripts(valid_repos, root_dir, repo_100stars)
 
-    cdat_stratified_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/STRATIFIED_CDAT.csv'
-    cdat_stra_fil_cnt = getStratifiedChefScripts(cdat_stratified_ds)
+    # cdat_stratified_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/STRATIFIED_CDAT.csv'
+    # cdat_stra_fil_cnt = getStratifiedChefScripts(cdat_stratified_ds)
+
+    # berg_stratified_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/STRATIFIED_BERG.csv'
+    # berg_stra_fil_cnt = getStratifiedChefScripts(berg_stratified_ds)
+
+    mozi_stratified_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/STRATIFIED_MOZI.csv'
+    mozi_stra_fil_cnt = getStratifiedChefScripts(cdat_stratified_ds)
