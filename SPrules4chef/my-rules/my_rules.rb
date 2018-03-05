@@ -59,6 +59,23 @@ rule "SECURITY", "Use of HTTP should be avoided" do
   end
 end
 
+rule "SECURITY", "IP Addresses should not be boudn to 0.0.0.0" do
+  tags %w{security akondrahman}
+  recipe do |ast_|
+     all_reso = find_resources(ast_)
+     all_reso.each do |indi_reso|
+         reso_dict = resource_attributes(indi_reso)
+         reso_dict.each do |key_, val_|
+               val2see = val_.to_s.downcase
+               if val2see.include? "0.0.0.0"
+                   print "SECURITY:::BINDING_TO_ALL:::Do not bind to 0.0.0.0. This may cause a DDOS attack. Restrict your available IPs."
+                   print "\n"
+               end
+         end
+     end
+  end
+end
+
 rule "SECURITY", "SSH keys hould not be hard-coded" do
   tags %w{security akondrahman}
   recipe do |ast_|
