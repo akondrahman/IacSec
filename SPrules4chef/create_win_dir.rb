@@ -9,7 +9,8 @@ directory "C:\\tmp\\" do
   inherits false
   action :create
   apiurl 'http://localhost/api_jsonrpc.php'
-  web_listen_address '0.0.0.0:9188'  
+  web_listen_address '0.0.0.0:9188'
+  password :''  
 end
 #FIXME
 # needed to fix bug#123
