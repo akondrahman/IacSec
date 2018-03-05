@@ -8,7 +8,7 @@ import pymysql.cursors
 import cPickle as pickle
 import os, csv, random
 from random import *
-import string
+import string, numpy as np
 
 def giveConnection():
     _host = "localhost"
@@ -157,7 +157,7 @@ def createAssiFile(file_name):
     print str2write
 
 def generatePass():
-    chars    = string.ascii_letters + string.punctuation  + string.digits
+    chars    = string.ascii_letters   + string.digits
     password =  "".join(choice(chars) for x in range(randint(4, 8)))
     return password
 
@@ -166,6 +166,7 @@ def generateTokens(file_name_p):
     with open(file_name_p, 'rU') as file_:
          reader_ = csv.reader(file_)
          for row_ in reader_:
+             # print row_
              id_of_std  = row_[1]
              if '519' in id_of_std:
                  studentID.append(id_of_std)
