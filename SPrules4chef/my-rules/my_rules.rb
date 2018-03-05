@@ -88,6 +88,23 @@ rule "SECURITY", "SSH keys hould not be hard-coded" do
   end
 end
 
+rule "SECURITY", "Use of empty password should be avoided" do
+  tags %w{security akondrahman}
+  recipe do |ast_|
+     all_reso = find_resources(ast_)
+     all_reso.each do |indi_reso|
+         reso_dict = resource_attributes(indi_reso)
+         reso_dict.each do |key_, val_|
+               key2see = key_.to_s.downcase
+               if ((key2see.include? "pwd") || (key2see.include? "password") || (key2see.include? "pass")) && ((val_.length <=0) || (val_.eql? ' '))
+                   print "SECURITY:::EMPTY_PASSWORD:::Do not keep password field empty. This may help an attacker to attack. You can use hiera to avoid this issue."
+                   print "\n"
+               end
+         end
+     end
+  end
+end
+
 # rule "MYRULE002", "Drive letter should not be in path" do
 #   tags %w{security akondrahman}
 #   recipe do |ast_, filename_|
