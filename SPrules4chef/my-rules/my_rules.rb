@@ -41,6 +41,24 @@ rule "SECURITY", "Use of BASE64 should be avoided" do
   end
 end
 
+rule "SECURITY", "Use of HTTP should be avoided" do
+  tags %w{security akondrahman}
+  recipe do |ast_|
+     all_reso = find_resources(ast_)
+     all_reso.each do |indi_reso|
+         reso_dict = resource_attributes(indi_reso)
+         reso_dict.each do |key_, val_|
+               key2see = key_.to_s.downcase
+               val2see = val_.to_s.downcase
+               if (key2see.include? "http://") || (val2see.include? "http://")
+                   print "SECURITY:::HTTP:::Do not use HTTP without TLS. This may cause a man in the middle attack. Use TLS with HTTP."
+                   print "\n"
+               end
+         end
+     end
+  end
+end
+
 rule "SECURITY", "SSH keys hould not be hard-coded" do
   tags %w{security akondrahman}
   recipe do |ast_|
