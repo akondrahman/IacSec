@@ -7,6 +7,8 @@ Thursday, thanksgiving day
 import pymysql.cursors
 import cPickle as pickle
 import os, csv, random
+from random import *
+import string
 
 def giveConnection():
     _host = "localhost"
@@ -154,6 +156,26 @@ def createAssiFile(file_name):
              str2write   = str2write + id_of_file + ',' + realStdID + ',' + id_of_cnt  + '\n'
     print str2write
 
+def generatePass():
+    chars    = string.ascii_letters + string.punctuation  + string.digits
+    password =  "".join(choice(chars) for x in range(randint(4, 8)))
+    return password
+
+def generateTokens(file_name_p):
+    studentID = []
+    with open(file_name_p, 'rU') as file_:
+         reader_ = csv.reader(file_)
+         for row_ in reader_:
+             id_of_std  = row_[1]
+             if '519' in id_of_std:
+                 studentID.append(id_of_std)
+    studentID = np.unique(studentID)
+    str_ = ''
+    for std_ in studentID:
+        str_ = str_ + std_ + ',' + generatePass() + '\n'
+    print str_
+
+
 if __name__=='__main__':
     # ds_paths = ['/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/OCT17_BASTION_FULL_PROCESS_DATASET.csv',
     #             '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/OCT17_CISCO_FULL_PROCESS_DATASET.csv',
@@ -186,5 +208,6 @@ if __name__=='__main__':
     # createAssiFile(SemiAssiFile)
 
     '''
-    generate tokens for students 
+    generate tokens for students
     '''
+    generateTokens('/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/FULL_ASSI_LIST.csv')
