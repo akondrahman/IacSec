@@ -23,9 +23,9 @@ PuppetLint.new_check(:no_full_binding) do
                            token_valu  = indi_token.value.downcase
                            nxt_nxt_val = nxt_nxt_token.value.downcase
                            # puts "KEY,PAIR----->#{token_valu}, #{nxt_nxt_val}"
-                           if(token_valu.include? "pwd") || (token_valu.include? "password") || (token_valu.include? "pass") && (nxt_nxt_val.length <=0)
+                           if (((token_valu.include? "pwd") || (token_valu.include? "password") || (token_valu.include? "pass")) && ((nxt_nxt_val.length <=0) || (nxt_nxt_val.eql?' ')))
                               notify :warning, {
-                                message: 'SECURITY:::EMPTY_PASSWORD:::Do not keep password field empty. This may help an attacker to attack. Use hiera to import value.',
+                                message: 'SECURITY:::EMPTY_PASSWORD:::Do not keep password field empty. This may help an attacker to attack. You can use hiera to avoid this issue.',
                                 line:    indi_token.line,
                                 column:  indi_token.column,
                                 token:   token_valu
