@@ -9,10 +9,11 @@ directory "C:\\tmp\\" do
   inherits false
   action :create
 end
-#FIXME 
+#FIXME
 # needed to fix bug#123
 file 'C:\\tmp\\something.txt' do
   rights :read, 'Everyone'
   rights :full_control, 'DOMAIN\\User\\Files'
   action :create
+  method :'md5'
 end
