@@ -10,19 +10,34 @@ rule "SECURITY", "Use of MD5 should be avoided" do
   recipe do |ast_|
      all_reso = find_resources(ast_)
      all_reso.each do |indi_reso|
-        # print "#{indi_reso} \n"
          reso_dict = resource_attributes(indi_reso)
          reso_dict.each do |key_, val_|
                key2see = key_.to_s.downcase
                val2see = val_.to_s.downcase
-               # print " #{key2see} \t"
                if (key2see.include? "md5") || (val2see.include? "md5")
-                   print "SECURITY:::USE_OF_MD5:::Do not use MD5, as it has security weakness. Use SHA-512."
+                   print "SECURITY:::MD5:::Do not use MD5, as it has security weakness. Use SHA-512."
                    print "\n"
                end
          end
      end
-     # print resources_by_type(ast_).keys
+  end
+end
+
+rule "SECURITY", "Use of BASE64 should be avoided" do
+  tags %w{security akondrahman}
+  recipe do |ast_|
+     all_reso = find_resources(ast_)
+     all_reso.each do |indi_reso|
+         reso_dict = resource_attributes(indi_reso)
+         reso_dict.each do |key_, val_|
+               key2see = key_.to_s.downcase
+               val2see = val_.to_s.downcase
+               if (key2see.include? "base64") || (val2see.include? "base64")
+                   print "SECURITY:::BASE64:::Do not use BASE64 for security, as it is a message encoding scheme. Use SHA-512."
+                   print "\n"
+               end
+         end
+     end
   end
 end
 
