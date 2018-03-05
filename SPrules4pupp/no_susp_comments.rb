@@ -4,7 +4,7 @@ Nov 24, 2017
 Friday
 Detect anti-pattern: suspicous comments
 =end
-PuppetLint.new_check(:no_hardcode_key) do
+PuppetLint.new_check(:no_susp_comments) do
 
   def check
      ##for comments we need to grab all lines
