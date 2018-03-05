@@ -1,3 +1,8 @@
+=begin
+Akond Rahman
+Extra Khatir for Missing Default Handling
+Feb 12, 2018 
+=end
 require 'rubocop'  ### need to import module 'RubCop' for detecting missing default case
 filename_ = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/SPrules4chef/test-cookbooks/example_case.rb'
 code_content = File.read(filename_)

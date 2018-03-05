@@ -5,7 +5,28 @@ Nov 25, 2017
 Saturday
 =end
 
-rule "MYRULE001", "SSH keys hould not be hard-coded" do
+rule "SECURITY", "Use of MD5 should be avoided" do
+  tags %w{security akondrahman}
+  recipe do |ast_|
+     all_reso = find_resources(ast_)
+     all_reso.each do |indi_reso|
+        # print "#{indi_reso} \n"
+         reso_dict = resource_attributes(indi_reso)
+         reso_dict.each do |key_, val_|
+               key2see = key_.to_s.downcase
+               val2see = val_.to_s.downcase
+               # print " #{key2see} \t"
+               if (key2see.include? "md5") || (val2see.include? "md5")
+                   print "SECURITY:::USE_OF_MD5:::Do not use MD5, as it has security weakness. Use SHA-512."
+                   print "\n"
+               end
+         end
+     end
+     # print resources_by_type(ast_).keys
+  end
+end
+
+rule "SECURITY", "SSH keys hould not be hard-coded" do
   tags %w{security akondrahman}
   recipe do |ast_|
      find_resources(ast_, :type => 'execute').select do |exec_reso|
@@ -16,7 +37,6 @@ rule "MYRULE001", "SSH keys hould not be hard-coded" do
      end
   end
 end
-
 
 # rule "MYRULE002", "Drive letter should not be in path" do
 #   tags %w{security akondrahman}
