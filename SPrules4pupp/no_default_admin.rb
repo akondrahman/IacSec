@@ -29,7 +29,7 @@ PuppetLint.new_check(:no_expose_secret_location) do
                                      message: 'SECURITY:::ADMIN_BY_DEFAULT:::Do not make default user as admin. This violates the secure by design principle.',
                                      line:    indi_token.line,
                                      column:  indi_token.column,
-                                     token:   token_valu
+                                     token:   token_val
                                    }
                                 end
                            end
