@@ -59,34 +59,34 @@ rule "SECURITY", "Use of HTTP should be avoided" do
   end
 end
 
-rule "SECURITY", "IP Addresses should not be bound to 0.0.0.0 (V1)" do
-  tags %w{security akondrahman}
-  recipe do |ast_|
-     all_reso = find_resources(ast_)
-     all_reso.each do |indi_reso|
-         reso_dict = resource_attributes(indi_reso)
-         reso_dict.each do |key_, val_|
-               val2see = val_.to_s.downcase
-               if val2see.include? "0.0.0.0"
-                   print "SECURITY:::BINDING_TO_ALL:::Do not bind to 0.0.0.0. This may cause a DDOS attack. Restrict your available IPs."
-                   print "\n"
-               end
-         end
-     end
-  end
-end
+# rule "SECURITY", "IP Addresses should not be bound to 0.0.0.0 (V1)" do
+#   tags %w{security akondrahman}
+#   recipe do |ast_|
+#      all_reso = find_resources(ast_)
+#      all_reso.each do |indi_reso|
+#          reso_dict = resource_attributes(indi_reso)
+#          reso_dict.each do |key_, val_|
+#                val2see = val_.to_s.downcase
+#                if val2see.include? "0.0.0.0"
+#                    print "SECURITY:::BINDING_TO_ALL:::Do not bind to 0.0.0.0. This may cause a DDOS attack. Restrict your available IPs."
+#                    print "\n"
+#                end
+#          end
+#      end
+#   end
+# end
 
-rule "SECURITY", "SSH keys hould not be hard-coded" do
-  tags %w{security akondrahman}
-  recipe do |ast_|
-     find_resources(ast_, :type => 'execute').select do |exec_reso|
-        #print "#{exec_reso}"
-        cmd_str = resource_attribute(exec_reso, 'command').to_s
-        #print "#{cmd_str}"
-        cmd_str.match(/ssh-rsa\s(\w)*/) ? true : false ## for ruby regex see http://rubular.com/
-     end
-  end
-end
+# rule "SECURITY", "SSH keys hould not be hard-coded" do
+#   tags %w{security akondrahman}
+#   recipe do |ast_|
+#      find_resources(ast_, :type => 'execute').select do |exec_reso|
+#         #print "#{exec_reso}"
+#         cmd_str = resource_attribute(exec_reso, 'command').to_s
+#         #print "#{cmd_str}"
+#         cmd_str.match(/ssh-rsa\s(\w)*/) ? true : false ## for ruby regex see http://rubular.com/
+#      end
+#   end
+# end
 
 rule "SECURITY", "Use of empty password should be avoided" do
   tags %w{security akondrahman}
@@ -182,7 +182,7 @@ end
 
 
 
-rule "SECURITY", "Locations of secrets should not be exposed" do
+rule "SECURITY", "Locations of secrets should not be exposed (V1)" do
   tags %w{security akondrahman}
   recipe do |ast_|
      all_reso = find_resources(ast_)
@@ -197,7 +197,7 @@ rule "SECURITY", "Locations of secrets should not be exposed" do
                     (val2see.include? 'id')) && ((val2see.start_with? '/') || ((val2see.include? '\\') && (val2see.include? ':')))
                   )
                       # puts "VALUE: #{val2see}"
-                      print "SECURITY:::EXPOSING_SECRET_LOCATION:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
+                      print "SECURITY:::EXPOSING_SECRET_LOCATION_V1:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
                       print "\n"
                end
          end
@@ -215,9 +215,29 @@ rule "SECURITY", "IP Addresses should not be bound to 0.0.0.0 (V2)" do
       text_content.each_line do |line_as_str|
             single_line = line_as_str.downcase
             if single_line.include? '0.0.0.0'
+                   # puts single_line
                    print "SECURITY:::BINDING_TO_ALL:::Do not bind to 0.0.0.0. This may cause a DDOS attack. Restrict your available IPs."
                    print "\n"
             end
       end
   end
 end
+# rule "SECURITY", "Locations of secrets should not be exposed (V2)" do
+#   tags %w{security akondrahman}
+#   recipe do |ast_, filename_|
+#       text_content=File.open(filename_).read
+#       text_content.gsub!(/\r\n?/, "\n")
+#       text_content.each_line do |line_as_str|
+#                single_line = line_as_str.downcase
+#                if (((single_line.include? 'rsa') || (single_line.include? 'ssh') || (single_line.include? 'pem') ||
+#                     (single_line.include? 'crt') || (single_line.include? 'key') || (single_line.include? 'ssl') ||
+#                     (single_line.include? 'certificate') || (single_line.include? 'crl') || (single_line.include? 'pub') ||
+#                     (single_line.include? 'id')) && ((single_line.include? '/') || ((single_line.include? '\\') && (single_line.include? ':')))
+#                   )
+#                       # puts "VALUE: #{single_line}"
+#                       print "SECURITY:::EXPOSING_SECRET_LOCATION_V2:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
+#                       print "\n"
+#                end
+#       end
+#   end
+# end
