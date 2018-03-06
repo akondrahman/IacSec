@@ -21,8 +21,17 @@ PuppetLint.new_check(:no_expose_secret_location) do
                         nxt_nxt_typ=nxt_nxt_token.type.to_s
                         if (token_line==nxt_tok_line) && (token_line==nxt_nxt_tok_lin)
                            if (token_type.eql? 'VARIABLE') && (nxt_typ.eql? 'EQUALS') && (nxt_nxt_typ.eql? 'SSTRING')
-                              puts "ONE,TWO,THREE----->#{token_type}, #{nxt_typ}, #{nxt_nxt_typ}"
-                              nxt_nxt_val = nxt_nxt_token.value.downcase
+                                # puts "ONE,TWO,THREE----->#{token_type}, #{nxt_typ}, #{nxt_nxt_typ}"
+                                nxt_nxt_val = nxt_nxt_token.value.downcase
+                                token_val   = indi_token.value.downcase
+                                if ((nxt_nxt_val.include? 'admin') && (token_val.include? 'user')) || (token_val.include? 'admin')
+                                   notify :warning, {
+                                     message: 'SECURITY:::ADMIN_BY_DEFAULT:::Do not make default user as admin. This violates the secure by design principle.',
+                                     line:    indi_token.line,
+                                     column:  indi_token.column,
+                                     token:   token_valu
+                                   }
+                                end
                            end
                         end
                      end
