@@ -59,7 +59,7 @@ rule "SECURITY", "Use of HTTP should be avoided" do
   end
 end
 
-rule "SECURITY", "IP Addresses should not be bound to 0.0.0.0" do
+rule "SECURITY", "IP Addresses should not be bound to 0.0.0.0 (V1)" do
   tags %w{security akondrahman}
   recipe do |ast_|
      all_reso = find_resources(ast_)
@@ -194,11 +194,30 @@ rule "SECURITY", "Locations of secrets should not be exposed" do
                if (((val2see.include? 'rsa') || (val2see.include? 'ssh') || (val2see.include? 'pem') ||
                     (val2see.include? 'crt') || (val2see.include? 'key') || (val2see.include? 'ssl') ||
                     (val2see.include? 'certificate') || (val2see.include? 'crl') || (val2see.include? 'pub') ||
-                    (val2see.include? 'id')) && ((val2see.include? '/') || (val2see.include? '\\')) )
+                    (val2see.include? 'id')) && ((val2see.start_with? '/') || ((val2see.include? '\\') && (val2see.include? ':')))
+                  )
+                      # puts "VALUE: #{val2see}"
                       print "SECURITY:::EXPOSING_SECRET_LOCATION:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
                       print "\n"
                end
          end
      end
+  end
+end
+
+
+
+rule "SECURITY", "IP Addresses should not be bound to 0.0.0.0 (V2)" do
+  tags %w{security akondrahman}
+  recipe do |ast_, filename_|
+      text_content=File.open(filename_).read
+      text_content.gsub!(/\r\n?/, "\n")
+      text_content.each_line do |line_as_str|
+            single_line = line_as_str.downcase
+            if single_line.include? '0.0.0.0'
+                   print "SECURITY:::BINDING_TO_ALL:::Do not bind to 0.0.0.0. This may cause a DDOS attack. Restrict your available IPs."
+                   print "\n"
+            end
+      end
   end
 end
