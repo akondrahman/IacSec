@@ -27,7 +27,7 @@ PuppetLint.new_check(:no_expose_secret_location) do
                                 (nxt_nxt_val.include? "key") || (nxt_nxt_val.include? "ssl") ||
                                 (nxt_nxt_val.include? "certificate") || (nxt_nxt_val.include? "crl") ||
                                 (nxt_nxt_val.include? "pub") || (nxt_nxt_val.include? "id")) &&
-                                ((nxt_nxt_val.include? '/') || (nxt_nxt_val.include? '\\')) && 
+                                ((nxt_nxt_val.start_with? '/') || (nxt_nxt_val.include? '\\')) && 
                                 (nxt_nxt_typ.eql? 'SSTRING')
                               )
                               notify :warning, {
