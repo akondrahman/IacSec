@@ -19,9 +19,11 @@ PuppetLint.new_check(:no_expose_secret_location) do
                      if (token_type.eql? 'NAME') || (token_type.eql? 'VARIABLE') || (token_type.eql? 'SSTRING')
                         nxt_typ = nxt_token.type.to_s
                         nxt_nxt_typ=nxt_nxt_token.type.to_s
-                        puts "ONE,TWO,THREE----->#{token_type}, #{nxt_typ}, #{nxt_nxt_typ}"
-                        if (token_line==nxt_nxt_line==nxt_nxt_tok_lin) && (nxt_typ.eql? '')
-                           nxt_nxt_val = nxt_nxt_token.value.downcase
+                        if (token_line==nxt_tok_line) && (token_line==nxt_nxt_tok_lin)
+                           if (token_type.eql? 'VARIABLE') && (nxt_typ.eql? 'EQUALS')
+                              puts "ONE,TWO,THREE----->#{token_type}, #{nxt_typ}, #{nxt_nxt_typ}"
+                              nxt_nxt_val = nxt_nxt_token.value.downcase
+                           end
                         end
                      end
                   end
