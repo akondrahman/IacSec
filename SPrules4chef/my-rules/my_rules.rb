@@ -194,7 +194,7 @@ rule "SECURITY", "Locations of secrets should not be exposed" do
                if (((val2see.include? 'rsa') || (val2see.include? 'ssh') || (val2see.include? 'pem') ||
                     (val2see.include? 'crt') || (val2see.include? 'key') || (val2see.include? 'ssl') ||
                     (val2see.include? 'certificate') || (val2see.include? 'crl') || (val2see.include? 'pub') ||
-                    (val2see.include? 'id')) && (val2see.start_with? '/'))
+                    (val2see.include? 'id')) && ((val2see.include? '/') || (val2see.include? '\\')) )
                       print "SECURITY:::EXPOSING_SECRET_LOCATION:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
                       print "\n"
                end
