@@ -59,7 +59,7 @@ rule "SECURITY", "Use of HTTP should be avoided" do
   end
 end
 
-rule "SECURITY", "IP Addresses should not be boudn to 0.0.0.0" do
+rule "SECURITY", "IP Addresses should not be bound to 0.0.0.0" do
   tags %w{security akondrahman}
   recipe do |ast_|
      all_reso = find_resources(ast_)
@@ -128,7 +128,7 @@ end
 
 rule "SECURITY", "SUSPICOUS_COMMENTS" do
   tags %w{security akondrahman}
-  kw_list = ['bug', 'hack', 'fixme', 'later', 'later2', 'todo']
+  kw_list = ['show_bug', 'hack', 'fixme', 'later', 'later2', 'todo', 'ticket', 'launchpad']
   recipe do |ast_, filename_|
       matchCnt = 0
       lines  = []
@@ -150,5 +150,27 @@ rule "SECURITY", "SUSPICOUS_COMMENTS" do
             end
          end
       end
+  end
+end
+
+
+
+
+
+rule "SECURITY", "Use of hard-coded secrets should be avoided" do
+  tags %w{security akondrahman}
+  recipe do |ast_|
+     all_reso = find_resources(ast_)
+     all_reso.each do |indi_reso|
+         reso_dict = resource_attributes(indi_reso)
+         reso_dict.each do |key_, val_|
+               key2see = key_.to_s.downcase
+               val2see = val_.to_s.downcase
+               if (() && ())
+                   print "SECURITY:::HTTP:::Do not use HTTP without TLS. This may cause a man in the middle attack. Use TLS with HTTP."
+                   print "\n"
+               end
+         end
+     end
   end
 end
