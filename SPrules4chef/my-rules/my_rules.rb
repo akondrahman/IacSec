@@ -178,3 +178,27 @@ rule "SECURITY", "Use of hard-coded secrets should be avoided" do
      end
   end
 end
+
+
+
+
+rule "SECURITY", "Locations of secrets should not be exposed" do
+  tags %w{security akondrahman}
+  recipe do |ast_|
+     all_reso = find_resources(ast_)
+     all_reso.each do |indi_reso|
+         reso_dict = resource_attributes(indi_reso)
+         reso_dict.each do |key_, val_|
+               key2see = key_.to_s.downcase
+               val2see = val_.to_s.downcase
+               if (((val2see.include? 'rsa') || (val2see.include? 'ssh') || (val2see.include? 'pem') ||
+                    (val2see.include? 'crt') || (val2see.include? 'key') || (val2see.include? 'ssl') ||
+                    (val2see.include? 'certificate') || (val2see.include? 'crl') || (val2see.include? 'pub') ||
+                    (val2see.include? 'id')) && (val2see.start_with? '/'))
+                      print "SECURITY:::EXPOSING_SECRET_LOCATION:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
+                      print "\n"
+               end
+         end
+     end
+  end
+end
