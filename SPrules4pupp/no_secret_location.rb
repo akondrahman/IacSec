@@ -20,18 +20,20 @@ PuppetLint.new_check(:no_expose_secret_location) do
                      if (token_type.eql? 'NAME') || (token_type.eql? 'VARIABLE') || (token_type.eql? 'SSTRING')
                         if (token_line==nxt_nxt_line)
                            nxt_nxt_val = nxt_nxt_token.value.downcase
-                           # puts "KEY,PAIR----->#{token_valu}, #{nxt_nxt_val}"
+                           nxt_nxt_typ = nxt_nxt_token.type.to_s
+                           # puts "PAIR,PAIR_TYPE----->#{nxt_nxt_val}, #{nxt_nxt_typ}"
                            if ( ((nxt_nxt_val.include? "rsa")  || (nxt_nxt_val.include? "ssh") ||
                                 (nxt_nxt_val.include? "pem") || (nxt_nxt_val.include? "crt") ||
                                 (nxt_nxt_val.include? "key") || (nxt_nxt_val.include? "ssl") ||
-                                (nxt_nxt_val.include? "certificate") || (nxt_nxt_val.include? "crl")) &&
-                                (nxt_nxt_val.start_with? '/')
+                                (nxt_nxt_val.include? "certificate") || (nxt_nxt_val.include? "crl") ||
+                                (nxt_nxt_val.include? "pub")) &&
+                                (nxt_nxt_val.start_with? '/') && (nxt_nxt_typ.eql? 'SSTRING')
                               )
                               notify :warning, {
                                 message: 'SECURITY:::EXPOSING_SECRET_LOCATION:::Do not expose location of secrets. This may help an attacker to attack. You can use hiera to avoid this issue.',
-                                line:    indi_token.line,
-                                column:  indi_token.column,
-                                token:   token_valu
+                                line:    nxt_nxt_token.line,
+                                column:  nxt_nxt_token.column,
+                                token:   nxt_nxt_val
                               }
                            end
                         end
