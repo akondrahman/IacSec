@@ -166,14 +166,13 @@ rule "SECURITY", "Use of hard-coded secrets should be avoided" do
          reso_dict.each do |key_, val_|
                key2see = key_.to_s.downcase
                val2see = val_.to_s.downcase
-               if (((key2see.include? 'pwd') || (key2see.include? 'password') || (key2see.include? 'pass')
-                    || (key2see.include? 'uuid') || (key2see.include? 'key') || (key2see.include? 'crypt')
-                    || (key2see.include? 'secret') || (key2see.include? 'certificate') || (key2see.include? 'id')
-                    || (key2see.include? 'cert') || (key2see.include? 'token') || (key2see.include? 'ssh_key')
-                    || (key2see.include? 'md5')
-                   ) && (val2see.length > 0))
-                     print "SECURITY:::HARD_CODED_SECRET_V1:::Do not hard code secrets. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
-                     print "\n"
+               if (((key2see.include? 'pwd') || (key2see.include? 'password') || (key2see.include? 'pass') ||
+                    (key2see.include? 'uuid') || (key2see.include? 'key') || (key2see.include? 'crypt') ||
+                    (key2see.include? 'secret') || (key2see.include? 'certificate') || (key2see.include? 'id') ||
+                    (key2see.include? 'cert') || (key2see.include? 'token') || (key2see.include? 'ssh_key') ||
+                    (key2see.include? 'md5')) && (val2see.length > 0))
+                      print "SECURITY:::HARD_CODED_SECRET_V1:::Do not hard code secrets. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
+                      print "\n"
                end
          end
      end
