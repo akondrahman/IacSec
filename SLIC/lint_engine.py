@@ -150,4 +150,5 @@ def runLinter(full_path_file):
     all_rul_cnt_out = parseOutput()
     #3. delete temp file
     os.remove(constants.OUTPUT_TMP_LOG)
+    ## returns a tuple: first is count, second is line string
     return all_rul_cnt_out

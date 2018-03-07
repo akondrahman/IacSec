@@ -14,11 +14,13 @@ def giveTimeStamp():
 
 if __name__=='__main__':
    print 'Started at:', giveTimeStamp()
-   print '*'*125
-   ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
+   print '*'*100
+   # ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
 
-   # ds_path = '/Users/akond/SECU_REPOS/test-chef/'
+   ds_path = '/Users/akond/SECU_REPOS/test-chef/'
 
-   executor.sniffSmells(ds_path)
-   print '*'*125
+   final_output_str = executor.sniffSmells(ds_path)
+   print '*'*100
+   print final_output_str
+   print '*'*100
    print 'Ended at:', giveTimeStamp()

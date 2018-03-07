@@ -14,7 +14,15 @@ def checkValidity(file_path):
         flag2ret  = True
     return flag2ret
 
+def buildOutput(output_tuple, file_name):
+    str_out = ''
+    for elem in output_tuple:
+        str_out = str_out + str(elem) + ','
+    str2ret = file_name + ',' + str_out + '\n'
+    return str2ret
+
 def sniffSmells(path_to_dir):
+    final_str = ''
     for root_, dirs, files_ in os.walk(path_to_dir):
        for file_ in files_:
            if (file_.endswith(constants.PP_EXT) or file_.endswith(constants.CH_EXT)):
@@ -22,11 +30,17 @@ def sniffSmells(path_to_dir):
                  if (os.path.exists(full_p_file) and checkValidity(full_p_file) and (full_p_file.endswith(constants.CH_EXT)==False)):
                     print 'Analyzing:', full_p_file
                     secu_lint_outp = lint_engine.runLinter(full_p_file)
-                    print secu_lint_outp
+                    lint_cnt_out   = secu_lint_outp[0]
+                    lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
+                    final_str      = final_str + lint_cnt_str
+                    # print secu_lint_outp
                  elif (os.path.exists(full_p_file) and (constants.CH_DIR in full_p_file) and (full_p_file.endswith(constants.PP_EXT)==False)):
-                    print 'Analyzing:', full_p_file
                     secu_lint_outp = lint_engine.runLinter(full_p_file)
-                    print secu_lint_outp
+                    lint_cnt_out   = secu_lint_outp[0]
+                    lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
+                    final_str      = final_str + lint_cnt_str
+                    # print secu_lint_outp
                  else:
                     print "Not analyzing, failed validity checks:", full_p_file
                  print "="*50
+    return final_str
