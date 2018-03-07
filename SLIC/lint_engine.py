@@ -55,7 +55,16 @@ def getMD5UsageCount():
     cnt2ret = sum(constants.LINT_MD5 in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
+def getHTTPUsageCount():
+    file_lines = getOutputLines()
+    line2ret = [ s_ for s_ in file_lines if constants.LINT_HTTP in s_]
+    cnt2ret = sum(constants.LINT_HTTP in s_ for s_ in file_lines)
+    return cnt2ret, line2ret
+
 def parseOutput():
+    '''
+    Initialization 
+    '''
     rul_hardcode_cnt, rul_susp_comm_cnt = 0, 0
     num_lines = sum(1 for line_ in open(constants.OUTPUT_TMP_LOG))
     print 'Genrated a log file of {} lines'.format(num_lines)
@@ -64,10 +73,17 @@ def parseOutput():
         rul_susp_comm_cnt, rul_susp_comm_lin  = getSuspCommCount()
         rul_secr_loca_cnt, rul_secr_loca_lin  = getSecretLocaCount()
         rul_md5_usage_cnt, rul_md5_usage_lin  = getMD5UsageCount()
+        rul_http_use_cnt,  rul_http_use_lin   = getHTTPUsageCount()
 
-    output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt)  # this will be expanded
-    str2ret    = (rul_hardcode_lin, rul_susp_comm_lin) # this will be expanded
+    # this will be expanded
+    output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt)
+    # this will be expanded
+    str2ret    = (rul_hardcode_lin, rul_susp_comm_lin)
     return output2ret, str2ret
+
+
+
+
 def runLinter(full_path_file):
     #1. run linter with custom rules
     generateOutput(full_path_file)
