@@ -103,5 +103,11 @@ if __name__=='__main__':
     # berg_stratified_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/STRATIFIED_BERG.csv'
     # berg_stra_fil_cnt = getStratifiedChefScripts(berg_stratified_ds)
 
-    mozi_stratified_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/STRATIFIED_MOZI.csv'
-    mozi_stra_fil_cnt = getStratifiedChefScripts(cdat_stratified_ds)
+    # mozi_stratified_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/STRATIFIED_MOZI.csv'
+    # mozi_stra_fil_cnt = getStratifiedChefScripts(mozi_stratified_ds)
+
+    # ostk_stratified_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/STRATIFIED_OSTK.csv'
+    # ostk_stra_fil_cnt = getStratifiedChefScripts(ostk_stratified_ds)
+
+    # wiki_stratified_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/sampling/STRATIFIED_WIKI.csv'
+    # wiki_stra_fil_cnt = getStratifiedChefScripts(wiki_stratified_ds)

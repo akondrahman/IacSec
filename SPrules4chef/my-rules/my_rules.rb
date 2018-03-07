@@ -143,7 +143,7 @@ rule "SECURITY", "SUSPICOUS_COMMENTS" do
                if (single_line.include?(kw_))
                   kw_index = single_line.index(kw_)
                      if (kw_index > comment_index)
-                        print "SECURITY:::SUSPICOUS_COMMENTS:::Bug information exposed in comments."
+                        print "SECURITY:::SUSPICOUS_COMMENTS:::Do not expose sensitive information=>"
                         print "\n"
                      end
                end
@@ -171,7 +171,7 @@ rule "SECURITY", "Use of hard-coded secrets should be avoided" do
                     (key2see.include? 'secret') || (key2see.include? 'certificate') || (key2see.include? 'id') ||
                     (key2see.include? 'cert') || (key2see.include? 'token') || (key2see.include? 'ssh_key') ||
                     (key2see.include? 'md5') || (key2see.include? 'rsa') || (key2see.include? 'ssl')) && (val2see.length > 0))
-                      print "SECURITY:::HARD_CODED_SECRET_V1:::Do not hard code secrets. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
+                      print "SECURITY:::HARD_CODED_SECRET_:::Do not hard code secrets. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
                       print "\n"
                end
          end
@@ -197,7 +197,7 @@ rule "SECURITY", "Locations of secrets should not be exposed (V1)" do
                     (val2see.include? 'id')) && ((val2see.start_with? '/') || ((val2see.include? '\\') && (val2see.include? ':')))
                   )
                       # puts "VALUE: #{val2see}"
-                      print "SECURITY:::EXPOSING_SECRET_LOCATION_V1:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
+                      print "SECURITY:::EXPOSING_SECRET_LOCATION:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
                       print "\n"
                end
          end

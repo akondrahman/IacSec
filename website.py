@@ -170,7 +170,8 @@ def generateTokens(file_name_p):
              id_of_std  = row_[1]
              if '519' in id_of_std:
                  studentID.append(id_of_std)
-    studentID = np.unique(studentID)
+    studentID = list(np.unique(studentID))
+    studentID.append('51999')
     str_ = ''
     for std_ in studentID:
         str_ = str_ + std_ + ',' + generatePass() + '\n'
@@ -211,4 +212,4 @@ if __name__=='__main__':
     '''
     generate tokens for students
     '''
-    generateTokens('/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/FULL_ASSI_LIST.csv')
+    # generateTokens('/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/FULL_ASSI_LIST.csv')
