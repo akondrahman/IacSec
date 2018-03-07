@@ -48,3 +48,8 @@ LINT_DEF_ADM   ='SECURITY:::ADMIN_BY_DEFAULT:::'
 LINT_BASE64    ='SECURITY:::BASE64:::'
 LINT_MIS_DEFAU ='WARNING: case statement without a default case'
 NEWLINE = '\n'
+### HEADER STRING
+headerStr1 ='HARD_CODE_SECR,' + 'SUSP_COMM,' + 'SECR_LOCA,' + 'MD5_USAG,'
+headerStr2 ='HTTP_USAG,' + 'BIND_USAG,' + 'EMPT_PASS,' + 'DFLT_ADMN,'
+headerStr3 ='BASE_64,' + 'MISS_DFLT,'
+HEADER_STR =headerStr1 + headerStr2 + headerStr3
