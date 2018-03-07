@@ -1,0 +1,36 @@
+<html>
+Shall we see script content? 
+<?php
+
+$servername = "localhost";
+$username   = "root";
+$password   = "Ansible#2016";
+$dbname     = "iac";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error)
+{
+    die("Connection failed: " . $conn->connect_error);
+}
+
+
+$stmt   = $conn->prepare("SELECT `content` FROM `script` WHERE `ID`=?) ;
+$stmt->bind_param(1) ;
+#$stmt->execute();
+$result = $conn->query($stmt) ;
+
+if ($result->num_rows > 0)
+{
+    while($row = $result->fetch_assoc())
+    {
+        echo "Content:".$row['content']."<br>" ;
+    }
+}
+else
+{
+    echo "0 results";
+}
+$stmt->close() ;
+$conn->close() ;
+?>
+</html>
