@@ -6,6 +6,7 @@ Puppet Lint Engine
 import constants
 import subprocess
 import os
+import numpy as np
 
 def generateOutput(path2file):
     ## Add rules to check automatically here
@@ -88,6 +89,20 @@ def getBase64Count():
     cnt2ret = sum(constants.LINT_BASE64 in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
+def getMissingDefaultCount():
+    file_lines = getOutputLines()
+    line2ret = [ s_ for s_ in file_lines if constants.LINT_MIS_DEFAU in s_]
+    cnt2ret = sum(constants.LINT_MIS_DEFAU in s_ for s_ in file_lines)
+    if cnt2ret > 0:
+        if cnt2ret > 1:
+            cnt2ret = cnt2ret / constants.NO_OF_RULES # we ahve 9 rules , so divide by 9, each execution of puppet-lint will check missing default
+        else:
+            cnt2ret = 1
+        line2ret = np.unique(line2ret)
+    else:
+        cnt2ret = 0
+    return cnt2ret, line2ret
+
 def parseOutput():
     '''
     Initialization
@@ -99,7 +114,9 @@ def parseOutput():
     rul_http_use_cnt,  rul_http_use_lin   = 0, 0
     rul_bind_use_cnt,  rul_bind_use_lin   = 0, 0
     rul_empt_pwd_cnt,  rul_empt_pwd_lin   = 0, 0
+    rul_defa_adm_cnt,  rul_defa_adm_lin   = 0, 0
     rul_base64_cnt,    rul_base64_lin     = 0, 0
+    rul_mis_case_cnt,  rul_mis_case_lin   = 0, 0
     '''
     '''
     num_lines = sum(1 for line_ in open(constants.OUTPUT_TMP_LOG))
@@ -114,15 +131,16 @@ def parseOutput():
         rul_empt_pwd_cnt,  rul_empt_pwd_lin   = getEmptyPwdCount()
         rul_defa_adm_cnt,  rul_defa_adm_lin   = getDefaultAdminCount()
         rul_base64_cnt,    rul_base64_lin     = getBase64Count()
+        rul_mis_case_cnt,  rul_mis_case_lin   = getMissingDefaultCount()
 
     # this will be expanded
     output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt,
                   rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt,
-                  rul_base64_cnt)
+                  rul_base64_cnt, rul_mis_case_cnt)
     # this will be expanded
     str2ret    = (rul_hardcode_lin, rul_susp_comm_lin, rul_secr_loca_lin, rul_md5_usage_lin,
                   rul_http_use_lin, rul_bind_use_lin, rul_empt_pwd_lin, rul_defa_adm_lin,
-                  rul_base64_lin)
+                  rul_base64_lin, rul_mis_case_lin)
     return output2ret, str2ret
 
 
