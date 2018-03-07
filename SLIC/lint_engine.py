@@ -98,7 +98,7 @@ def getMissingDefaultCount():
             cnt2ret = cnt2ret / constants.NO_OF_RULES # we ahve 9 rules , so divide by 9, each execution of puppet-lint will check missing default
         else:
             cnt2ret = 1
-        line2ret = np.unique(line2ret)
+        line2ret = list(np.unique(line2ret))
     else:
         cnt2ret = 0
     return cnt2ret, line2ret
