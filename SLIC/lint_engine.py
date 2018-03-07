@@ -94,11 +94,8 @@ def getMissingDefaultCount():
     line2ret = [ s_ for s_ in file_lines if constants.LINT_MIS_DEFAU in s_]
     cnt2ret = sum(constants.LINT_MIS_DEFAU in s_ for s_ in file_lines)
     if cnt2ret > 0:
-        if cnt2ret > 1:
-            cnt2ret = cnt2ret / constants.NO_OF_RULES # we ahve 9 rules , so divide by 9, each execution of puppet-lint will check missing default
-        else:
-            cnt2ret = 1
         line2ret = list(np.unique(line2ret))
+        cnt2ret  = len(line2ret)
     else:
         cnt2ret = 0
     return cnt2ret, line2ret
