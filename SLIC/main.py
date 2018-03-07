@@ -8,13 +8,11 @@ import time
 import datetime
 import constants
 
-@contextmanager
-def getDuration():
-  t1 = time.time()
-  yield
-  t2 = time.time()
-  print("\n" + "-" * 72)
-  print("# Runtime: %.3f secs" % (t2-t1))
+def dumpContentIntoFile(strP, fileP):
+    fileToWrite = open( fileP, 'w')
+    fileToWrite.write(strP)
+    fileToWrite.close()
+    return str(os.stat(fileP).st_size)
 
 def giveTimeStamp():
   tsObj = time.time()
@@ -22,18 +20,24 @@ def giveTimeStamp():
   return strToret
 
 if __name__=='__main__':
+   t1 = time.time()
    print 'Started at:', giveTimeStamp()
    print '*'*100
    # ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/PUPPET.csv'
 
    ds_path = '/Users/akond/SECU_REPOS/test-chef/'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/CHEF.csv'
 
    final_output_str = executor.sniffSmells(ds_path)
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str
    print '*'*100
    print final_output_str
+   dumpContentIntoFile(final_output_str, output_file)
    print '*'*100
    print 'Ended at:', giveTimeStamp()
    print '*'*100
-   getDuration()
+   t2 = time.time()
+   diff = t2 - t1
+   print "Duration: {} seconds".format(diff)
    print '*'*100
