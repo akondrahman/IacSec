@@ -10,7 +10,8 @@ import os
 def generateOutput(path2file):
     ## Add rules to check automatically here
     if(path2file.endswith(constants.PP_EXT)):
-        rulesToCheck = [constants.PP_RULE_HARDCODE, constants.PP_RULE_SUSP_COMM]
+        ## this list will be expnaded
+        rulesToCheck = [constants.PP_RULE_HARDCODE, constants.PP_RULE_SUSP_COMM, constants.PP_RULE_SECR_LOCA]
         lintToolCmd = constants.PP_LINT_TOOL
     else:
         rulesToCheck = [constants.CHEF_ALL_RULES]
@@ -42,6 +43,18 @@ def getSuspCommCount():
     cnt2ret = sum(constants.LINT_SUSP in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
+def getSecretLocaCount():
+    file_lines = getOutputLines()
+    line2ret = [ s_ for s_ in file_lines if constants.LINT_SECRET in s_]
+    cnt2ret = sum(constants.LINT_SECRET in s_ for s_ in file_lines)
+    return cnt2ret, line2ret
+
+def getMD5UsageCount():
+    file_lines = getOutputLines()
+    line2ret = [ s_ for s_ in file_lines if constants.LINT_MD5 in s_]
+    cnt2ret = sum(constants.LINT_MD5 in s_ for s_ in file_lines)
+    return cnt2ret, line2ret
+
 def parseOutput():
     rul_hardcode_cnt, rul_susp_comm_cnt = 0, 0
     num_lines = sum(1 for line_ in open(constants.OUTPUT_TMP_LOG))
@@ -49,9 +62,11 @@ def parseOutput():
     if num_lines > 0:
         rul_hardcode_cnt,  rul_hardcode_lin   = getHardCodeCount()
         rul_susp_comm_cnt, rul_susp_comm_lin  = getSuspCommCount()
+        rul_secr_loca_cnt, rul_secr_loca_lin  = getSecretLocaCount()
+        rul_md5_usage_cnt, rul_md5_usage_lin  = getMD5UsageCount()
 
     output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt)  # this will be expanded
-    str2ret    = (rul_hardcode_lin, rul_susp_comm_lin) # this will be expanded 
+    str2ret    = (rul_hardcode_lin, rul_susp_comm_lin) # this will be expanded
     return output2ret, str2ret
 def runLinter(full_path_file):
     #1. run linter with custom rules
