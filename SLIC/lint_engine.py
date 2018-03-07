@@ -13,7 +13,7 @@ def generateOutput(path2file):
         ## this list will be expnaded
         rulesToCheck = [constants.PP_RULE_HARDCODE, constants.PP_RULE_SUSP_COMM, constants.PP_RULE_SECR_LOCA,
                         constants.PP_RULE_MD5, constants.PP_RULE_HTTP, constants.PP_RULE_BIND,
-                        constants.PP_RULE_EMPTY_PWD, constants.PP_RULE_DEFAU_ADM
+                        constants.PP_RULE_EMPTY_PWD, constants.PP_RULE_DEFAU_ADM, constants.PP_RULE_BASE64
                        ]
         lintToolCmd = constants.PP_LINT_TOOL
     else:
@@ -82,6 +82,12 @@ def getDefaultAdminCount():
     cnt2ret = sum(constants.LINT_DEF_ADM in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
+def getBase64Count():
+    file_lines = getOutputLines()
+    line2ret = [ s_ for s_ in file_lines if constants.LINT_BASE64 in s_]
+    cnt2ret = sum(constants.LINT_BASE64 in s_ for s_ in file_lines)
+    return cnt2ret, line2ret
+
 def parseOutput():
     '''
     Initialization
@@ -93,6 +99,7 @@ def parseOutput():
     rul_http_use_cnt,  rul_http_use_lin   = 0, 0
     rul_bind_use_cnt,  rul_bind_use_lin   = 0, 0
     rul_empt_pwd_cnt,  rul_empt_pwd_lin   = 0, 0
+    rul_base64_cnt,    rul_base64_lin     = 0, 0
     '''
     '''
     num_lines = sum(1 for line_ in open(constants.OUTPUT_TMP_LOG))
@@ -106,13 +113,16 @@ def parseOutput():
         rul_bind_use_cnt,  rul_bind_use_lin   = getBindUsageCount()
         rul_empt_pwd_cnt,  rul_empt_pwd_lin   = getEmptyPwdCount()
         rul_defa_adm_cnt,  rul_defa_adm_lin   = getDefaultAdminCount()
+        rul_base64_cnt,    rul_base64_lin     = getBase64Count()
 
     # this will be expanded
     output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt,
-                  rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt)
+                  rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt,
+                  rul_base64_cnt)
     # this will be expanded
     str2ret    = (rul_hardcode_lin, rul_susp_comm_lin, rul_secr_loca_lin, rul_md5_usage_lin,
-                  rul_http_use_lin, rul_bind_use_lin, rul_empt_pwd_lin, rul_defa_adm_lin)
+                  rul_http_use_lin, rul_bind_use_lin, rul_empt_pwd_lin, rul_defa_adm_lin,
+                  rul_base64_lin)
     return output2ret, str2ret
 
 

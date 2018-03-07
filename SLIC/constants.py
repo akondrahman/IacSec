@@ -23,6 +23,7 @@ PP_RULE_HTTP      = '../SPrules4pupp/no_http.rb'
 PP_RULE_BIND      = '../SPrules4pupp/no_full_binding.rb'
 PP_RULE_EMPTY_PWD = '../SPrules4pupp/no_empty_pwd.rb'
 PP_RULE_DEFAU_ADM = '../SPrules4pupp/no_default_admin.rb'
+PP_RULE_BASE64    = '../SPrules4pupp/no_base64.rb'
 #### CHEF ZONE
 ### PUPPET LINT AND ITS RULES
 CHEF_LINT_TOOL = 'foodcritic -I'
@@ -43,4 +44,5 @@ LINT_HTTP      ='SECURITY:::HTTP:::'
 LINT_BIND      ='SECURITY:::BINDING_TO_ALL:::'
 LINT_EMPT      ='SECURITY:::EMPTY_PASSWORD:::'
 LINT_DEF_ADM   ='SECURITY:::ADMIN_BY_DEFAULT:::'
+LINT_BASE64    ='SECURITY:::BASE64:::'
 NEWLINE = '\n'
