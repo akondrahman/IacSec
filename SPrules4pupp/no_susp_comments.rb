@@ -16,14 +16,14 @@ PuppetLint.new_check(:no_susp_comments) do
            ### check if those keywords exist
            single_line=single_line.downcase
            single_line=single_line.strip
-           if ( single_line.include?('show_bug') || single_line.include?('hack') || 
+           if ( single_line.include?('show_bug') || single_line.include?('hack') ||
                 single_line.include?('fixme')    || single_line.include?('later') ||
                 single_line.include?('later2')   || single_line.include?('todo') ||
                 single_line.include?('ticket')   || single_line.include?('launchpad') )
                 #print "#{single_line} #{lineNo}\n"
                 #print "-----\n"
                 notify :warning, {
-                  message: 'SECURITY:::SUSPICOUS_COMMENTS:::Do not expose bug information=>' + single_line,
+                  message: 'SECURITY:::SUSPICOUS_COMMENTS:::Do not expose sensitive information=>' + single_line,
                   line:    lineNo,
                   column:   5   #no columsn for comment lines so assignning a dummy one to keep puppet-lint happy
                 }
