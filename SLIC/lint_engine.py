@@ -63,9 +63,15 @@ def getHTTPUsageCount():
 
 def parseOutput():
     '''
-    Initialization 
+    Initialization
     '''
-    rul_hardcode_cnt, rul_susp_comm_cnt = 0, 0
+    rul_hardcode_cnt, rul_susp_comm_cnt   = 0, 0
+    rul_susp_comm_cnt, rul_susp_comm_lin  = 0, 0
+    rul_secr_loca_cnt, rul_secr_loca_lin  = 0, 0
+    rul_md5_usage_cnt, rul_md5_usage_lin  = 0, 0
+    rul_http_use_cnt,  rul_http_use_lin   = 0, 0
+    '''
+    '''
     num_lines = sum(1 for line_ in open(constants.OUTPUT_TMP_LOG))
     print 'Genrated a log file of {} lines'.format(num_lines)
     if num_lines > 0:
@@ -76,9 +82,9 @@ def parseOutput():
         rul_http_use_cnt,  rul_http_use_lin   = getHTTPUsageCount()
 
     # this will be expanded
-    output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt)
+    output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt, rul_http_use_cnt)
     # this will be expanded
-    str2ret    = (rul_hardcode_lin, rul_susp_comm_lin)
+    str2ret    = (rul_hardcode_lin, rul_susp_comm_lin, rul_secr_loca_lin, rul_md5_usage_lin, rul_http_use_lin)
     return output2ret, str2ret
 
 
