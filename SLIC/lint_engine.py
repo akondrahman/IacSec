@@ -11,7 +11,10 @@ def generateOutput(path2file):
     ## Add rules to check automatically here
     if(path2file.endswith(constants.PP_EXT)):
         ## this list will be expnaded
-        rulesToCheck = [constants.PP_RULE_HARDCODE, constants.PP_RULE_SUSP_COMM, constants.PP_RULE_SECR_LOCA]
+        rulesToCheck = [constants.PP_RULE_HARDCODE, constants.PP_RULE_SUSP_COMM, constants.PP_RULE_SECR_LOCA,
+                        constants.PP_RULE_MD5, constants.PP_RULE_HTTP, constants.PP_RULE_BIND,
+                        constants.PP_RULE_EMPTY_PWD
+                       ]
         lintToolCmd = constants.PP_LINT_TOOL
     else:
         rulesToCheck = [constants.CHEF_ALL_RULES]
@@ -61,15 +64,29 @@ def getHTTPUsageCount():
     cnt2ret = sum(constants.LINT_HTTP in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
+def getBindUsageCount():
+    file_lines = getOutputLines()
+    line2ret = [ s_ for s_ in file_lines if constants.LINT_BIND in s_]
+    cnt2ret = sum(constants.LINT_BIND in s_ for s_ in file_lines)
+    return cnt2ret, line2ret
+
+def getEmptyPwdCount():
+    file_lines = getOutputLines()
+    line2ret = [ s_ for s_ in file_lines if constants.LINT_EMPT in s_]
+    cnt2ret = sum(constants.LINT_EMPT in s_ for s_ in file_lines)
+    return cnt2ret, line2ret
+
 def parseOutput():
     '''
     Initialization
     '''
-    rul_hardcode_cnt, rul_susp_comm_cnt   = 0, 0
+    rul_hardcode_cnt,  rul_hardcode_lin   = 0, 0
     rul_susp_comm_cnt, rul_susp_comm_lin  = 0, 0
     rul_secr_loca_cnt, rul_secr_loca_lin  = 0, 0
     rul_md5_usage_cnt, rul_md5_usage_lin  = 0, 0
     rul_http_use_cnt,  rul_http_use_lin   = 0, 0
+    rul_bind_use_cnt,  rul_bind_use_lin   = 0, 0
+    rul_empt_pwd_cnt,  rul_empt_pwd_lin   = 0, 0
     '''
     '''
     num_lines = sum(1 for line_ in open(constants.OUTPUT_TMP_LOG))
@@ -80,11 +97,15 @@ def parseOutput():
         rul_secr_loca_cnt, rul_secr_loca_lin  = getSecretLocaCount()
         rul_md5_usage_cnt, rul_md5_usage_lin  = getMD5UsageCount()
         rul_http_use_cnt,  rul_http_use_lin   = getHTTPUsageCount()
+        rul_bind_use_cnt,  rul_bind_use_lin   = getBindUsageCount()
+        rul_empt_pwd_cnt,  rul_empt_pwd_lin   = getEmptyPwdCount()
 
     # this will be expanded
-    output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt, rul_http_use_cnt)
+    output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt,
+                  rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt)
     # this will be expanded
-    str2ret    = (rul_hardcode_lin, rul_susp_comm_lin, rul_secr_loca_lin, rul_md5_usage_lin, rul_http_use_lin)
+    str2ret    = (rul_hardcode_lin, rul_susp_comm_lin, rul_secr_loca_lin, rul_md5_usage_lin,
+                  rul_http_use_lin, rul_bind_use_lin, rul_empt_pwd_lin)
     return output2ret, str2ret
 
 

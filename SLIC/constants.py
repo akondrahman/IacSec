@@ -18,7 +18,10 @@ PP_LINT_TOOL = 'puppet-lint -l'
 PP_RULE_HARDCODE  = '../SPrules4pupp/no_hardcode_key.rb'
 PP_RULE_SUSP_COMM = '../SPrules4pupp/no_susp_comments.rb'
 PP_RULE_SECR_LOCA = '../SPrules4pupp/no_secret_location.rb'
-
+PP_RULE_MD5       = '../SPrules4pupp/no_md5.rb'
+PP_RULE_HTTP      = '../SPrules4pupp/no_http.rb'
+PP_RULE_BIND      = '../SPrules4pupp/no_full_binding.rb'
+PP_RULE_EMPTY_PWD = '../SPrules4pupp/no_empty_pwd.rb'
 #### CHEF ZONE
 ### PUPPET LINT AND ITS RULES
 CHEF_LINT_TOOL = 'foodcritic -I'
@@ -36,4 +39,6 @@ LINT_HARD   ='SECURITY:::HARD_CODED_SECRET_'
 LINT_SECRET ='SECURITY:::EXPOSING_SECRET_LOCATION:::'
 LINT_MD5    ='SECURITY:::MD5:::'
 LINT_HTTP   ='SECURITY:::HTTP:::'
+LINT_BIND   ='SECURITY:::BINDING_TO_ALL:::'
+LINT_EMPT   ='SECURITY:::EMPTY_PASSWORD:::'
 NEWLINE = '\n'
