@@ -19,7 +19,9 @@ PuppetLint.new_check(:no_susp_comments) do
            if ( single_line.include?('show_bug') || single_line.include?('hack') ||
                 single_line.include?('fixme')    || single_line.include?('later') ||
                 single_line.include?('later2')   || single_line.include?('todo') ||
-                single_line.include?('ticket')   || single_line.include?('launchpad') )
+                single_line.include?('ticket')   || single_line.include?('launchpad') ||
+                single_line.include?('bug')
+               )
                 #print "#{single_line} #{lineNo}\n"
                 #print "-----\n"
                 notify :warning, {

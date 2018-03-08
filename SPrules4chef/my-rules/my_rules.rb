@@ -128,7 +128,7 @@ end
 
 rule "SECURITY", "SUSPICOUS_COMMENTS" do
   tags %w{security akondrahman}
-  kw_list = ['show_bug', 'hack', 'fixme', 'later', 'later2', 'todo', 'ticket', 'launchpad']
+  kw_list = ['show_bug', 'hack', 'fixme', 'later', 'later2', 'todo', 'ticket', 'launchpad', 'bug']
   recipe do |ast_, filename_|
       matchCnt = 0
       lines  = []
@@ -197,7 +197,7 @@ rule "SECURITY", "Locations of secrets should not be exposed (V1)" do
                     (val2see.include? 'id')) && ((val2see.start_with? '/') || ((val2see.include? '\\') && (val2see.include? ':')))
                   )
                       # puts "VALUE: #{val2see}"
-                      print "SECURITY:::EXPOSING_SECRET_LOCATION:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
+                      print "SECURITY:::EXPOSING_SECRET_LOCATION_V1:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
                       print "\n"
                end
          end
@@ -222,22 +222,22 @@ rule "SECURITY", "IP Addresses should not be bound to 0.0.0.0 (V2)" do
       end
   end
 end
-# rule "SECURITY", "Locations of secrets should not be exposed (V2)" do
-#   tags %w{security akondrahman}
-#   recipe do |ast_, filename_|
-#       text_content=File.open(filename_).read
-#       text_content.gsub!(/\r\n?/, "\n")
-#       text_content.each_line do |line_as_str|
-#                single_line = line_as_str.downcase
-#                if (((single_line.include? 'rsa') || (single_line.include? 'ssh') || (single_line.include? 'pem') ||
-#                     (single_line.include? 'crt') || (single_line.include? 'key') || (single_line.include? 'ssl') ||
-#                     (single_line.include? 'certificate') || (single_line.include? 'crl') || (single_line.include? 'pub') ||
-#                     (single_line.include? 'id')) && ((single_line.include? '/') || ((single_line.include? '\\') && (single_line.include? ':')))
-#                   )
-#                       # puts "VALUE: #{single_line}"
-#                       print "SECURITY:::EXPOSING_SECRET_LOCATION_V2:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
-#                       print "\n"
-#                end
-#       end
-#   end
-# end
+rule "SECURITY", "Locations of secrets should not be exposed (V2)" do
+  tags %w{security akondrahman}
+  recipe do |ast_, filename_|
+      text_content=File.open(filename_).read
+      text_content.gsub!(/\r\n?/, "\n")
+      text_content.each_line do |line_as_str|
+               single_line = line_as_str.downcase
+               if (((single_line.include? 'rsa') || (single_line.include? 'ssh') || (single_line.include? 'pem') ||
+                    (single_line.include? 'crt') || (single_line.include? 'key') || (single_line.include? 'ssl') ||
+                    (single_line.include? 'certificate') || (single_line.include? 'crl') || (single_line.include? 'pub') ||
+                    (single_line.include? 'id')) && ((single_line.include? '/') || ((single_line.include? '\\') && (single_line.include? ':')))
+                  )
+                      # puts "VALUE: #{single_line}"
+                      print "SECURITY:::EXPOSING_SECRET_LOCATION_V2:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
+                      print "\n"
+               end
+      end
+  end
+end
