@@ -9,7 +9,8 @@ PuppetLint.new_check(:no_base64) do
            tokens.each do |indi_token|
                token_valu = indi_token.value ### this gives each token
                token_valu = token_valu.downcase
-               if token_valu.include? "base64"
+               token_type = indi_token.type.to_s
+               if (token_valu.include? "base64") && (!token_type.eql? "COMMENT")
                   notify :warning, {
                      message: 'SECURITY:::BASE64:::Do not use BASE64 for security, as it is a message encoding scheme. Use SHA-512.',
                      line:    indi_token.line,

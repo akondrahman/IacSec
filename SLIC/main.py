@@ -24,11 +24,11 @@ if __name__=='__main__':
    t1 = time.time()
    print 'Started at:', giveTimeStamp()
    print '*'*100
-   # ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_PUPPET.csv'
+   ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_PUPPET.csv'
 
-   ds_path = '/Users/akond/SECU_REPOS/test-chef/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_CHEF.csv'
+   # ds_path = '/Users/akond/SECU_REPOS/test-chef/'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_CHEF.csv'
 
    final_output_str = executor.sniffSmells(ds_path)
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str
@@ -40,6 +40,6 @@ if __name__=='__main__':
    print 'Ended at:', giveTimeStamp()
    print '*'*100
    t2 = time.time()
-   diff = t2 - t1
-   print "Duration: {} seconds".format(diff)
+   diff = (t2 - t1 ) / 60
+   print "Duration: {} minutes".format(diff)
    print '*'*100
