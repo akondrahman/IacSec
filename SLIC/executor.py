@@ -35,10 +35,11 @@ def sniffSmells(path_to_dir):
                     final_str      = final_str + lint_cnt_str
                     # print secu_lint_outp
                  elif (os.path.exists(full_p_file) and (constants.CH_DIR in full_p_file) and (full_p_file.endswith(constants.PP_EXT)==False)):
-                    secu_lint_outp = lint_engine.runLinter(full_p_file)
-                    lint_cnt_out   = secu_lint_outp[0]
-                    lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
-                    final_str      = final_str + lint_cnt_str
+                     print 'Analyzing:', full_p_file
+                     secu_lint_outp = lint_engine.runLinter(full_p_file)
+                     lint_cnt_out   = secu_lint_outp[0]
+                     lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
+                     final_str      = final_str + lint_cnt_str
                     # print secu_lint_outp
                  else:
                     print "Not analyzing, failed validity checks:", full_p_file

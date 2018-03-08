@@ -39,7 +39,7 @@ OUTPUT_TMP_LOG = 'TMP.LOG'
 ### LINT OUTPUT PARSING
 LINT_SUSP      ='SECURITY:::SUSPICOUS_COMMENTS:::'
 LINT_HARD      ='SECURITY:::HARD_CODED_SECRET_'        # to handle 2 versions
-LINT_SECRET    ='SECURITY:::EXPOSING_SECRET_LOCATION_' # to handle 2 versions 
+LINT_SECRET    ='SECURITY:::EXPOSING_SECRET_LOCATION_' # to handle 2 versions
 LINT_MD5       ='SECURITY:::MD5:::'
 LINT_HTTP      ='SECURITY:::HTTP:::'
 LINT_BIND      ='SECURITY:::BINDING_TO_ALL:::'
@@ -51,5 +51,5 @@ NEWLINE = '\n'
 ### HEADER STRING
 headerStr1 ='FILE_NAME,' + 'HARD_CODE_SECR,' + 'SUSP_COMM,' + 'SECR_LOCA,' + 'MD5_USAG,'
 headerStr2 ='HTTP_USAG,' + 'BIND_USAG,' + 'EMPT_PASS,' + 'DFLT_ADMN,'
-headerStr3 ='BASE_64,'   + 'MISS_DFLT,'
+headerStr3 ='BASE_64,'   + 'MISS_DFLT,' + 'TOTAL,'
 HEADER_STR =headerStr1 + headerStr2 + headerStr3
