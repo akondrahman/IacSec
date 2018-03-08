@@ -7,6 +7,7 @@ import executor
 import time
 import datetime
 import constants
+import os 
 
 def dumpContentIntoFile(strP, fileP):
     fileToWrite = open( fileP, 'w')
@@ -33,7 +34,8 @@ if __name__=='__main__':
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str
    print '*'*100
    print final_output_str
-   dumpContentIntoFile(final_output_str, output_file)
+   bytes_out = dumpContentIntoFile(final_output_str, output_file)
+   print 'Dumped output file of {} bytes'.format(bytes_out)
    print '*'*100
    print 'Ended at:', giveTimeStamp()
    print '*'*100
