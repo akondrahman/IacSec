@@ -48,6 +48,27 @@ def calcFeatureImp(feature_vec, label_vec, feature_names_param, output_file, rep
     output_status= dumpContentIntoFile(str2write, output_file)
     print 'Dumped the RF FEATURE IMPORTANCE file of {} bytes'.format(output_status)
 
+def calcRFE(feature_vec, label_vec, feature_names_param):
+    # http://blog.datadive.net/selecting-good-features-part-iv-stability-selection-rfe-and-everything-side-by-side/
+
+    from sklearn.feature_selection import RFE
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.naive_bayes import MultinomialNB
+
+    lr_estimator = LogisticRegression()
+    nb_estimator = MultinomialNB()
+    for estimator in (lr_estimator, nb_estimator):
+            selector  = RFE(estimator, 5, step=1)
+            selector  = selector.fit(feature_vec, label_vec)
+            elim_deci = selector.support_
+            all_ranks = selector.ranking_ # 1 means highest rank
+            for feature, deci in zip(feature_names_param, elim_deci):
+                print "METRIC:{},DECISION:{}".format(feature, deci)
+            print '*'*25
+            for feature, rank in zip(feature_names_param, all_ranks):
+                print "METRIC:{},RANK:{}".format(feature, rank)
+            print '='*50
+
 if __name__=='__main__':
    # ds_file_name       = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/OCT17_BASTION_FULL_PROCESS_DATASET.csv'
    # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/BASTION.csv'
@@ -66,12 +87,17 @@ if __name__=='__main__':
    # ds_file_name       = "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/reproc/DEFECT-Datasets/OPENSTACK_DEFECT_DATASET.csv"
    # ds_file_name="/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/NO-COMM-AGE/OST.csv"
    # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/OPENSTACK.csv'
-   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/emse/FI_OPENSTACK.csv'   
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/emse/FI_OPENSTACK.csv'
 
    # ds_file_name       = "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/reproc/DEFECT-Datasets/WIKIMEDIA_DEFECT_DATASET.csv"
    # ds_file_name="/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/NO-COMM-AGE/WIK.csv"
    # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/WIKIMEDIA.csv'
-   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/emse/FI_WIKIMEDIA.csv'   
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/emse/FI_WIKIMEDIA.csv'
+
+   # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Tree/dataset/PHASE7_MIRANTIS_FULL_DATASET.csv'
+   # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Tree/dataset/PHASE7_MOZ_FULL_DATASET.csv'
+   # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Tree/dataset/PHASE7_OST_FULL_DATASET.csv'
+   # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Tree/dataset/PHASE7_WIKI_FULL_DATASET.csv'   
 
 
    full_ds=readDataset(ds_file_name)
@@ -82,4 +108,8 @@ if __name__=='__main__':
    defected_file_count     = len([x_ for x_ in all_labels if x_==1.0])
    non_defected_file_count = len([x_ for x_ in all_labels if x_==0.0])
    feature_names = getColumnNames(ds_file_name, 2, feature_cols)
-   calcFeatureImp(all_features, all_labels, feature_names, output_file_param)
+   # calcFeatureImp(all_features, all_labels, feature_names, output_file_param)
+   print '='*100
+   print ds_file_name
+   calcRFE(all_features, all_labels, feature_names)
+   print '='*100
