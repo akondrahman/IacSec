@@ -21,6 +21,14 @@ def buildOutput(output_tuple, file_name):
     str2ret = file_name + ',' + str_out + '\n'
     return str2ret
 
+
+def getMonthData(file_p, dir_p):
+    temp_     = file_p.replace(dir_p, '')
+    time_dir  = temp_.split('/')[0]
+    time_list = time_dir.split('-')
+    month2ret = time_list[1] + '-' + time_list[2] + ','
+    return month2ret
+
 def sniffSmells(path_to_dir):
     final_str = ''
     for root_, dirs, files_ in os.walk(path_to_dir):
@@ -29,17 +37,19 @@ def sniffSmells(path_to_dir):
                  full_p_file = os.path.join(root_, file_)
                  if (os.path.exists(full_p_file) and checkValidity(full_p_file) and (full_p_file.endswith(constants.CH_EXT)==False)):
                     print 'Analyzing:', full_p_file
+                    month_str      = getMonthData(full_p_file, path_to_dir)
                     secu_lint_outp = lint_engine.runLinter(full_p_file)
                     lint_cnt_out   = secu_lint_outp[0]
                     lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
-                    final_str      = final_str + lint_cnt_str
+                    final_str      = final_str + month_str + lint_cnt_str
                     # print secu_lint_outp
                  elif (os.path.exists(full_p_file) and (constants.CH_DIR in full_p_file) and (full_p_file.endswith(constants.PP_EXT)==False)):
                      print 'Analyzing:', full_p_file
+                     month_str      = getMonthData(full_p_file, path_to_dir)
                      secu_lint_outp = lint_engine.runLinter(full_p_file)
                      lint_cnt_out   = secu_lint_outp[0]
                      lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
-                     final_str      = final_str + lint_cnt_str
+                     final_str      = final_str + month_str + lint_cnt_str
                     # print secu_lint_outp
                  else:
                     print "Not analyzing, failed validity checks:", full_p_file
