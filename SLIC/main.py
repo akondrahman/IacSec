@@ -24,11 +24,12 @@ if __name__=='__main__':
    t1 = time.time()
    print 'Started at:', giveTimeStamp()
    print '*'*100
-   ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_PUPPET.csv'
 
-   # ds_path = '/Users/akond/SECU_REPOS/test-chef/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_CHEF.csv'
+   # ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/TEST_PUPPET.csv'
+
+   ds_path = '/Users/akond/SECU_REPOS/test-chef/'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/TEST_CHEF.csv'
 
    final_output_str = executor.sniffSmells(ds_path)
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str
