@@ -11,7 +11,7 @@ import numpy as np
 def generateOutput(path2file):
     ## Add rules to check automatically here
     if(path2file.endswith(constants.PP_EXT)):
-        ## this list is not used anymore , as all rules are in one lint check file 
+        ## this list is not used anymore , as all rules are in one lint check file
         # rulesToCheck = [constants.PP_RULE_HARDCODE, constants.PP_RULE_SUSP_COMM, constants.PP_RULE_SECR_LOCA,
         #                 constants.PP_RULE_MD5, constants.PP_RULE_HTTP, constants.PP_RULE_BIND,
         #                 constants.PP_RULE_EMPTY_PWD, constants.PP_RULE_DEFAU_ADM, constants.PP_RULE_BASE64
@@ -30,68 +30,57 @@ def generateOutput(path2file):
            print constants.EXCEPTION + str(e_)
         # raise RuntimeError("command '{}' return with error (code {}): {}".format(e_.cmd, e_.returncode, e_.output))
 
-def getOutputLines():
-    file_ = open(constants.OUTPUT_TMP_LOG, 'rU')
-    file_str = file_.read()
+def getOutputLines(file_p):
+    file_str = file_p.read()
     file_lines = file_str.split(constants.NEWLINE)
     return file_lines
 
-def getHardCodeCount():
-    file_lines = getOutputLines()
+def getHardCodeCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_HARD in s_]
     cnt2ret = sum(constants.LINT_HARD in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
-def getSuspCommCount():
-    file_lines = getOutputLines()
+def getSuspCommCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_SUSP in s_]
     cnt2ret = sum(constants.LINT_SUSP in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
-def getSecretLocaCount():
-    file_lines = getOutputLines()
+def getSecretLocaCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_SECRET in s_]
     cnt2ret = sum(constants.LINT_SECRET in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
-def getMD5UsageCount():
-    file_lines = getOutputLines()
+def getMD5UsageCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_MD5 in s_]
     cnt2ret = sum(constants.LINT_MD5 in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
-def getHTTPUsageCount():
-    file_lines = getOutputLines()
+def getHTTPUsageCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_HTTP in s_]
     cnt2ret = sum(constants.LINT_HTTP in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
-def getBindUsageCount():
-    file_lines = getOutputLines()
+def getBindUsageCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_BIND in s_]
     cnt2ret = sum(constants.LINT_BIND in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
-def getEmptyPwdCount():
-    file_lines = getOutputLines()
+def getEmptyPwdCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_EMPT in s_]
     cnt2ret = sum(constants.LINT_EMPT in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
-def getDefaultAdminCount():
-    file_lines = getOutputLines()
+def getDefaultAdminCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_DEF_ADM in s_]
     cnt2ret = sum(constants.LINT_DEF_ADM in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
-def getBase64Count():
-    file_lines = getOutputLines()
+def getBase64Count(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_BASE64 in s_]
     cnt2ret = sum(constants.LINT_BASE64 in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
-def getMissingDefaultCount():
-    file_lines = getOutputLines()
+def getMissingDefaultCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_MIS_DEFAU in s_]
     cnt2ret = sum(constants.LINT_MIS_DEFAU in s_ for s_ in file_lines)
     if cnt2ret > 0:
@@ -117,19 +106,21 @@ def parseOutput():
     rul_mis_case_cnt,  rul_mis_case_lin   = 0, 0
     '''
     '''
-    num_lines = sum(1 for line_ in open(constants.OUTPUT_TMP_LOG))
+    file_ = open(constants.OUTPUT_TMP_LOG, 'rU')
+    num_lines = sum(1 for line_ in file_)
     # print 'Genrated a log file of {} lines'.format(num_lines)
     if num_lines > 0:
-        rul_hardcode_cnt,  rul_hardcode_lin   = getHardCodeCount()
-        rul_susp_comm_cnt, rul_susp_comm_lin  = getSuspCommCount()
-        rul_secr_loca_cnt, rul_secr_loca_lin  = getSecretLocaCount()
-        rul_md5_usage_cnt, rul_md5_usage_lin  = getMD5UsageCount()
-        rul_http_use_cnt,  rul_http_use_lin   = getHTTPUsageCount()
-        rul_bind_use_cnt,  rul_bind_use_lin   = getBindUsageCount()
-        rul_empt_pwd_cnt,  rul_empt_pwd_lin   = getEmptyPwdCount()
-        rul_defa_adm_cnt,  rul_defa_adm_lin   = getDefaultAdminCount()
-        rul_base64_cnt,    rul_base64_lin     = getBase64Count()
-        rul_mis_case_cnt,  rul_mis_case_lin   = getMissingDefaultCount()
+        file_lines = getOutputLines(file_)
+        rul_hardcode_cnt,  rul_hardcode_lin   = getHardCodeCount(file_lines)
+        rul_susp_comm_cnt, rul_susp_comm_lin  = getSuspCommCount(file_lines)
+        rul_secr_loca_cnt, rul_secr_loca_lin  = getSecretLocaCount(file_lines)
+        rul_md5_usage_cnt, rul_md5_usage_lin  = getMD5UsageCount(file_lines)
+        rul_http_use_cnt,  rul_http_use_lin   = getHTTPUsageCount(file_lines)
+        rul_bind_use_cnt,  rul_bind_use_lin   = getBindUsageCount(file_lines)
+        rul_empt_pwd_cnt,  rul_empt_pwd_lin   = getEmptyPwdCount(file_lines)
+        rul_defa_adm_cnt,  rul_defa_adm_lin   = getDefaultAdminCount(file_lines)
+        rul_base64_cnt,    rul_base64_lin     = getBase64Count(file_lines)
+        rul_mis_case_cnt,  rul_mis_case_lin   = getMissingDefaultCount(file_lines)
 
     # this will be expanded
     output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt,
