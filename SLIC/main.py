@@ -28,14 +28,14 @@ if __name__=='__main__':
    '''
    PUPPET DIRECTORIES
    '''
-   # ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/TEST_PUPPET.csv'
+   ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/TEST_PUPPET.csv'
 
    # ds_path = '/Users/akond/SECU_REPOS/mozi-pupp/'
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_MOZILLA_PUPPET.csv'
 
-   ds_path = '/Users/akond/SECU_REPOS/wiki-pupp/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_WIKIMEDIA_PUPPET.csv'
+   # ds_path = '/Users/akond/SECU_REPOS/wiki-pupp/'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_WIKIMEDIA_PUPPET.csv'
    '''
    CHEF DIRECTORIES
    '''

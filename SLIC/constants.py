@@ -37,6 +37,7 @@ CHEF_ALL_RULES = '../SPrules4chef/my-rules/my_rules.rb'
 REDIRECT_NEW = '>'
 REDIRECT_APP = '>>'
 OUTPUT_TMP_LOG = 'TMP.LOG'
+FILE_OPEN_MODE = 'rU'
 ### LINT OUTPUT PARSING
 LINT_SUSP      ='SECURITY:::SUSPICOUS_COMMENTS:::'
 LINT_HARD      ='SECURITY:::HARD_CODED_SECRET_'        # to handle 2 versions

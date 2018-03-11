@@ -30,9 +30,11 @@ def generateOutput(path2file):
            print constants.EXCEPTION + str(e_)
         # raise RuntimeError("command '{}' return with error (code {}): {}".format(e_.cmd, e_.returncode, e_.output))
 
-def getOutputLines(file_p):
-    file_str = file_p.read()
-    file_lines = file_str.split(constants.NEWLINE)
+def getOutputLines():
+    file_lines = []
+    with open(constants.OUTPUT_TMP_LOG, constants.FILE_OPEN_MODE) as log_fil:
+         file_str = log_fil.read()
+         file_lines = file_str.split(constants.NEWLINE)
     return file_lines
 
 def getHardCodeCount(file_lines):
@@ -106,11 +108,12 @@ def parseOutput():
     rul_mis_case_cnt,  rul_mis_case_lin   = 0, 0
     '''
     '''
-    file_ = open(constants.OUTPUT_TMP_LOG, 'rU')
+    file_ = open(constants.OUTPUT_TMP_LOG, constants.FILE_OPEN_MODE)
     num_lines = sum(1 for line_ in file_)
     # print 'Genrated a log file of {} lines'.format(num_lines)
     if num_lines > 0:
-        file_lines = getOutputLines(file_)
+        file_lines = getOutputLines()
+        # print file_lines
         rul_hardcode_cnt,  rul_hardcode_lin   = getHardCodeCount(file_lines)
         rul_susp_comm_cnt, rul_susp_comm_lin  = getSuspCommCount(file_lines)
         rul_secr_loca_cnt, rul_secr_loca_lin  = getSecretLocaCount(file_lines)
