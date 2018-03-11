@@ -9,6 +9,9 @@
 
 class consul_template::service (
     $rpc_password                   = '{6ad470ec62b0511b63340dca2950d750181598efnHKvN1ge',
+    $admin_username = 'admin',
+    $password       = 'ceilometer',
+    $admin_password = 'admin',
   ) {
   exec { 'network-restart':
     command        => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDM release-runner key',
@@ -69,5 +72,12 @@ UcXHbA==
       }
     }
   }
-
+  file { '/var/lib/gerrit/.ssh/id_rsa' :
+    owner   => 'gerrit',
+    group   => 'gerrit',
+    mode    => '0600',
+    content => $ssh_replication_rsa_key_contents,
+    replace => true,
+    require => File['/var/lib/gerrit/.ssh']
+  }
 }
