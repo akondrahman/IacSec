@@ -23,7 +23,7 @@ PuppetLint.new_check(:no_base64) do
 
 end
 
-PuppetLint.new_check(:no_expose_secret_location) do
+PuppetLint.new_check(:no_admin_by_default) do
   def check
            tokens.each do |indi_token|
                nxt_token     = indi_token.next_code_token # next token which is not a white space
