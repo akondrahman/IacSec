@@ -11,11 +11,12 @@ import numpy as np
 def generateOutput(path2file):
     ## Add rules to check automatically here
     if(path2file.endswith(constants.PP_EXT)):
-        ## this list will be expnaded
-        rulesToCheck = [constants.PP_RULE_HARDCODE, constants.PP_RULE_SUSP_COMM, constants.PP_RULE_SECR_LOCA,
-                        constants.PP_RULE_MD5, constants.PP_RULE_HTTP, constants.PP_RULE_BIND,
-                        constants.PP_RULE_EMPTY_PWD, constants.PP_RULE_DEFAU_ADM, constants.PP_RULE_BASE64
-                       ]
+        ## this list is not used anymore , as all rules are in one lint check file 
+        # rulesToCheck = [constants.PP_RULE_HARDCODE, constants.PP_RULE_SUSP_COMM, constants.PP_RULE_SECR_LOCA,
+        #                 constants.PP_RULE_MD5, constants.PP_RULE_HTTP, constants.PP_RULE_BIND,
+        #                 constants.PP_RULE_EMPTY_PWD, constants.PP_RULE_DEFAU_ADM, constants.PP_RULE_BASE64
+        #                ]
+        rulesToCheck = [constants.PP_RULE_ALL_IN_ONE]
         lintToolCmd = constants.PP_LINT_TOOL
     else:
         rulesToCheck = [constants.CHEF_ALL_RULES]
@@ -117,7 +118,7 @@ def parseOutput():
     '''
     '''
     num_lines = sum(1 for line_ in open(constants.OUTPUT_TMP_LOG))
-    print 'Genrated a log file of {} lines'.format(num_lines)
+    # print 'Genrated a log file of {} lines'.format(num_lines)
     if num_lines > 0:
         rul_hardcode_cnt,  rul_hardcode_lin   = getHardCodeCount()
         rul_susp_comm_cnt, rul_susp_comm_lin  = getSuspCommCount()

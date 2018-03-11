@@ -25,11 +25,22 @@ if __name__=='__main__':
    print 'Started at:', giveTimeStamp()
    print '*'*100
 
+   '''
+   PUPPET DIRECTORIES
+   '''
    # ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/TEST_PUPPET.csv'
 
-   ds_path = '/Users/akond/SECU_REPOS/test-chef/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/TEST_CHEF.csv'
+   # ds_path = '/Users/akond/SECU_REPOS/mozi-pupp/'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_MOZILLA_PUPPET.csv'
+
+   ds_path = '/Users/akond/SECU_REPOS/wiki-pupp/'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_WIKIMEDIA_PUPPET.csv'
+   '''
+   CHEF DIRECTORIES
+   '''
+   # ds_path = '/Users/akond/SECU_REPOS/test-chef/'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/TEST_CHEF.csv'
 
    final_output_str = executor.sniffSmells(ds_path)
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str

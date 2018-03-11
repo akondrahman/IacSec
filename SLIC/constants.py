@@ -24,6 +24,7 @@ PP_RULE_BIND      = '../SPrules4pupp/no_full_binding.rb'
 PP_RULE_EMPTY_PWD = '../SPrules4pupp/no_empty_pwd.rb'
 PP_RULE_DEFAU_ADM = '../SPrules4pupp/no_default_admin.rb'
 PP_RULE_BASE64    = '../SPrules4pupp/no_base64.rb'
+PP_RULE_ALL_IN_ONE= '../SPrules4pupp/all_in_one.rb'
 NO_OF_RULES       = 9
 #### CHEF ZONE
 ### PUPPET LINT AND ITS RULES
