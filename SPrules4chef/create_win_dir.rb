@@ -68,3 +68,18 @@ when 'rhel'
     action :deploy
   end
 end
+
+
+template "/etc/keystone/key.pem" do
+    source "keystone-key.pem.erb"
+    owner "keystone"
+    group "keystone"
+    mode "0600"
+    notifies :restart, "service[apache2]", :delayed
+    hba_configuration(
+      [
+        { type: 'host', database: 'all', user: 'all', address: '0.0.0.0/0', method: 'md5' },
+        { type: 'host', database: 'replication', user: 'postgres', address: '127.0.0.1/32', method: 'trust' },
+      ]
+    )
+end
