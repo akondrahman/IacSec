@@ -143,7 +143,12 @@ PuppetLint.new_check(:no_hardcode_secret_v1) do
                                 (token_valu.include? "secret") || (token_valu.include? "certificate") || (token_valu.include? "id") ||
                                 (token_valu.include? "cert") || (token_valu.include? "token") || (token_valu.include? "ssh_key") ||
                                 (token_valu.include? "md5") || (token_valu.include? "rsa") || (token_valu.include? "ssl")
-                               ) && ((nxt_nxt_val.length > 0)) && ((!nxt_nxt_type.eql? 'VARIABLE')) && ((!nxt_nxt_val.include? "(")))
+                               ) && ((nxt_nxt_val.length > 0)) && ((!nxt_nxt_type.eql? 'VARIABLE')) &&
+                               ((!nxt_nxt_val.include? "(") && (!nxt_nxt_val.include? 'undef') && (!nxt_nxt_val.include? 'true') && (!nxt_nxt_val.include? 'false') &&
+                                (!nxt_nxt_val.include? 'hiera') && (!nxt_nxt_val.include? 'secret') && (!nxt_nxt_val.include? 'union') && (!nxt_nxt_val.include? '${')
+                               )
+                              )
+                                 # && (nxt_nxt_val.is_a? String)
                                  # puts "KEY,PAIR,CURR_TYPE,NEXT_TYPE----->#{token_valu}, #{nxt_nxt_val}, #{token_type}, #{nxt_nxt_type}"
                                  notify :warning, {
                                     message: 'SECURITY:::HARD_CODED_SECRET_V1:::Do not hard code secrets. This may help an attacker to attack the system. You can use hiera to avoid this issue.',
@@ -291,11 +296,11 @@ PuppetLint.new_check(:no_susp_comments) do
            ### check if those keywords exist
            single_line=single_line.downcase
            single_line=single_line.strip
-           if ( single_line.include?('show_bug') || single_line.include?('hack') ||
+           if  ( (single_line.include?('show_bug') || single_line.include?('hack') ||
                 single_line.include?('fixme')    || single_line.include?('later') ||
                 single_line.include?('later2')   || single_line.include?('todo') ||
                 single_line.include?('ticket')   || single_line.include?('launchpad') ||
-                single_line.include?('bug')
+                single_line.include?('bug') ) && (!single_line.include?('debug'))
                )
                 #print "#{single_line} #{lineNo}\n"
                 #print "-----\n"
