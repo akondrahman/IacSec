@@ -30,7 +30,17 @@ def getMonthData(file_p, dir_p):
     return month2ret
 
 def buildSymOut(sym_tup_par, mon_par, fil_par):
-    str2ret  = ''
+    type_dict = {0:constants.LINT_HARD,
+                 1:constants.LINT_SUSP,
+                 2:constants.LINT_SECRET,
+                 3:constants.LINT_MD5,
+                 4:constants.LINT_HTTP,
+                 5:constants.LINT_BIND,
+                 6:constants.LINT_EMPT,
+                 7:constants.LINT_DEF_ADM,
+                 8:constants.LINT_BASE64
+                }
+    str2ret   = ''
     for ind_ in xrange(len(sym_tup_par)):
         type_str=type_dict[ind_]
         str_list=sym_tup_par[ind_]
