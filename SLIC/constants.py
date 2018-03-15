@@ -49,9 +49,11 @@ LINT_EMPT      ='SECURITY:::EMPTY_PASSWORD:::'
 LINT_DEF_ADM   ='SECURITY:::ADMIN_BY_DEFAULT:::'
 LINT_BASE64    ='SECURITY:::BASE64:::'
 LINT_MIS_DEFAU ='WARNING: case statement without a default case'
-NEWLINE = '\n'
+NEWLINE   = '\n'
+AT_SYMBOL = '@'
 ### HEADER STRING
 headerStr1 = 'MONTH,'    + 'FILE_NAME,' + 'HARD_CODE_SECR,' + 'SUSP_COMM,' + 'SECR_LOCA,'
 headerStr2 = 'MD5_USAG,' + 'HTTP_USAG,' + 'BIND_USAG,' + 'EMPT_PASS,' + 'DFLT_ADMN,'
 headerStr3 = 'BASE_64,'  + 'MISS_DFLT,' + 'TOTAL,'
 HEADER_STR = headerStr1 + headerStr2 + headerStr3
+SYM_HEAD   = 'MONTH,FILE,SYMBOL,TYPE'

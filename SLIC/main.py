@@ -43,22 +43,23 @@ if __name__=='__main__':
    '''
    CHEF DIRECTORIES
    '''
-   # ds_path = '/Users/akond/SECU_REPOS/test-chef/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/TEST_CHEF.csv'
+   ds_path = '/Users/akond/SECU_REPOS/test-chef/'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/TEST_CHEF.csv'
 
    # ds_path = '/Users/akond/SECU_REPOS/berg-chef/'
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_BERG_CHEF.csv'
 
-   ds_path = '/Users/akond/SECU_REPOS/cdat-chef/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_CDAT_CHEF.csv'
+   # ds_path = '/Users/akond/SECU_REPOS/cdat-chef/'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_CDAT_CHEF.csv'
 
    # ds_path = '/Users/akond/SECU_REPOS/expr-chef/'
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_EXPR_CHEF.csv'
 
-   final_output_str = executor.sniffSmells(ds_path)
+   final_output_str, final_symbol_str = executor.sniffSmells(ds_path) # 1. count, 2. symbols for whcih we observe smells
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str
+   final_symbol_str = constants.SYM_HEAD + '\n' +  final_symbol_str
    print '*'*100
-   # print final_output_str
+   print final_symbol_str
    bytes_out = dumpContentIntoFile(final_output_str, output_file)
    print 'Dumped output file of {} bytes'.format(bytes_out)
    print '*'*100

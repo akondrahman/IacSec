@@ -29,9 +29,19 @@ def getMonthData(file_p, dir_p):
     month2ret = time_list[-2] + '-' + time_list[-1] + ','
     return month2ret
 
+def buildSymOut(sym_tup_par, mon_par, fil_par):
+    str2ret  = ''
+    for ind_ in xrange(len(sym_tup_par)):
+        type_str=type_dict[ind_]
+        str_list=sym_tup_par[ind_]
+        for str_ in str_list:
+            str2ret = str2ret + mon_par + ',' + fil_par + ',' + type_str + ',' + str_ + ',' + '\n'
+    return str2ret
+
 def sniffSmells(path_to_dir):
     counter = 0
     final_str = ''
+    all_sym_str = ''
     for root_, dirs, files_ in os.walk(path_to_dir):
        for file_ in files_:
            if (file_.endswith(constants.PP_EXT) or file_.endswith(constants.CH_EXT)):
@@ -45,16 +55,22 @@ def sniffSmells(path_to_dir):
                     lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
                     final_str      = final_str + month_str + lint_cnt_str
                     # print secu_lint_outp
+                    '''
+                    for same/new checking data
+                    '''
+                    symbol_out       = secu_lint_outp[1] # a tuple, where each element is a list of strs
+                    per_file_sym_str = buildSymOut(symbol_out, month_str, full_p_file)
+                    all_sym_str      = all_sym_str + per_file_sym_str
                  elif (os.path.exists(full_p_file) and (constants.CH_DIR in full_p_file) and (full_p_file.endswith(constants.PP_EXT)==False)):
-                     counter += 1 
+                     counter += 1
                      print 'Analyzing:{},Index:{}'.format(full_p_file, counter)
                      month_str      = getMonthData(full_p_file, path_to_dir)
                      secu_lint_outp = lint_engine.runLinter(full_p_file)
                      lint_cnt_out   = secu_lint_outp[0]
                      lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
                      final_str      = final_str + month_str + lint_cnt_str
-                    # print secu_lint_outp
+                     # print secu_lint_outp
                  else:
-                    print "Not analyzing, failed validity checks:", full_p_file
+                     print "Not analyzing, failed validity checks:", full_p_file
                  print "="*50
-    return final_str
+    return final_str, all_sym_str

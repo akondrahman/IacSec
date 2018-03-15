@@ -39,51 +39,61 @@ def getOutputLines():
 
 def getHardCodeCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_HARD in s_]
+    line2ret = [str_.split(constants.AT_SYMBOL)[1] for str_ in line2ret if constants.AT_SYMBOL in str_]
     cnt2ret = sum(constants.LINT_HARD in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
 def getSuspCommCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_SUSP in s_]
+    line2ret = [str_.split(constants.AT_SYMBOL)[1] for str_ in line2ret if constants.AT_SYMBOL in str_]
     cnt2ret = sum(constants.LINT_SUSP in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
 def getSecretLocaCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_SECRET in s_]
+    line2ret = [str_.split(constants.AT_SYMBOL)[1] for str_ in line2ret if constants.AT_SYMBOL in str_]
     cnt2ret = sum(constants.LINT_SECRET in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
 def getMD5UsageCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_MD5 in s_]
+    line2ret = [str_.split(constants.AT_SYMBOL)[1] for str_ in line2ret if constants.AT_SYMBOL in str_]
     cnt2ret = sum(constants.LINT_MD5 in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
 def getHTTPUsageCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_HTTP in s_]
+    line2ret = [str_.split(constants.AT_SYMBOL)[1] for str_ in line2ret if constants.AT_SYMBOL in str_]
     cnt2ret = sum(constants.LINT_HTTP in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
 def getBindUsageCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_BIND in s_]
+    line2ret = [str_.split(constants.AT_SYMBOL)[1] for str_ in line2ret if constants.AT_SYMBOL in str_]
     cnt2ret = sum(constants.LINT_BIND in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
 def getEmptyPwdCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_EMPT in s_]
+    line2ret = [str_.split(constants.AT_SYMBOL)[1] for str_ in line2ret if constants.AT_SYMBOL in str_]
     cnt2ret = sum(constants.LINT_EMPT in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
 def getDefaultAdminCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_DEF_ADM in s_]
+    line2ret = [str_.split(constants.AT_SYMBOL)[1] for str_ in line2ret if constants.AT_SYMBOL in str_]
     cnt2ret = sum(constants.LINT_DEF_ADM in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
 def getBase64Count(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_BASE64 in s_]
+    line2ret = [str_.split(constants.AT_SYMBOL)[1] for str_ in line2ret if constants.AT_SYMBOL in str_]
     cnt2ret = sum(constants.LINT_BASE64 in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
 def getMissingDefaultCount(file_lines):
     line2ret = [ s_ for s_ in file_lines if constants.LINT_MIS_DEFAU in s_]
+    line2ret = [str_.split(constants.AT_SYMBOL)[1] for str_ in line2ret if constants.AT_SYMBOL in str_]
     cnt2ret = sum(constants.LINT_MIS_DEFAU in s_ for s_ in file_lines)
     if cnt2ret > 0:
         line2ret = list(np.unique(line2ret))
