@@ -12,7 +12,7 @@ PuppetLint.new_check(:no_base64) do
                token_type = indi_token.type.to_s
                if (token_valu.include? "base64") && (!token_type.eql? "COMMENT")
                   notify :warning, {
-                     message: 'SECURITY:::BASE64:::Do not use BASE64 for security, as it is a message encoding scheme. Use SHA-512.',
+                     message: 'SECURITY:::BASE64:::Do not use BASE64 for security, as it is a message encoding scheme. Use SHA-512.@'+token_valu+'@',
                      line:    indi_token.line,
                      column:  indi_token.column,
                      token:   token_valu
@@ -47,7 +47,7 @@ PuppetLint.new_check(:no_admin_by_default) do
                                 if ((nxt_nxt_val.include? 'admin') && (token_val.include? 'user')) ||
                                    ((token_val.include? 'admin') && (token_val.include? 'user'))
                                    notify :warning, {
-                                     message: 'SECURITY:::ADMIN_BY_DEFAULT:::Do not make default user as admin. This violates the secure by design principle.',
+                                     message: 'SECURITY:::ADMIN_BY_DEFAULT:::Do not make default user as admin. This violates the secure by design principle.@'+token_val+'@',
                                      line:    indi_token.line,
                                      column:  indi_token.column,
                                      token:   token_val
@@ -84,7 +84,7 @@ PuppetLint.new_check(:no_empty_pass) do
                            # puts "KEY,PAIR----->#{token_valu}, #{nxt_nxt_val}"
                            if (((token_valu.include? "pwd") || (token_valu.include? "password") || (token_valu.include? "pass")) && ((nxt_nxt_val.length <=0) || (nxt_nxt_val.eql?' ')))
                               notify :warning, {
-                                message: 'SECURITY:::EMPTY_PASSWORD:::Do not keep password field empty. This may help an attacker to attack. You can use hiera to avoid this issue.',
+                                message: 'SECURITY:::EMPTY_PASSWORD:::Do not keep password field empty. This may help an attacker to attack. You can use hiera to avoid this issue.@'+token_valu+'@',
                                 line:    indi_token.line,
                                 column:  indi_token.column,
                                 token:   token_valu
@@ -105,7 +105,7 @@ PuppetLint.new_check(:no_full_binding) do
                token_type = indi_token.type.to_s
                if (token_valu.include? "0.0.0.0") && (!token_type.eql? "COMMENT")
                   notify :warning, {
-                     message: 'SECURITY:::BINDING_TO_ALL:::Do not bind to 0.0.0.0. This may cause a DDOS attack. Restrict your available IPs.',
+                     message: 'SECURITY:::BINDING_TO_ALL:::Do not bind to 0.0.0.0. This may cause a DDOS attack. Restrict your available IPs.@'+token_valu+'@',
                      line:    indi_token.line,
                      column:  indi_token.column,
                      token:   token_valu
@@ -145,13 +145,14 @@ PuppetLint.new_check(:no_hardcode_secret_v1) do
                                 (token_valu.include? "md5") || (token_valu.include? "rsa") || (token_valu.include? "ssl")
                                ) && ((nxt_nxt_val.length > 0)) && ((!nxt_nxt_type.eql? 'VARIABLE')) &&
                                ((!nxt_nxt_val.include? "(") && (!nxt_nxt_val.include? 'undef') && (!nxt_nxt_val.include? 'true') && (!nxt_nxt_val.include? 'false') &&
-                                (!nxt_nxt_val.include? 'hiera') && (!nxt_nxt_val.include? 'secret') && (!nxt_nxt_val.include? 'union') && (!nxt_nxt_val.include? '${')
+                                (!nxt_nxt_val.include? 'hiera') && (!nxt_nxt_val.include? 'secret') && (!nxt_nxt_val.include? 'union') && (!nxt_nxt_val.include? '${') &&
+                                (!nxt_nxt_val.include? '$')
                                )
                               )
                                  # && (nxt_nxt_val.is_a? String)
                                  # puts "KEY,PAIR,CURR_TYPE,NEXT_TYPE----->#{token_valu}, #{nxt_nxt_val}, #{token_type}, #{nxt_nxt_type}"
                                  notify :warning, {
-                                    message: 'SECURITY:::HARD_CODED_SECRET_V1:::Do not hard code secrets. This may help an attacker to attack the system. You can use hiera to avoid this issue.',
+                                    message: 'SECURITY:::HARD_CODED_SECRET_V1:::Do not hard code secrets. This may help an attacker to attack the system. You can use hiera to avoid this issue.@'+token_valu+'@',
                                     line:    indi_token.line,
                                     column:  indi_token.column,
                                     token:   token_valu
@@ -189,7 +190,7 @@ PuppetLint.new_check(:no_hardcode_secret_v2) do
 
                            if ((nxt_nxt_val.length > 0) && (!nxt_nxt_type.eql? 'VARIABLE') && (nxt_nxt_val.include? 'ssh-rsa'))
                                  notify :warning, {
-                                    message: 'SECURITY:::HARD_CODED_SECRET_V2:::Do not hard code secrets. This may help an attacker to attack the system. You can use hiera to avoid this issue.',
+                                    message: 'SECURITY:::HARD_CODED_SECRET_V2:::Do not hard code secrets. This may help an attacker to attack the system. You can use hiera to avoid this issue.@'+token_valu+'@',
                                     line:    indi_token.line,
                                     column:  indi_token.column,
                                     token:   token_valu
@@ -210,7 +211,7 @@ PuppetLint.new_check(:no_http) do
                token_type = indi_token.type.to_s
                if (token_valu.include? "http://" ) && (!token_type.eql? "COMMENT")
                   notify :warning, {
-                     message: 'SECURITY:::HTTP:::Do not use HTTP without TLS. This may cause a man in the middle attack. Use TLS with HTTP.',
+                     message: 'SECURITY:::HTTP:::Do not use HTTP without TLS. This may cause a man in the middle attack. Use TLS with HTTP.@'+token_valu+'@',
                      line:    indi_token.line,
                      column:  indi_token.column,
                      token:   token_valu
@@ -232,7 +233,7 @@ PuppetLint.new_check(:no_md5) do
                token_type = indi_token.type.to_s
                if (token_valu.include? "md5") && (!token_type.eql? "COMMENT")
                   notify :warning, {
-                     message: 'SECURITY:::MD5:::Do not use MD5, as it has security weakness. Use SHA-512.',
+                     message: 'SECURITY:::MD5:::Do not use MD5, as it has security weakness. Use SHA-512.@' + token_valu+'@',
                      line:    indi_token.line,
                      column:  indi_token.column,
                      token:   token_valu
@@ -249,7 +250,7 @@ PuppetLint.new_check(:no_expose_secret_location) do
                if (!nxt_token.nil?) && (!indi_token.nil?)
                   token_type   = indi_token.type.to_s ### this gives type for current token
 
-                  token_line   = indi_token.line ### this gives type for current token
+                  token_line   = indi_token.line ### this gives line for current token
                   nxt_tok_line = nxt_token.line
 
                   nxt_nxt_token =  nxt_token.next_code_token # get the next next token to get key value pair
@@ -258,6 +259,8 @@ PuppetLint.new_check(:no_expose_secret_location) do
                      nxt_nxt_line = nxt_nxt_token.line
                      if (token_type.eql? 'NAME') || (token_type.eql? 'VARIABLE') || (token_type.eql? 'SSTRING')
                         if (token_line==nxt_nxt_line)
+                           token_val   = indi_token.value.downcase ### this gives value for current token
+
                            nxt_nxt_val = nxt_nxt_token.value.downcase
                            nxt_nxt_typ = nxt_nxt_token.type.to_s
                            # puts "PAIR,PAIR_TYPE----->#{nxt_nxt_val}, #{nxt_nxt_typ}"
@@ -270,7 +273,7 @@ PuppetLint.new_check(:no_expose_secret_location) do
                                 (nxt_nxt_typ.eql? 'SSTRING')
                               )
                               notify :warning, {
-                                message: 'SECURITY:::EXPOSING_SECRET_LOCATION:::Do not expose location of secrets. This may help an attacker to attack. You can use hiera to avoid this issue.',
+                                message: 'SECURITY:::EXPOSING_SECRET_LOCATION:::Do not expose location of secrets. This may help an attacker to attack. You can use hiera to avoid this issue.@' + token_val+'@',
                                 line:    nxt_nxt_token.line,
                                 column:  nxt_nxt_token.column,
                                 token:   nxt_nxt_val
@@ -305,7 +308,7 @@ PuppetLint.new_check(:no_susp_comments) do
                 #print "#{single_line} #{lineNo}\n"
                 #print "-----\n"
                 notify :warning, {
-                  message: 'SECURITY:::SUSPICOUS_COMMENTS:::Do not expose sensitive information=>' + single_line,
+                  message: 'SECURITY:::SUSPICOUS_COMMENTS:::Do not expose sensitive information@' + single_line+'@',
                   line:    lineNo,
                   column:   5   #no columsn for comment lines so assignning a dummy one to keep puppet-lint happy
                 }
