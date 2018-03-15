@@ -148,6 +148,7 @@ def parseOutput():
     str2ret    = (rul_hardcode_lin, rul_susp_comm_lin, rul_secr_loca_lin, rul_md5_usage_lin,
                   rul_http_use_lin, rul_bind_use_lin, rul_empt_pwd_lin, rul_defa_adm_lin,
                   rul_base64_lin, rul_mis_case_lin)
+    # print str2ret
     return output2ret, str2ret
 
 

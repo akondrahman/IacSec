@@ -38,12 +38,15 @@ def buildSymOut(sym_tup_par, mon_par, fil_par):
                  5:constants.LINT_BIND,
                  6:constants.LINT_EMPT,
                  7:constants.LINT_DEF_ADM,
-                 8:constants.LINT_BASE64
+                 8:constants.LINT_BASE64,
+                 9:constants.LINT_MIS_DEFAU
                 }
     str2ret   = ''
+    # print sym_tup_par
     for ind_ in xrange(len(sym_tup_par)):
         type_str=type_dict[ind_]
         str_list=sym_tup_par[ind_]
+        # print str_list
         for str_ in str_list:
             str2ret = str2ret + mon_par + ',' + fil_par + ',' + type_str + ',' + str_ + ',' + '\n'
     return str2ret
@@ -65,12 +68,6 @@ def sniffSmells(path_to_dir):
                     lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
                     final_str      = final_str + month_str + lint_cnt_str
                     # print secu_lint_outp
-                    '''
-                    for same/new checking data
-                    '''
-                    symbol_out       = secu_lint_outp[1] # a tuple, where each element is a list of strs
-                    per_file_sym_str = buildSymOut(symbol_out, month_str, full_p_file)
-                    all_sym_str      = all_sym_str + per_file_sym_str
                  elif (os.path.exists(full_p_file) and (constants.CH_DIR in full_p_file) and (full_p_file.endswith(constants.PP_EXT)==False)):
                      counter += 1
                      print 'Analyzing:{},Index:{}'.format(full_p_file, counter)
@@ -80,6 +77,12 @@ def sniffSmells(path_to_dir):
                      lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
                      final_str      = final_str + month_str + lint_cnt_str
                      # print secu_lint_outp
+                     '''
+                     for same/new checking data
+                     '''
+                     symbol_out       = secu_lint_outp[1] # a tuple, where each element is a list of strs
+                     per_file_sym_str = buildSymOut(symbol_out, month_str, full_p_file)
+                     all_sym_str      = all_sym_str + per_file_sym_str
                  else:
                      print "Not analyzing, failed validity checks:", full_p_file
                  print "="*50

@@ -44,7 +44,8 @@ if __name__=='__main__':
    CHEF DIRECTORIES
    '''
    ds_path = '/Users/akond/SECU_REPOS/test-chef/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/TEST_CHEF.csv'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_TEST_CHEF.csv'
+   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_SYM_TEST_CHEF.csv'
 
    # ds_path = '/Users/akond/SECU_REPOS/berg-chef/'
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_BERG_CHEF.csv'
@@ -59,9 +60,12 @@ if __name__=='__main__':
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str
    final_symbol_str = constants.SYM_HEAD + '\n' +  final_symbol_str
    print '*'*100
-   print final_symbol_str
+   # print final_symbol_str
    bytes_out = dumpContentIntoFile(final_output_str, output_file)
    print 'Dumped output file of {} bytes'.format(bytes_out)
+   print '*'*100
+   sym_out = dumpContentIntoFile(final_symbol_str, sym_output_file)
+   print 'Dumped symbolic output file of {} bytes'.format(sym_out)
    print '*'*100
    print 'Ended at:', giveTimeStamp()
    print '*'*100
