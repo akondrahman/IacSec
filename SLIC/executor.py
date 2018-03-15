@@ -41,20 +41,23 @@ def buildSymOut(sym_tup_par, mon_par, fil_par):
                  8:constants.LINT_BASE64,
                  9:constants.LINT_MIS_DEFAU
                 }
-    str2ret   = ''
+    # str2ret   = ''
+    list_ = []
     # print sym_tup_par
     for ind_ in xrange(len(sym_tup_par)):
         type_str=type_dict[ind_]
         str_list=sym_tup_par[ind_]
         # print str_list
         for str_ in str_list:
-            str2ret = str2ret + mon_par + ',' + fil_par + ',' + type_str + ',' + str_ + ',' + '\n'
-    return str2ret
+            # str2ret = str2ret + mon_par + ',' + fil_par + ',' + type_str + ',' + str_ + ',' + '\n'
+            tup_ = (mon_par, fil_par, type_str, str_)
+            list_.append(tup_)
+    return list_
 
 def sniffSmells(path_to_dir):
     counter = 0
     final_str = ''
-    all_sym_str = ''
+    all_sym_list = []
     for root_, dirs, files_ in os.walk(path_to_dir):
        for file_ in files_:
            if (file_.endswith(constants.PP_EXT) or file_.endswith(constants.CH_EXT)):
@@ -80,10 +83,10 @@ def sniffSmells(path_to_dir):
                      '''
                      for same/new checking data
                      '''
-                     symbol_out       = secu_lint_outp[1] # a tuple, where each element is a list of strs
-                     per_file_sym_str = buildSymOut(symbol_out, month_str, full_p_file)
-                     all_sym_str      = all_sym_str + per_file_sym_str
+                     symbol_out   = secu_lint_outp[1] # a tuple, where each element is a list of strs
+                     per_file_sym = buildSymOut(symbol_out, month_str, full_p_file)
+                     all_sym_list = all_sym_list + per_file_sym
                  else:
                      print "Not analyzing, failed validity checks:", full_p_file
                  print "="*50
-    return final_str, all_sym_str
+    return final_str, all_sym_list

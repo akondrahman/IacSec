@@ -3,6 +3,7 @@ Akond Rahman
 Feb 08, 2018
 This code executes the lint engine
 '''
+import cPickle as pickle
 import executor
 import time
 import datetime
@@ -13,6 +14,11 @@ def dumpContentIntoFile(strP, fileP):
     fileToWrite = open( fileP, 'w')
     fileToWrite.write(strP)
     fileToWrite.close()
+    return str(os.stat(fileP).st_size)
+
+def dumpContentIntoPickle(listP, fileP):
+    with open(fileP, 'wb') as f_:
+         pickle.dump(listP, f_)
     return str(os.stat(fileP).st_size)
 
 def giveTimeStamp():
@@ -45,7 +51,7 @@ if __name__=='__main__':
    '''
    ds_path = '/Users/akond/SECU_REPOS/test-chef/'
    output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_TEST_CHEF.csv'
-   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_SYM_TEST_CHEF.csv'
+   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_SYM_TEST.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/berg-chef/'
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_BERG_CHEF.csv'
@@ -56,16 +62,15 @@ if __name__=='__main__':
    # ds_path = '/Users/akond/SECU_REPOS/expr-chef/'
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_EXPR_CHEF.csv'
 
-   final_output_str, final_symbol_str = executor.sniffSmells(ds_path) # 1. count, 2. symbols for whcih we observe smells
+   final_output_str, sym_out_full = executor.sniffSmells(ds_path) # 1. count, 2. symbols for whcih we observe smells
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str
-   final_symbol_str = constants.SYM_HEAD + '\n' +  final_symbol_str
    print '*'*100
    # print final_symbol_str
    bytes_out = dumpContentIntoFile(final_output_str, output_file)
    print 'Dumped output file of {} bytes'.format(bytes_out)
    print '*'*100
-   sym_out = dumpContentIntoFile(final_symbol_str, sym_output_file)
-   print 'Dumped symbolic output file of {} bytes'.format(sym_out)
+   sym_out = dumpContentIntoPickle(sym_out_full, sym_output_file)
+   print 'Dumped symbolic output PICKLE of {} bytes'.format(sym_out)
    print '*'*100
    print 'Ended at:', giveTimeStamp()
    print '*'*100
