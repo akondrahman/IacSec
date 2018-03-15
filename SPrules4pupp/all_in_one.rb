@@ -299,7 +299,8 @@ PuppetLint.new_check(:no_susp_comments) do
            ### check if those keywords exist
            single_line=single_line.downcase
            single_line=single_line.strip
-           if  ( (single_line.include?('show_bug') || single_line.include?('hack') ||
+           # (single_line.include?('show_bug') || removing show_bug, as it generates duplicates
+           if  (( single_line.include?('hack') ||
                 single_line.include?('fixme')    || single_line.include?('later') ||
                 single_line.include?('later2')   || single_line.include?('todo') ||
                 single_line.include?('ticket')   || single_line.include?('launchpad') ||

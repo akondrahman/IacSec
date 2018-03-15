@@ -49,11 +49,11 @@ if __name__=='__main__':
    # ds_path = '/Users/akond/SECU_REPOS/berg-chef/'
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_BERG_CHEF.csv'
 
-   # ds_path = '/Users/akond/SECU_REPOS/cdat-chef/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/CDAT_CHEF.csv'
+   ds_path = '/Users/akond/SECU_REPOS/cdat-chef/'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_CDAT_CHEF.csv'
 
-   ds_path = '/Users/akond/SECU_REPOS/expr-chef/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/EXPR_CHEF.csv'
+   # ds_path = '/Users/akond/SECU_REPOS/expr-chef/'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_EXPR_CHEF.csv'
 
    final_output_str = executor.sniffSmells(ds_path)
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str
