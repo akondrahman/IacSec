@@ -5,7 +5,7 @@ Mar 17, 2018
 '''
 import pandas as pd
 import numpy as np
-
+import datetime
 
 def calcSmellDensity(smell_cnt, file_list):
     val = 0
@@ -17,10 +17,17 @@ def calcSmellDensity(smell_cnt, file_list):
     val = float(smell_cnt)/float(tot_lin)
     return val
 
+def sortDate(mon_lis):
+    months = [datetime.datetime.strptime(m, "%Y-%m") for m in mon_lis]
+    months.sort()
+    sorted_mon = [datetime.datetime.strftime(m_, "%Y-%m") for m_ in months]
+    return sorted_mon
+
 def perfAnal(df_pa, header_pa):
     mon_lis = np.unique(df_pa['MONTH'].tolist())
-    for mon_ in mon_lis:
-        for head_ in header_pa:
+    mon_lis = sortDate(mon_lis)
+    for head_ in header_pa:
+        for mon_ in mon_lis:
             mon_df = df_pa[df_pa['MONTH']==mon_]
             per_mon_cnt = sum(mon_df[head_].tolist()) # we need the total count
             per_mon_fil = np.unique(mon_df['FILE_NAME'].tolist()) # we need the unique file names
