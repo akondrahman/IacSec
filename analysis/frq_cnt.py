@@ -8,6 +8,10 @@ import numpy as np
 import datetime
 import matplotlib.pyplot as plt
 
+def createOutputDirectory(dirParam):
+  if not os.path.exists(dirParam):
+     os.makedirs(dirParam)
+
 def calcSmellDensity(smell_cnt, file_list):
     val = 0
     tot_lin = 0
@@ -15,7 +19,7 @@ def calcSmellDensity(smell_cnt, file_list):
         file_ = open(file_path, 'rU')
         num_lines = sum(1 for line_ in file_)
         tot_lin = tot_lin + num_lines
-    val = float(smell_cnt)/float(tot_lin)
+    val = round(float(smell_cnt)/float(tot_lin), 3)
     return val
 
 def sortDate(mon_lis):
@@ -37,6 +41,7 @@ def makePlot(x_par, y_par, head_par, out_dir_par, type_par, ds_par):
     plt.close()
 
 def perfAnal(df_pa, header_pa, output_dir, ds_name):
+    createOutputDirectory(output_dir)
     mon_lis = np.unique(df_pa['MONTH'].tolist())
     mon_lis = sortDate(mon_lis)
     for head_ in header_pa:
@@ -46,7 +51,7 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
             per_mon_cnt = sum(mon_df[head_].tolist()) # we need the total count
             per_mon_fil = np.unique(mon_df['FILE_NAME'].tolist()) # we need the unique file names
             per_mon_fil_cnt = len(per_mon_fil) # unque file count
-            cnt_per_fil   = float(per_mon_cnt)/float(per_mon_fil_cnt)
+            cnt_per_fil   = round(float(per_mon_cnt)/float(per_mon_fil_cnt), 3)
             smell_density = calcSmellDensity(per_mon_cnt, per_mon_fil)
             print 'MON:{}, CNT:{}, FIL:{}, CNT_PER_FIL:{}, SMELL_DENS:{}, TYPE:{}'.format(mon_, per_mon_cnt, per_mon_fil_cnt, cnt_per_fil, smell_density, head_)
             mon_plt_lis.append(mon_)
@@ -54,16 +59,25 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
             sme_den_lis.append(smell_density)
             print '*'*25
         makePlot(mon_plt_lis, cnt_plt_lis, head_, output_dir, 'CNT_PER_FIL', ds_name)
+        makePlot(mon_plt_lis, sme_den_lis, head_, output_dir, 'SMELL_DENSITY', ds_name)
         print '='*50
 
 if __name__=='__main__':
-   results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_TEST_PUPPET.csv'
-   results_df   = pd.read_csv(results_file)
-   plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3/'
    '''
    pass the needed colun headers
    '''
    needed_header = ['HARD_CODE_SECR',	'SUSP_COMM',	'SECR_LOCA',	'MD5_USAG',
                     'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
                     'BASE_64',	'MISS_DFLT',	'TOTAL']
-   perfAnal(results_df, needed_header, plot_out_dir, 'TEST')
+
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_TEST_PUPPET.csv'
+   # results_df   = pd.read_csv(results_file)
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3/'
+   # ds_name = 'TEST'
+
+   results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_WIKIMEDIA_PUPPET.csv'
+   results_df   = pd.read_csv(results_file)
+   plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_wik/'
+   ds_nam = 'WIKIMEDIA'
+
+   perfAnal(results_df, needed_header, plot_out_dir, ds_nam)
