@@ -25,7 +25,9 @@ def sortDate(mon_lis):
     return sorted_mon
 
 def makePlot(x_par, y_par, head_par, out_dir_par, type_par, ds_par):
-    plt.plot(x_par, y_par)
+    plt_x_axis = [x_ for x_ in xrange(len(x_par))]
+    plt.xticks(plt_x_axis, x_par)
+    plt.plot(plt_x_axis, y_par)
     plt.title(head_par)
     plt.xlabel('MONTH')
     plt.ylabel(type_par)
