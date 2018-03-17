@@ -34,7 +34,7 @@ def makePlot(x_par, y_par, head_par, out_dir_par, type_par, ds_par):
     plt.savefig(file2save)
     plt.close()
 
-def perfAnal(df_pa, header_pa, output_dir):
+def perfAnal(df_pa, header_pa, output_dir, ds_name):
     mon_lis = np.unique(df_pa['MONTH'].tolist())
     mon_lis = sortDate(mon_lis)
     for head_ in header_pa:
@@ -51,7 +51,7 @@ def perfAnal(df_pa, header_pa, output_dir):
             cnt_plt_lis.append(cnt_per_fil)
             sme_den_lis.append(smell_density)
             print '*'*25
-        makePlot(mon_plt_lis, cnt_plt_lis, head_, output_dir, 'CNT_PER_FIL')
+        makePlot(mon_plt_lis, cnt_plt_lis, head_, output_dir, 'CNT_PER_FIL', ds_name)
         print '='*50
 
 if __name__=='__main__':
@@ -64,4 +64,4 @@ if __name__=='__main__':
    needed_header = ['HARD_CODE_SECR',	'SUSP_COMM',	'SECR_LOCA',	'MD5_USAG',
                     'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
                     'BASE_64',	'MISS_DFLT',	'TOTAL']
-   perfAnal(results_df, needed_header, plot_out_dir)
+   perfAnal(results_df, needed_header, plot_out_dir, 'TEST')
