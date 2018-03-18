@@ -140,9 +140,12 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
                 old_cnt = mon_df['OLD_CNT'].tolist()
                 new_cnt = mon_df['NEW_CNT'].tolist()
                 tot_cnt = mon_df['TOT_CNT'].tolist()
+                all_cnt = sum(tot_cnt)
                 # print old_cnt, new_cnt, tot_cnt
-                old_pro = round(float(sum(old_cnt))/float(sum(tot_cnt)), 3)
-                new_pro = round(float(sum(new_cnt))/float(sum(tot_cnt)), 3)
+                if all_cnt <= 0:
+                   all_cnt all_cnt + 1
+                old_pro = round(float(sum(old_cnt))/float(sum(all_cnt)), 3)
+                new_pro = round(float(sum(new_cnt))/float(sum(all_cnt)), 3)
                 mon_plt_lis.append(mon_)
                 old_plt_lis.append(old_pro)
                 new_plt_lis.append(new_pro)
