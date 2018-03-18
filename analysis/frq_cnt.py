@@ -98,9 +98,34 @@ if __name__=='__main__':
    # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3/'
    # ds_name = 'TEST'
 
-   results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_WIKIMEDIA_PUPPET.csv'
-   results_df   = pd.read_csv(results_file)
-   plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_wik/'
-   ds_nam = 'WIKIMEDIA'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_WIKIMEDIA_PUPPET.csv'
+   # results_df   = pd.read_csv(results_file)
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_wik/'
+   # ds_nam = 'WIKIMEDIA'
+
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_OPENSTACK_PUPPET.csv'
+   # results_df   = pd.read_csv(results_file)
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_ost/'
+   # ds_nam = 'OPENSTACK'
+
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_MOZILLA_PUPPET.csv'
+   # results_df   = pd.read_csv(results_file)
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_moz/'
+   # ds_nam = 'MOZILLA'
+
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_BERG_CHEF.csv'
+   # results_df   = pd.read_csv(results_file)
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_berg/'
+   # ds_nam = 'BLOOMBERG'
+
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_EXPR_CHEF.csv'
+   # results_df   = pd.read_csv(results_file)
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_expr/'
+   # ds_nam = 'EXPRESS42'
+
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_CDAT_CHEF.csv'
+   # results_df   = pd.read_csv(results_file)
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_cdat/'
+   # ds_nam = 'CASKDATA'
 
    perfAnal(results_df, needed_header, plot_out_dir, ds_nam)
