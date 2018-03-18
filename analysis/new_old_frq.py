@@ -49,7 +49,7 @@ def processPickle(pkl_p):
         # print per_fil_df
         for smel in all_sme:
             per_fil_sme_df = per_fil_df[per_fil_df['TYPE']==smel]
-            print per_fil_sme_df
+            print per_fil_sme_df.head()
             print '*'*25
             per_fil_all_mon = np.unique(per_fil_sme_df['MONTH'].tolist())
             per_fil_all_mon = [y_.replace(",", "") for y_ in per_fil_all_mon]
@@ -58,11 +58,11 @@ def processPickle(pkl_p):
             for ind_ in xrange(len(per_fil_all_mon)):
                 fwd_ind = ind_ + 1
                 if (fwd_ind < len(per_fil_all_mon)):
-                       curr_mon = per_fil_all_mon[ind_]
-                       next_mon = per_fil_all_mon[fwd_ind]
+                       curr_mon = per_fil_all_mon[ind_] + ','
+                       next_mon = per_fil_all_mon[fwd_ind] + ','
 
-                       mon_curr_df = per_fil_sme_df[curr_mon]
-                       mon_next_df = per_fil_sme_df[next_mon]
+                       mon_curr_df = per_fil_sme_df[per_fil_sme_df['MONTH']==curr_mon]
+                       mon_next_df = per_fil_sme_df[per_fil_sme_df['MONTH']==next_mon]
                        curr_content_list = mon_curr_df['CONTENT'].tolist()
                        next_content_list = mon_next_df['CONTENT'].tolist()
                        # print 'current month:{}, next month:{}, current list:{}, next list:{}'.format(curr_mon, next_mon, curr_content_list, next_content_list)
