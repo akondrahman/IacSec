@@ -49,6 +49,7 @@ def getTotalCount(df_, file, smel, mont):
     return smel_cnt
 
 def processPickle(pkl_p, ori_p):
+    full_results_list = []
     # print pkl_p.head()
     pkl_p['FLT_FIL'] = pkl_p['FILE_PATH'].apply(processFileName)
     all_fil = np.unique(pkl_p['FLT_FIL'].tolist())
@@ -69,7 +70,8 @@ def processPickle(pkl_p, ori_p):
             for ind_ in xrange(len(per_fil_all_mon)):
                 fwd_ind = ind_ + 1
                 if (fwd_ind < len(per_fil_all_mon)):
-                       curr_mon = per_fil_all_mon[ind_] + ',' ## added , to handle pickle month format
+                       real_curr_mon = per_fil_all_mon[ind_]
+                       curr_mon = real_curr_mon + ',' ## added , to handle pickle month format
                        real_nxt_mon = per_fil_all_mon[fwd_ind]
                        next_mon = real_nxt_mon + ','
 
@@ -85,15 +87,19 @@ def processPickle(pkl_p, ori_p):
                        tot_cnt = getTotalCount(ori_p, file2search, smel, real_nxt_mon)
                        new_cnt = tot_cnt - old_cnt
                        # print 'current month:{}, next month:{}, current list:{}, next list:{}'.format(curr_mon, next_mon, curr_content_list, next_content_list)
-                       print 'Month:{}, Old:{}, New:{}, Total:{}, Type:{}, File:{}'.format(next_mon, old_cnt, new_cnt, tot_cnt, smel, file_name)
-                       print '*'*25
+                       # print 'Month:{}, Old:{}, New:{}, Total:{}, Type:{}, File:{}'.format(next_mon, old_cnt, new_cnt, tot_cnt, smel, file_name)
+                       # print '*'*25
+                       full_results_list.append((real_nxt_mon, old_cnt, new_cnt, tot_cnt, getSmellName(smel)))
                        if ind_==0:
                           old_cnt = 0
                           tot_cnt = getTotalCount(ori_p, file2search, smel, real_nxt_mon)
                           new_cnt = tot_cnt - old_cnt
-                          # print 'current month:{}, next month:{}, current list:{}, next list:{}'.format(curr_mon, next_mon, curr_content_list, next_content_list)
-                          print 'Month:={}, Old:={}, New:={}, Total:={}, Type:={}, File:={}'.format(next_mon, old_cnt, new_cnt, tot_cnt, smel, file_name)
-                          print '*'*25
+                          # print 'Month:={}, Old:={}, New:={}, Total:={}, Type:={}, File:={}'.format(curr_mon, old_cnt, new_cnt, tot_cnt, smel, file_name)
+                          # print '*'*25
+                          full_results_list.append((real_curr_mon, old_cnt, new_cnt, tot_cnt, getSmellName(smel)))
+
+    print full_results_list
+    return full_results_list
 
 if __name__=='__main__':
    orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_CDAT_CHEF.csv'
