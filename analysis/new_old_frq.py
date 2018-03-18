@@ -37,7 +37,14 @@ def processFileName(single_file_name):
     str2ret = single_file_name.replace(str2del, '')
     return str2ret
 
-def processPickle(pkl_p):
+def getTotalCount(df_, file, smel, mont):
+    file_df   = df_[df_['FILE']==file]
+    mont_df   = file_df[file_df['MONTH']==mont]
+    smel_name = getSmellName(smel)
+    smel_cnt  = mont_df[smel_name].tolist()[0]
+    return smel_cnt
+
+def processPickle(pkl_p, ori_p):
     # print pkl_p.head()
     pkl_p['FLT_FIL'] = pkl_p['FILE_PATH'].apply(processFileName)
     all_fil = np.unique(pkl_p['FLT_FIL'].tolist())
@@ -58,14 +65,20 @@ def processPickle(pkl_p):
             for ind_ in xrange(len(per_fil_all_mon)):
                 fwd_ind = ind_ + 1
                 if (fwd_ind < len(per_fil_all_mon)):
-                       curr_mon = per_fil_all_mon[ind_] + ','
-                       next_mon = per_fil_all_mon[fwd_ind] + ','
+                       curr_mon = per_fil_all_mon[ind_] + ',' ## added , to handle pickle month format
+                       real_nxt_mon = per_fil_all_mon[fwd_ind]
+                       next_mon = real_nxt_mon + ','
 
                        mon_curr_df = per_fil_sme_df[per_fil_sme_df['MONTH']==curr_mon]
                        mon_next_df = per_fil_sme_df[per_fil_sme_df['MONTH']==next_mon]
                        curr_content_list = mon_curr_df['CONTENT'].tolist()
                        next_content_list = mon_next_df['CONTENT'].tolist()
-                       print 'current month:{}, next month:{}, current list:{}, next list:{}'.format(curr_mon, next_mon, curr_content_list, next_content_list)
+
+                       old_cnt = len(list(set(next_content_list) & set(curr_content_list)))
+                       tot_cnt = getTotalCount(orig_df, file_name, smel, real_nxt_mon)
+                       new_cnt = tot_cnt - old_cnt
+                       # print 'current month:{}, next month:{}, current list:{}, next list:{}'.format(curr_mon, next_mon, curr_content_list, next_content_list)
+                       print 'Old:{}, New:{}, Total:{}'.format(old_cnt, new_cnt, tot_cnt)
                        print '*'*25
 
 if __name__=='__main__':
@@ -76,4 +89,4 @@ if __name__=='__main__':
    pkl_lis = pickle.load(open(ds_pkl, 'rb'))
    pkl_df  = pd.DataFrame([x for x in pkl_lis], columns=['MONTH', 'FILE_PATH', 'TYPE', 'CONTENT'])
 
-   processPickle(pkl_df)
+   processPickle(pkl_df, orig_df)
