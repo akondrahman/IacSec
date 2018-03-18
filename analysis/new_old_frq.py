@@ -56,7 +56,7 @@ def getTotalCount(df_, file, smel, mont):
 MINING DATA
 '''
 
-def processPickle(pkl_p, ori_p):
+def processPickleForNewOld(pkl_p, ori_p):
     full_results_list = []
     # print pkl_p.head()
     pkl_p['FLT_FIL'] = pkl_p['FILE_PATH'].apply(processFileName)
@@ -110,8 +110,34 @@ def processPickle(pkl_p, ori_p):
     df2ret = pd.DataFrame.from_records(full_results_list, columns=['MONTH', 'OLD_CNT', 'NEW_CNT', 'TOT_CNT', 'TYPE'])
     return df2ret
 
+
+def processLifetimeData(pkl_p):
+    full_results_list = []
+    # print pkl_p.head()
+    pkl_p['FLT_FIL'] = pkl_p['FILE_PATH'].apply(processFileName)
+    all_fil = np.unique(pkl_p['FLT_FIL'].tolist())
+    # print all_fil
+    all_sme = np.unique(pkl_p['TYPE'].tolist())
+
+    for file_name in all_fil:
+        per_fil_df = pkl_p[pkl_p['FLT_FIL']==file_name]
+        # print per_fil_df
+        for smel in all_sme:
+            per_fil_sme_df = per_fil_df[per_fil_df['TYPE']==smel]
+            # print per_fil_sme_df.head()
+            # print '*'*25
+            content_list = np.unique(per_fil_sme_df['CONTENT'].tolist())
+            for content in content_list:
+                per_content_df=per_fil_sme_df[per_fil_sme_df['CONTENT']==content]
+                mon_list = per_content_df['MONTH'].tolist()
+                print content, mon_list
+
+    # print full_results_list
+    # df2ret = pd.DataFrame.from_records(full_results_list, columns=['MONTH', 'OLD_CNT', 'NEW_CNT', 'TOT_CNT', 'TYPE'])
+    # return df2ret
+
 '''
-ANALYZING DATA
+ANALYZING ZONE 
 '''
 
 def makePlot(x_par, y_par, head_par, out_dir_par, type_par, ds_par):
@@ -119,6 +145,7 @@ def makePlot(x_par, y_par, head_par, out_dir_par, type_par, ds_par):
     plt.xticks(plt_x_axis, x_par)
     plt.plot(plt_x_axis, y_par)
     plt.title(head_par)
+    plt.ylim(0.0, 1.25)
     plt.xlabel('MONTH')
     plt.ylabel(type_par)
     #plt.show()
@@ -131,6 +158,7 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
     mon_lis = np.unique(df_pa['MONTH'].tolist())
     mon_lis = sortDate(mon_lis)
     for head_ in header_pa:
+        print head_
         smell_df = df_pa[df_pa['TYPE']==head_]
         mon_plt_lis, new_plt_lis, old_plt_lis = [], [], []
         count, cols = smell_df.shape
@@ -143,13 +171,13 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
                 all_cnt = sum(tot_cnt)
                 # print old_cnt, new_cnt, tot_cnt
                 if all_cnt <= 0:
-                   all_cnt all_cnt + 1
-                old_pro = round(float(sum(old_cnt))/float(sum(all_cnt)), 3)
-                new_pro = round(float(sum(new_cnt))/float(sum(all_cnt)), 3)
+                   all_cnt = all_cnt + 1
+                old_pro = round(float(sum(old_cnt))/float(all_cnt), 3)
+                new_pro = round(float(sum(new_cnt))/float(all_cnt), 3)
                 mon_plt_lis.append(mon_)
                 old_plt_lis.append(old_pro)
                 new_plt_lis.append(new_pro)
-                print '*'*25
+                # print '*'*25
             makePlot(mon_plt_lis, old_plt_lis, head_, output_dir, 'OLD_PROPORTION', ds_name)
             makePlot(mon_plt_lis, new_plt_lis, head_, output_dir, 'NEW_PROPORTION', ds_name)
             print '='*50
@@ -157,17 +185,6 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
 
 
 if __name__=='__main__':
-   orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_CDAT_CHEF.csv'
-   ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_CDAT.PKL'
-   dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_cdat/'
-   name = 'CASKDATA'
-
-   orig_df = pd.read_csv(orig_csv)
-   pkl_lis = pickle.load(open(ds_pkl, 'rb'))
-   pkl_df  = pd.DataFrame([x for x in pkl_lis], columns=['MONTH', 'FILE_PATH', 'TYPE', 'CONTENT'])
-
-   df_old_new = processPickle(pkl_df, orig_df)
-   # print df_old_new.head()
 
    '''
    pass the needed colun headers
@@ -176,4 +193,46 @@ if __name__=='__main__':
                     'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
                     'BASE_64',	'MISS_DFLT']
 
-   perfAnal(df_old_new, needed_header, dir2dump, name)
+   orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_BERG_CHEF.csv'
+   ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_BERG.PKL'
+   dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_berg/'
+   name = 'BLOOMBERG'
+
+   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_CDAT_CHEF.csv'
+   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_CDAT.PKL'
+   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_cdat/'
+   # name = 'CASKDATA'
+
+   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_EXPR_CHEF.csv'
+   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_EXPR.PKL'
+   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_expr/'
+   # name = 'EXPRESS42'
+
+   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_MOZILLA_PUPPET.csv'
+   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_ALL_MOZ.PKL'
+   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_moz/'
+   # name = 'MOZILLA'
+
+   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_OPENSTACK_PUPPET.csv'
+   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_ALL_OST_PUP.PKL'
+   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_ost/'
+   # name = 'OPENSTACK'
+
+   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_WIKIMEDIA_PUPPET.csv'
+   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_ALL_WIK_PUP.PKL'
+   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_wik/'
+   # name = 'WIKIMEDIA'
+
+   orig_df = pd.read_csv(orig_csv)
+   pkl_lis = pickle.load(open(ds_pkl, 'rb'))
+   pkl_df  = pd.DataFrame([x for x in pkl_lis], columns=['MONTH', 'FILE_PATH', 'TYPE', 'CONTENT'])
+   '''
+   OLD AND NEW ANALYSIS
+   '''
+   # df_old_new = processPickleForNewOld(pkl_df, orig_df)
+   # # print df_old_new.head()
+   # perfAnal(df_old_new, needed_header, dir2dump, name)
+   '''
+   life time analysis
+   '''
+   lifetime_df = processLifetimeData(pkl_df)
