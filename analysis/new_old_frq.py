@@ -34,18 +34,21 @@ def processPickle(pkl_p):
 
     all_fil = np.unique(pkl_p['FILE_PATH'].tolist())
     all_sme = np.unique(pkl_p['TYPE'].tolist())
-    all_sme = [getSmellName(x_) for x_ in all_sme]
 
     for file_name in all_fil:
+        per_fil_df = pkl_p[pkl_p['FILE_PATH']==file_name]
         for smel in all_sme:
-            per_fil_sme_df = pkl_p[file_name][smel]
-            all_mon = np.unique(pkl_p['MONTH'].tolist())
-            all_mon = sortDate(all_mon)
-            for ind_ in xrange(len(all_mon)):
+            per_fil_sme_df = per_fil_df[per_fil_df['TYPE']==smel]
+            # print per_fil_sme_df
+            per_fil_all_mon = np.unique(per_fil_sme_df['MONTH'].tolist())
+            per_fil_all_mon = [y_.replace(",", "") for y_ in per_fil_all_mon]
+            per_fil_all_mon = sortDate(per_fil_all_mon)
+            print per_fil_all_mon
+            for ind_ in xrange(len(per_fil_all_mon)):
                 fwd_ind = ind_ + 1
-                if (fwd_ind < len(all_mon)):
-                   curr_mon = all_mon[ind_]
-                   next_mon = all_mon[fwd_ind]
+                if (fwd_ind < len(per_fil_all_mon)):
+                   curr_mon = per_fil_all_mon[ind_]
+                   next_mon = per_fil_all_mon[fwd_ind]
 
                    mon_curr_df = per_fil_sme_df[curr_mon]
                    mon_next_df = per_fil_sme_df[next_mon]
