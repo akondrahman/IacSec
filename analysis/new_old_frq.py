@@ -114,6 +114,18 @@ def processPickle(pkl_p, ori_p):
 ANALYZING DATA
 '''
 
+def makePlot(x_par, y_par, head_par, out_dir_par, type_par, ds_par):
+    plt_x_axis = [x_ for x_ in xrange(len(x_par))]
+    plt.xticks(plt_x_axis, x_par)
+    plt.plot(plt_x_axis, y_par)
+    plt.title(head_par)
+    plt.xlabel('MONTH')
+    plt.ylabel(type_par)
+    #plt.show()
+    file2save = out_dir_par + head_par + '_' + type_par + '_' + ds_par + '.png'
+    plt.savefig(file2save)
+    plt.close()
+
 def perfAnal(df_pa, header_pa, output_dir, ds_name):
     createOutputDirectory(output_dir)
     mon_lis = np.unique(df_pa['MONTH'].tolist())
@@ -144,7 +156,7 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
 if __name__=='__main__':
    orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_CDAT_CHEF.csv'
    ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_CDAT.PKL'
-   dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_cdat/'
+   dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_cdat/'
    name = 'CASKDATA'
 
    orig_df = pd.read_csv(orig_csv)
