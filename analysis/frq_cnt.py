@@ -20,7 +20,8 @@ def calcSmellDensity(smell_cnt, file_list):
         file_ = open(file_path, 'rU')
         num_lines = sum(1 for line_ in file_)
         tot_lin = tot_lin + num_lines
-    val = round(float(smell_cnt)/float(tot_lin), 3)
+    smell_density = float(smell_cnt)/float(tot_lin)
+    val = round(smell_density * 1000, 3) ### density per KLOC
     return val
 
 def sortDate(mon_lis):
@@ -80,7 +81,7 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
             print '*'*25
             csv_list.append((mon_, head_, cnt_per_fil, smell_density))
         makePlot(mon_plt_lis, cnt_plt_lis, head_, output_dir, 'CNT_PER_FIL', ds_name)
-        makePlot(mon_plt_lis, sme_den_lis, head_, output_dir, 'SMELL_DENSITY', ds_name)
+        makePlot(mon_plt_lis, sme_den_lis, head_, output_dir, 'SMELL_DENSITY_KLOC', ds_name)
         print '='*50
     makeCSV(csv_list, ds_name, output_dir)
 
