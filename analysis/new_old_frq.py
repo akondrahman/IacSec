@@ -98,8 +98,9 @@ def processPickle(pkl_p, ori_p):
                           # print '*'*25
                           full_results_list.append((real_curr_mon, old_cnt, new_cnt, tot_cnt, getSmellName(smel)))
 
-    print full_results_list
-    return full_results_list
+    # print full_results_list
+    df2ret = pd.DataFrame.from_records(full_results_list, columns=['MONTH', 'OLD_CNT', 'NEW_CNT', 'TOT_CNT', 'TYPE'])
+    return df2ret
 
 if __name__=='__main__':
    orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_CDAT_CHEF.csv'
@@ -109,4 +110,5 @@ if __name__=='__main__':
    pkl_lis = pickle.load(open(ds_pkl, 'rb'))
    pkl_df  = pd.DataFrame([x for x in pkl_lis], columns=['MONTH', 'FILE_PATH', 'TYPE', 'CONTENT'])
 
-   processPickle(pkl_df, orig_df)
+   df_old_new = processPickle(pkl_df, orig_df)
+   print df_old_new.head()
