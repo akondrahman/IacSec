@@ -10,6 +10,10 @@ import numpy as np
 import datetime
 import matplotlib.pyplot as plt
 
+def createOutputDirectory(dirParam):
+  if not os.path.exists(dirParam):
+     os.makedirs(dirParam)
+
 def sortDate(mon_lis):
     months = [datetime.datetime.strptime(m, "%Y-%m") for m in mon_lis]
     months.sort()
@@ -116,21 +120,24 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
     mon_lis = sortDate(mon_lis)
     for head_ in header_pa:
         smell_df = df_pa[df_pa['TYPE']==head_]
-        mon_plt_lis, new_plt_lis, old_den_lis = [], [], []
-        for mon_ in mon_lis:
-            mon_df = smell_df[smell_df['MONTH']==mon_]
-            old_cnt = mon_df['OLD_CNT'].tolist()
-            new_cnt = mon_df['NEW_CNT'].tolist()
-            tot_cnt = mon_df['TOT_CNT'].tolist()
-            print old_cnt, new_cnt, tot_cnt
-            # mon_plt_lis.append(mon_)
-            # cnt_plt_lis.append(cnt_per_fil)
-            # sme_den_lis.append(smell_density)
-            print '*'*25
-
-        # makePlot(mon_plt_lis, cnt_plt_lis, head_, output_dir, 'CNT_PER_FIL', ds_name)
-        # makePlot(mon_plt_lis, sme_den_lis, head_, output_dir, 'SMELL_DENSITY_KLOC', ds_name)
-        print '='*50
+        mon_plt_lis, new_plt_lis, old_plt_lis = [], [], []
+        count, cols = smell_df.shape
+        if count > 0:
+            for mon_ in mon_lis:
+                mon_df = smell_df[smell_df['MONTH']==mon_]
+                old_cnt = mon_df['OLD_CNT'].tolist()
+                new_cnt = mon_df['NEW_CNT'].tolist()
+                tot_cnt = mon_df['TOT_CNT'].tolist()
+                # print old_cnt, new_cnt, tot_cnt
+                old_pro = round(float(sum(old_cnt))/float(sum(tot_cnt)), 3)
+                new_pro = round(float(sum(new_cnt))/float(sum(tot_cnt)), 3)
+                mon_plt_lis.append(mon_)
+                old_plt_lis.append(old_pro)
+                new_plt_lis.append(new_pro)
+                print '*'*25
+            makePlot(mon_plt_lis, old_plt_lis, head_, output_dir, 'OLD_PROPORTION', ds_name)
+            makePlot(mon_plt_lis, new_plt_lis, head_, output_dir, 'NEW_PROPORTION', ds_name)
+            print '='*50
 
 
 
