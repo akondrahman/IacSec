@@ -49,8 +49,8 @@ def processPickle(pkl_p):
         # print per_fil_df
         for smel in all_sme:
             per_fil_sme_df = per_fil_df[per_fil_df['TYPE']==smel]
-            print per_fil_sme_df.head()
-            print '*'*25
+            # print per_fil_sme_df.head()
+            # print '*'*25
             per_fil_all_mon = np.unique(per_fil_sme_df['MONTH'].tolist())
             per_fil_all_mon = [y_.replace(",", "") for y_ in per_fil_all_mon]
             per_fil_all_mon = sortDate(per_fil_all_mon)
@@ -65,7 +65,8 @@ def processPickle(pkl_p):
                        mon_next_df = per_fil_sme_df[per_fil_sme_df['MONTH']==next_mon]
                        curr_content_list = mon_curr_df['CONTENT'].tolist()
                        next_content_list = mon_next_df['CONTENT'].tolist()
-                       # print 'current month:{}, next month:{}, current list:{}, next list:{}'.format(curr_mon, next_mon, curr_content_list, next_content_list)
+                       print 'current month:{}, next month:{}, current list:{}, next list:{}'.format(curr_mon, next_mon, curr_content_list, next_content_list)
+                       print '*'*25
 
 if __name__=='__main__':
    orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_CDAT_CHEF.csv'
