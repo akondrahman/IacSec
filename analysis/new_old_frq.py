@@ -38,10 +38,14 @@ def processFileName(single_file_name):
     return str2ret
 
 def getTotalCount(df_, file, smel, mont):
-    file_df   = df_[df_['FILE']==file]
+    # print mont
+    file_df   = df_[df_['FILE_NAME']==file]
     mont_df   = file_df[file_df['MONTH']==mont]
+    # print mont_df
     smel_name = getSmellName(smel)
-    smel_cnt  = mont_df[smel_name].tolist()[0]
+    smel_     = mont_df[smel_name].tolist()
+    # print smel_
+    smel_cnt = smel_[0]
     return smel_cnt
 
 def processPickle(pkl_p, ori_p):
@@ -74,12 +78,22 @@ def processPickle(pkl_p, ori_p):
                        curr_content_list = mon_curr_df['CONTENT'].tolist()
                        next_content_list = mon_next_df['CONTENT'].tolist()
 
+                       file2search = list(np.unique(mon_next_df['FILE_PATH'].tolist()))[0]
+                       # print file2search
+
                        old_cnt = len(list(set(next_content_list) & set(curr_content_list)))
-                       tot_cnt = getTotalCount(orig_df, file_name, smel, real_nxt_mon)
+                       tot_cnt = getTotalCount(ori_p, file2search, smel, real_nxt_mon)
                        new_cnt = tot_cnt - old_cnt
                        # print 'current month:{}, next month:{}, current list:{}, next list:{}'.format(curr_mon, next_mon, curr_content_list, next_content_list)
-                       print 'Old:{}, New:{}, Total:{}'.format(old_cnt, new_cnt, tot_cnt)
+                       print 'Month:{}, Old:{}, New:{}, Total:{}, Type:{}, File:{}'.format(next_mon, old_cnt, new_cnt, tot_cnt, smel, file_name)
                        print '*'*25
+                       if ind_==0:
+                          old_cnt = 0
+                          tot_cnt = getTotalCount(ori_p, file2search, smel, real_nxt_mon)
+                          new_cnt = tot_cnt - old_cnt
+                          # print 'current month:{}, next month:{}, current list:{}, next list:{}'.format(curr_mon, next_mon, curr_content_list, next_content_list)
+                          print 'Month:={}, Old:={}, New:={}, Total:={}, Type:={}, File:={}'.format(next_mon, old_cnt, new_cnt, tot_cnt, smel, file_name)
+                          print '*'*25
 
 if __name__=='__main__':
    orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_CDAT_CHEF.csv'
