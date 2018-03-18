@@ -48,6 +48,10 @@ def getTotalCount(df_, file, smel, mont):
     smel_cnt = smel_[0]
     return smel_cnt
 
+'''
+MINING DATA
+'''
+
 def processPickle(pkl_p, ori_p):
     full_results_list = []
     # print pkl_p.head()
@@ -102,13 +106,52 @@ def processPickle(pkl_p, ori_p):
     df2ret = pd.DataFrame.from_records(full_results_list, columns=['MONTH', 'OLD_CNT', 'NEW_CNT', 'TOT_CNT', 'TYPE'])
     return df2ret
 
+'''
+ANALYZING DATA
+'''
+
+def perfAnal(df_pa, header_pa, output_dir, ds_name):
+    createOutputDirectory(output_dir)
+    mon_lis = np.unique(df_pa['MONTH'].tolist())
+    mon_lis = sortDate(mon_lis)
+    for head_ in header_pa:
+        smell_df = df_pa[df_pa['TYPE']==head_]
+        mon_plt_lis, new_plt_lis, old_den_lis = [], [], []
+        for mon_ in mon_lis:
+            mon_df = smell_df[smell_df['MONTH']==mon_]
+            old_cnt = mon_df['OLD_CNT'].tolist()
+            new_cnt = mon_df['NEW_CNT'].tolist()
+            tot_cnt = mon_df['TOT_CNT'].tolist()
+            print old_cnt, new_cnt, tot_cnt
+            # mon_plt_lis.append(mon_)
+            # cnt_plt_lis.append(cnt_per_fil)
+            # sme_den_lis.append(smell_density)
+            print '*'*25
+
+        # makePlot(mon_plt_lis, cnt_plt_lis, head_, output_dir, 'CNT_PER_FIL', ds_name)
+        # makePlot(mon_plt_lis, sme_den_lis, head_, output_dir, 'SMELL_DENSITY_KLOC', ds_name)
+        print '='*50
+
+
+
 if __name__=='__main__':
    orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_CDAT_CHEF.csv'
    ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_CDAT.PKL'
+   dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_cdat/'
+   name = 'CASKDATA'
 
    orig_df = pd.read_csv(orig_csv)
    pkl_lis = pickle.load(open(ds_pkl, 'rb'))
    pkl_df  = pd.DataFrame([x for x in pkl_lis], columns=['MONTH', 'FILE_PATH', 'TYPE', 'CONTENT'])
 
    df_old_new = processPickle(pkl_df, orig_df)
-   print df_old_new.head()
+   # print df_old_new.head()
+
+   '''
+   pass the needed colun headers
+   '''
+   needed_header = ['HARD_CODE_SECR',	'SUSP_COMM',	'SECR_LOCA',	'MD5_USAG',
+                    'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
+                    'BASE_64',	'MISS_DFLT']
+
+   perfAnal(df_old_new, needed_header, dir2dump, name)
