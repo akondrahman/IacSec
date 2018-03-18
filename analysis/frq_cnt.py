@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 import datetime
 import matplotlib.pyplot as plt
+import os
 
 def createOutputDirectory(dirParam):
   if not os.path.exists(dirParam):
@@ -40,10 +41,29 @@ def makePlot(x_par, y_par, head_par, out_dir_par, type_par, ds_par):
     plt.savefig(file2save)
     plt.close()
 
+def dumpContentIntoFile(strP, fileP):
+    fileToWrite = open( fileP, 'w')
+    fileToWrite.write(strP)
+    fileToWrite.close()
+    return str(os.stat(fileP).st_size)
+
+def makeCSV(lis_par, nam, dir):
+    str_ = ''
+    header = 'MONTH,TYPE,CNT_PER_FIL,SMELL_DENSITY,'
+    for tup in lis_par:
+        for elem in tup:
+            str_ = str_ + str(elem) + ','
+        str_ = str_ + '\n'
+    str_ = header + '\n' + str_
+    file2save = dir + nam + '.csv'
+    os_bytes = dumpContentIntoFile(str_, file2save)
+    print 'DUMPED CSV FILE OF {} BYTES'.format(os_bytes)
+
 def perfAnal(df_pa, header_pa, output_dir, ds_name):
     createOutputDirectory(output_dir)
     mon_lis = np.unique(df_pa['MONTH'].tolist())
     mon_lis = sortDate(mon_lis)
+    csv_list = []
     for head_ in header_pa:
         mon_plt_lis, cnt_plt_lis, sme_den_lis = [], [], []
         for mon_ in mon_lis:
@@ -58,9 +78,11 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
             cnt_plt_lis.append(cnt_per_fil)
             sme_den_lis.append(smell_density)
             print '*'*25
+            csv_list.append((mon_, head_, cnt_per_fil, smell_density))
         makePlot(mon_plt_lis, cnt_plt_lis, head_, output_dir, 'CNT_PER_FIL', ds_name)
         makePlot(mon_plt_lis, sme_den_lis, head_, output_dir, 'SMELL_DENSITY', ds_name)
         print '='*50
+    makeCSV(csv_list, ds_name, output_dir)
 
 if __name__=='__main__':
    '''
