@@ -9,6 +9,7 @@ import pandas as pd
 import numpy as np
 import datetime
 import matplotlib.pyplot as plt
+from dateutil import relativedelta
 
 def createOutputDirectory(dirParam):
   if not os.path.exists(dirParam):
@@ -110,6 +111,25 @@ def processPickleForNewOld(pkl_p, ori_p):
     df2ret = pd.DataFrame.from_records(full_results_list, columns=['MONTH', 'OLD_CNT', 'NEW_CNT', 'TOT_CNT', 'TYPE'])
     return df2ret
 
+def getMonDiff(month_list):
+    if len(month_list) > 1:
+        month_list = [x_.replace(',', '') for x_ in month_list]
+        sorted_months = sortDate(month_list)
+        first = sorted_months[0]
+        last  = sorted_months[-1]
+
+        # print first, last
+        first_year, first_mon = first.split('-')[0], first.split('-')[1]
+        last_year, last_mon = last.split('-')[0], last.split('-')[1]
+        # print first_year, first_mon
+        date1 = datetime.datetime(int(first_year), int(first_mon), 1)
+        date2 = datetime.datetime(int(last_year), int(last_mon), 1)
+
+        r = relativedelta.relativedelta(date2, date1)
+        dur_mon = r.months + r.years * 12
+    else:
+        dur_mon = 1
+    return dur_mon
 
 def processLifetimeData(pkl_p):
     full_results_list = []
@@ -130,14 +150,16 @@ def processLifetimeData(pkl_p):
             for content in content_list:
                 per_content_df=per_fil_sme_df[per_fil_sme_df['CONTENT']==content]
                 mon_list = per_content_df['MONTH'].tolist()
-                print content, mon_list
+                mon_dur=getMonDiff(mon_list)
+                print file_name, smel, content, mon_list, mon_dur
+                print '='*50
 
     # print full_results_list
     # df2ret = pd.DataFrame.from_records(full_results_list, columns=['MONTH', 'OLD_CNT', 'NEW_CNT', 'TOT_CNT', 'TYPE'])
     # return df2ret
 
 '''
-ANALYZING ZONE 
+ANALYZING ZONE
 '''
 
 def makePlot(x_par, y_par, head_par, out_dir_par, type_par, ds_par):
