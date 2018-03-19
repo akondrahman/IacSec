@@ -159,9 +159,9 @@ def processLifetimeData(pkl_p):
                 mon_dur=getMonDiff(mon_list)
                 # print file_name, smel, content, mon_list, mon_dur
                 str_ = str_ + file_name + ',' + smel + ',' + str(mon_dur) + ',' + '\n'
-                print '='*50
+                # print '='*50
 
-
+    str_ = 'FILE_PATH,SMELL,DUR_MON,' + '\n' + str_
     return str_
 
 '''
