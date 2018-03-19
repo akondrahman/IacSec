@@ -21,6 +21,12 @@ def sortDate(mon_lis):
     sorted_mon = [datetime.datetime.strftime(m_, "%Y-%m") for m_ in months]
     return sorted_mon
 
+def dumpContentIntoFile(strP, fileP):
+    fileToWrite = open( fileP, 'w')
+    fileToWrite.write(strP)
+    fileToWrite.close()
+    return str(os.stat(fileP).st_size)
+
 def getSmellName(sme_nam):
     dict_ = {'SECURITY:::SUSPICOUS_COMMENTS:::':'SUSP_COMM',
              'SECURITY:::HARD_CODED_SECRET_':'HARD_CODE_SECR',
@@ -132,8 +138,8 @@ def getMonDiff(month_list):
     return dur_mon
 
 def processLifetimeData(pkl_p):
-    full_results_list = []
-    # print pkl_p.head()
+
+    str_ = ''
     pkl_p['FLT_FIL'] = pkl_p['FILE_PATH'].apply(processFileName)
     all_fil = np.unique(pkl_p['FLT_FIL'].tolist())
     # print all_fil
@@ -151,12 +157,12 @@ def processLifetimeData(pkl_p):
                 per_content_df=per_fil_sme_df[per_fil_sme_df['CONTENT']==content]
                 mon_list = per_content_df['MONTH'].tolist()
                 mon_dur=getMonDiff(mon_list)
-                print file_name, smel, content, mon_list, mon_dur
+                # print file_name, smel, content, mon_list, mon_dur
+                str_ = str_ + file_name + ',' + smel + ',' + str(mon_dur) + ',' + '\n'
                 print '='*50
 
-    # print full_results_list
-    # df2ret = pd.DataFrame.from_records(full_results_list, columns=['MONTH', 'OLD_CNT', 'NEW_CNT', 'TOT_CNT', 'TYPE'])
-    # return df2ret
+
+    return str_
 
 '''
 ANALYZING ZONE
@@ -219,6 +225,7 @@ if __name__=='__main__':
    ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_BERG.PKL'
    dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_berg/'
    name = 'BLOOMBERG'
+   lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_berg/LIFETIME.csv'
 
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_CDAT_CHEF.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_CDAT.PKL'
@@ -257,4 +264,8 @@ if __name__=='__main__':
    '''
    life time analysis
    '''
-   lifetime_df = processLifetimeData(pkl_df)
+   lifetime_str = processLifetimeData(pkl_df)
+   print lifetime_str
+   print '*'*100
+   by = dumpContentIntoFile(lifetime_str, lifetime_out_file)
+   print 'Dumped a file of {} bytes'.format(by)
