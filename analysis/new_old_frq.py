@@ -158,7 +158,8 @@ def processLifetimeData(pkl_p):
                 mon_list = per_content_df['MONTH'].tolist()
                 mon_dur=getMonDiff(mon_list)
                 # print file_name, smel, content, mon_list, mon_dur
-                str_ = str_ + file_name + ',' + smel + ',' + str(mon_dur) + ',' + '\n'
+                smell_name = getSmellName(smel)
+                str_ = str_ + file_name + ',' + smell_name + ',' + str(mon_dur) + ',' + '\n'
                 # print '='*50
 
     str_ = 'FILE_PATH,SMELL,DUR_MON,' + '\n' + str_
@@ -209,6 +210,16 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
             makePlot(mon_plt_lis, old_plt_lis, head_, output_dir, 'OLD_PROPORTION', ds_name)
             makePlot(mon_plt_lis, new_plt_lis, head_, output_dir, 'NEW_PROPORTION', ds_name)
             print '='*50
+
+def generateLifetimeSummary(file_out):
+    life_df=pd.read_csv(file_out)
+    smells = np.unique(life_df['SMELL'].tolist())
+    for smell in smells:
+        smell_df  = life_df[life_df['SMELL']==smell]
+        dura_list = smell_df['DUR_MON'].tolist()
+        median_, mean_ = np.median(dura_list), np.mean(dura_list)
+        print 'Smell:{}, Median:{}, Mean:{}'.format(smell, median_, mean_)
+        print '='*25
 
 
 
@@ -265,7 +276,8 @@ if __name__=='__main__':
    life time analysis
    '''
    lifetime_str = processLifetimeData(pkl_df)
-   print lifetime_str
+   # print lifetime_str
    print '*'*100
    by = dumpContentIntoFile(lifetime_str, lifetime_out_file)
+   generateLifetimeSummary(lifetime_out_file)
    print 'Dumped a file of {} bytes'.format(by)
