@@ -106,16 +106,16 @@ def parseOutput():
     '''
     Initialization
     '''
-    rul_hardcode_cnt,  rul_hardcode_lin   = 0, 0
-    rul_susp_comm_cnt, rul_susp_comm_lin  = 0, 0
-    rul_secr_loca_cnt, rul_secr_loca_lin  = 0, 0
-    rul_md5_usage_cnt, rul_md5_usage_lin  = 0, 0
-    rul_http_use_cnt,  rul_http_use_lin   = 0, 0
-    rul_bind_use_cnt,  rul_bind_use_lin   = 0, 0
-    rul_empt_pwd_cnt,  rul_empt_pwd_lin   = 0, 0
-    rul_defa_adm_cnt,  rul_defa_adm_lin   = 0, 0
-    rul_base64_cnt,    rul_base64_lin     = 0, 0
-    rul_mis_case_cnt,  rul_mis_case_lin   = 0, 0
+    rul_hardcode_cnt,  rul_hardcode_lin   = 0, ''
+    rul_susp_comm_cnt, rul_susp_comm_lin  = 0, ''
+    rul_secr_loca_cnt, rul_secr_loca_lin  = 0, ''
+    rul_md5_usage_cnt, rul_md5_usage_lin  = 0, ''
+    rul_http_use_cnt,  rul_http_use_lin   = 0, ''
+    rul_bind_use_cnt,  rul_bind_use_lin   = 0, ''
+    rul_empt_pwd_cnt,  rul_empt_pwd_lin   = 0, ''
+    rul_defa_adm_cnt,  rul_defa_adm_lin   = 0, ''
+    rul_base64_cnt,    rul_base64_lin     = 0, ''
+    rul_mis_case_cnt,  rul_mis_case_lin   = 0, ''
     '''
     '''
     file_ = open(constants.OUTPUT_TMP_LOG, constants.FILE_OPEN_MODE)
@@ -140,7 +140,7 @@ def parseOutput():
                   rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt,
                   rul_base64_cnt, rul_mis_case_cnt)
     # total count
-    tot_cnt = sum(output2ret)
+    tot_cnt = sum(output2ret) 
     output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt,
                   rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt,
                   rul_base64_cnt, rul_mis_case_cnt, tot_cnt)

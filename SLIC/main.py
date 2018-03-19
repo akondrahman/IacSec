@@ -35,37 +35,44 @@ if __name__=='__main__':
    PUPPET DIRECTORIES
    '''
    # ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/TEST_PUPPET.csv'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_TEST_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_SYM_TEST_PUP.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/mozi-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_MOZILLA_PUPPET.csv'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_ALL_MOZILLA_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_SYM_ALL_MOZ_PUP.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/ostk-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_OPENSTACK_PUPPET.csv'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_ALL_OPENSTACK_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_SYM_ALL_OST_PUP.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/wiki-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_WIKIMEDIA_PUPPET.csv'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_ALL_WIKIMEDIA_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_SYM_ALL_WIK_PUP.PKL'
 
    '''
    CHEF DIRECTORIES
    '''
-   ds_path = '/Users/akond/SECU_REPOS/test-chef/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_TEST_CHEF.csv'
-   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_SYM_TEST.PKL'
+   # ds_path = '/Users/akond/SECU_REPOS/test-chef/'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_TEST_CHEF.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_SYM_TEST.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/berg-chef/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_BERG_CHEF.csv'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_ALL_BERG_CHEF.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_SYM_BERG.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/cdat-chef/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_CDAT_CHEF.csv'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_CDAT_CHEF.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_SYM_CDAT.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/expr-chef/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/ALL_EXPR_CHEF.csv'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_ALL_EXPR_CHEF.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_SYM_CHEF.PKL'
 
    final_output_str, sym_out_full = executor.sniffSmells(ds_path) # 1. count, 2. symbols for whcih we observe smells
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str
    print '*'*100
-   # print final_symbol_str
+   # print sym_out_full
    bytes_out = dumpContentIntoFile(final_output_str, output_file)
    print 'Dumped output file of {} bytes'.format(bytes_out)
    print '*'*100

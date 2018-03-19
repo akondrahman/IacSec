@@ -71,6 +71,12 @@ def sniffSmells(path_to_dir):
                     lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
                     final_str      = final_str + month_str + lint_cnt_str
                     # print secu_lint_outp
+                    '''
+                     for same/new checking data
+                    '''
+                    symbol_out   = secu_lint_outp[1] # a tuple, where each element is a list of strs
+                    per_file_sym = buildSymOut(symbol_out, month_str, full_p_file)
+                    all_sym_list = all_sym_list + per_file_sym
                  elif (os.path.exists(full_p_file) and (constants.CH_DIR in full_p_file) and (full_p_file.endswith(constants.PP_EXT)==False)):
                      counter += 1
                      print 'Analyzing:{},Index:{}'.format(full_p_file, counter)

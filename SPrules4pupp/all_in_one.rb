@@ -47,7 +47,7 @@ PuppetLint.new_check(:no_admin_by_default) do
                                 if ((nxt_nxt_val.include? 'admin') && (token_val.include? 'user')) ||
                                    ((token_val.include? 'admin') && (token_val.include? 'user'))
                                    notify :warning, {
-                                     message: 'SECURITY:::ADMIN_BY_DEFAULT:::Do not make default user as admin. This violates the secure by design principle.@'+token_val+'@',
+                                     message: 'SECURITY:::ADMIN_BY_DEFAULT:::Do not make default user as admin. This violates the secure by design principle.@'+token_val+'='+nxt_nxt_val+'@',
                                      line:    indi_token.line,
                                      column:  indi_token.column,
                                      token:   token_val
@@ -84,7 +84,7 @@ PuppetLint.new_check(:no_empty_pass) do
                            # puts "KEY,PAIR----->#{token_valu}, #{nxt_nxt_val}"
                            if (((token_valu.include? "pwd") || (token_valu.include? "password") || (token_valu.include? "pass")) && ((nxt_nxt_val.length <=0) || (nxt_nxt_val.eql?' ')))
                               notify :warning, {
-                                message: 'SECURITY:::EMPTY_PASSWORD:::Do not keep password field empty. This may help an attacker to attack. You can use hiera to avoid this issue.@'+token_valu+'@',
+                                message: 'SECURITY:::EMPTY_PASSWORD:::Do not keep password field empty. This may help an attacker to attack. You can use hiera to avoid this issue.@'+token_valu+'='+nxt_nxt_val+'@',
                                 line:    indi_token.line,
                                 column:  indi_token.column,
                                 token:   token_valu
@@ -152,7 +152,7 @@ PuppetLint.new_check(:no_hardcode_secret_v1) do
                                  # && (nxt_nxt_val.is_a? String)
                                  # puts "KEY,PAIR,CURR_TYPE,NEXT_TYPE----->#{token_valu}, #{nxt_nxt_val}, #{token_type}, #{nxt_nxt_type}"
                                  notify :warning, {
-                                    message: 'SECURITY:::HARD_CODED_SECRET_V1:::Do not hard code secrets. This may help an attacker to attack the system. You can use hiera to avoid this issue.@'+token_valu+'@',
+                                    message: 'SECURITY:::HARD_CODED_SECRET_V1:::Do not hard code secrets. This may help an attacker to attack the system. You can use hiera to avoid this issue.@'+token_valu+'='+nxt_nxt_val+'@',
                                     line:    indi_token.line,
                                     column:  indi_token.column,
                                     token:   token_valu
@@ -190,7 +190,7 @@ PuppetLint.new_check(:no_hardcode_secret_v2) do
 
                            if ((nxt_nxt_val.length > 0) && (!nxt_nxt_type.eql? 'VARIABLE') && (nxt_nxt_val.include? 'ssh-rsa'))
                                  notify :warning, {
-                                    message: 'SECURITY:::HARD_CODED_SECRET_V2:::Do not hard code secrets. This may help an attacker to attack the system. You can use hiera to avoid this issue.@'+token_valu+'@',
+                                    message: 'SECURITY:::HARD_CODED_SECRET_V2:::Do not hard code secrets. This may help an attacker to attack the system. You can use hiera to avoid this issue.@'+token_valu+'='+nxt_nxt_val+'@',
                                     line:    indi_token.line,
                                     column:  indi_token.column,
                                     token:   token_valu
@@ -273,10 +273,10 @@ PuppetLint.new_check(:no_expose_secret_location) do
                                 (nxt_nxt_typ.eql? 'SSTRING')
                               )
                               notify :warning, {
-                                message: 'SECURITY:::EXPOSING_SECRET_LOCATION:::Do not expose location of secrets. This may help an attacker to attack. You can use hiera to avoid this issue.@' + token_val+'@',
+                                message: 'SECURITY:::EXPOSING_SECRET_LOCATION:::Do not expose location of secrets. This may help an attacker to attack. You can use hiera to avoid this issue.@' + token_val +'='+nxt_nxt_val+'@',
                                 line:    nxt_nxt_token.line,
                                 column:  nxt_nxt_token.column,
-                                token:   nxt_nxt_val
+                                token:   token_val
                               }
                            end
                         end
