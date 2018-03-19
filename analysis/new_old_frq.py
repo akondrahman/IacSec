@@ -218,7 +218,8 @@ def generateLifetimeSummary(file_out, ds_na):
         smell_df  = life_df[life_df['SMELL']==smell]
         dura_list = smell_df['DUR_MON'].tolist()
         median_, mean_ = np.median(dura_list), np.mean(dura_list)
-        print 'Name:{},Smell:{}, Median:{}, Mean:{}'.format(ds_na, smell, median_, mean_)
+        min_, max_ = min(dura_list), max(dura_list)
+        print 'Name:{},Smell:{}, Median:{}, Mean:{}, Min:{}, Max:{}'.format(ds_na, smell, median_, mean_, min_, max_)
         print '='*25
 
 
@@ -232,11 +233,11 @@ if __name__=='__main__':
                     'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
                     'BASE_64',	'MISS_DFLT']
 
-   orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_BERG_CHEF.csv'
-   ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_BERG.PKL'
-   dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_berg/'
-   name = 'BLOOMBERG'
-   lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_berg/LIFETIME.csv'
+   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_BERG_CHEF.csv'
+   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_BERG.PKL'
+   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_berg/'
+   # name = 'BLOOMBERG'
+   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_berg/LIFETIME.csv'
 
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_CDAT_CHEF.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_CDAT.PKL'
