@@ -8,10 +8,6 @@ BOXPLOT_DATA <- read.csv(BOXPLOT_FILE)
 BOXPLOT_TITL <- "BLOOMBERG"
 BOXPLOT_LIMI <- c(0, 50)
 
-print("============================================================")
-print(summary(BOXPLOT_DATA))
-print("============================================================")
-
 the_plot <- ggplot(BOXPLOT_DATA, aes(x=SMELL, y=DUR_MON, fill=SMELL)) + geom_boxplot(width=0.5, outlier.shape=16, outlier.size=1) + labs(x='Name', y='Lifetime(Months)') 
 the_plot <- the_plot + ggtitle(BOXPLOT_TITL)  + theme(plot.title = element_text(hjust = 0.5), text = element_text(size=12.5), axis.text=element_text(size=12.5))
 the_plot <- the_plot + scale_y_continuous(limits=BOXPLOT_LIMI) + theme(legend.position="none")

@@ -211,14 +211,14 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
             makePlot(mon_plt_lis, new_plt_lis, head_, output_dir, 'NEW_PROPORTION', ds_name)
             print '='*50
 
-def generateLifetimeSummary(file_out):
+def generateLifetimeSummary(file_out, ds_na):
     life_df=pd.read_csv(file_out)
     smells = np.unique(life_df['SMELL'].tolist())
     for smell in smells:
         smell_df  = life_df[life_df['SMELL']==smell]
         dura_list = smell_df['DUR_MON'].tolist()
         median_, mean_ = np.median(dura_list), np.mean(dura_list)
-        print 'Smell:{}, Median:{}, Mean:{}'.format(smell, median_, mean_)
+        print 'Name:{},Smell:{}, Median:{}, Mean:{}'.format(ds_na, smell, median_, mean_)
         print '='*25
 
 
@@ -242,26 +242,31 @@ if __name__=='__main__':
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_CDAT.PKL'
    # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_cdat/'
    # name = 'CASKDATA'
+   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_cdat/LIFETIME.csv'
 
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_EXPR_CHEF.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_EXPR.PKL'
    # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_expr/'
    # name = 'EXPRESS42'
+   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_expr/LIFETIME.csv'
 
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_MOZILLA_PUPPET.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_ALL_MOZ.PKL'
    # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_moz/'
    # name = 'MOZILLA'
+   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_moz/LIFETIME.csv'
 
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_OPENSTACK_PUPPET.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_ALL_OST_PUP.PKL'
    # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_ost/'
    # name = 'OPENSTACK'
+   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_ost/LIFETIME.csv'
 
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_WIKIMEDIA_PUPPET.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_SYM_ALL_WIK_PUP.PKL'
    # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_wik/'
    # name = 'WIKIMEDIA'
+   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_new_old_wik/LIFETIME.csv'
 
    orig_df = pd.read_csv(orig_csv)
    pkl_lis = pickle.load(open(ds_pkl, 'rb'))
@@ -279,5 +284,6 @@ if __name__=='__main__':
    # print lifetime_str
    print '*'*100
    by = dumpContentIntoFile(lifetime_str, lifetime_out_file)
-   generateLifetimeSummary(lifetime_out_file)
+   generateLifetimeSummary(lifetime_out_file, name)
    print 'Dumped a file of {} bytes'.format(by)
+   print '*'*100
