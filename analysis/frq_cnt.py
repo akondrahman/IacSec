@@ -70,8 +70,11 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
         for mon_ in mon_lis:
             mon_df = df_pa[df_pa['MONTH']==mon_]
             per_mon_cnt = sum(mon_df[head_].tolist()) # we need the total count
-            per_mon_fil = np.unique(mon_df['FILE_NAME'].tolist()) # we need the unique file names
-            per_mon_fil_cnt = len(per_mon_fil) # unque file count
+            # per_mon_fil = np.unique(mon_df['FILE_NAME'].tolist()) # WRONG: unique file names exlcude the fact that a smell can appear mutliple tuime in the same file
+
+            per_mon_fil = mon_df['FILE_NAME'].tolist() # we need all file names, a smell can appear multiple times in a file
+
+            per_mon_fil_cnt = len(per_mon_fil) #  file count
             cnt_per_fil   = round(float(per_mon_cnt)/float(per_mon_fil_cnt), 3)
             smell_density = calcSmellDensity(per_mon_cnt, per_mon_fil)
             print 'MON:{}, CNT:{}, FIL:{}, CNT_PER_FIL:{}, SMELL_DENS:{}, TYPE:{}'.format(mon_, per_mon_cnt, per_mon_fil_cnt, cnt_per_fil, smell_density, head_)
@@ -98,34 +101,36 @@ if __name__=='__main__':
    # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3/'
    # ds_name = 'TEST'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_WIKIMEDIA_PUPPET.csv'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_WIKIMEDIA_PUPPET.csv'
    # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_wik/'
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_wik/'
    # ds_nam = 'WIKIMEDIA'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_OPENSTACK_PUPPET.csv'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_OPENSTACK_PUPPET.csv'
    # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_ost/'
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_ost/'
    # ds_nam = 'OPENSTACK'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_MOZILLA_PUPPET.csv'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_MOZILLA_PUPPET.csv'
    # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_moz/'
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_moz/'
    # ds_nam = 'MOZILLA'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_BERG_CHEF.csv'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_BERG_CHEF.csv'
    # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_berg/'
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_berg/'
    # ds_nam = 'BLOOMBERG'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_ALL_EXPR_CHEF.csv'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_CDAT_CHEF.csv'
    # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_expr/'
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_cdat/'
+   # ds_nam = 'CASKDATA'
+
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_EXPR_CHEF.csv'
+   # results_df   = pd.read_csv(results_file)
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_expr/'
    # ds_nam = 'EXPRESS42'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_CDAT_CHEF.csv'
-   # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_cdat/'
-   # ds_nam = 'CASKDATA'
+
 
    perfAnal(results_df, needed_header, plot_out_dir, ds_nam)
