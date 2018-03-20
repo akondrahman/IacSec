@@ -213,29 +213,37 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
             print '='*50
 
 def doDetails(ls, na, sm):
+    ls2re = []
     freq=dict(Counter(ls))
     smell_count = len(ls)
     for k_, v_ in freq.iteritems():
         perc = round((float(v_)/float(smell_count))*100, 4)
         print 'DATASET:{},SMELL:{},Duration(months):{},Count:{},Total:{},Perc:{}'.format(na, sm, k_, v_, smell_count, perc)
+        print '-'*15
+        ls2re.append((na, sm, k_, smell_count, perc))
+    return ls2re
 
-def generateLifetimeSummary(file_out, ds_na):
+def generateLifetimeSummary(file_out, ds_na, out_dir):
     life_df=pd.read_csv(file_out)
     smells = np.unique(life_df['SMELL'].tolist())
     all_dura_list = []
+    details_ls = []
     for smell in smells:
         smell_df  = life_df[life_df['SMELL']==smell]
         dura_list = smell_df['DUR_MON'].tolist()
-        doDetails(dura_list, ds_na, smell)
+        smell_ls = doDetails(dura_list, ds_na, smell)
+        details_ls = details_ls + smell_ls
         median_, mean_ = np.median(dura_list), np.mean(dura_list)
         min_, max_ = min(dura_list), max(dura_list)
         print 'Name:{},Smell:{}, Median:{}, Mean:{}, Min:{}, Max:{}'.format(ds_na, smell, median_, mean_, min_, max_)
-        print '='*25
+        print '='*50
         all_dura_list = all_dura_list + dura_list
     median_tot, mean_tot = np.median(all_dura_list), np.mean(all_dura_list)
     min_tot, max_tot = min(all_dura_list), max(all_dura_list)
     print 'Name:{},Smell:{}, Median:{}, Mean:{}, Min:{}, Max:{}'.format(ds_na, 'TOTAL', median_tot, mean_tot, min_tot, max_tot)
-    print '*'*50
+    print '*'*75
+    df2ret = pd.DataFrame.from_records(details_ls, columns=['DS_NAME', 'TYPE', 'DUR_MON', 'TOT_PER_TYPE', 'PERC'])
+    df2ret.tocsv(out_dir + 'LIFETIME_DETAILS.csv')
 
 
 if __name__=='__main__':
@@ -247,11 +255,11 @@ if __name__=='__main__':
                     'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
                     'BASE_64',	'MISS_DFLT']
 
-   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_BERG_CHEF.csv'
-   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_SYM_BERG.PKL'
-   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_berg/'
-   # name = 'BLOOMBERG'
-   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_berg/LIFETIME.csv'
+   orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_BERG_CHEF.csv'
+   ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_SYM_BERG.PKL'
+   dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_berg/'
+   name = 'BLOOMBERG'
+   lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_berg/LIFETIME.csv'
 
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_CDAT_CHEF.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_SYM_CDAT.PKL'
@@ -299,6 +307,6 @@ if __name__=='__main__':
    # print lifetime_str
    print '*'*100
    by = dumpContentIntoFile(lifetime_str, lifetime_out_file)
-   generateLifetimeSummary(lifetime_out_file, name)
+   generateLifetimeSummary(lifetime_out_file, name, dir2dump)
    print 'Dumped a file of {} bytes'.format(by)
    print '*'*100
