@@ -243,7 +243,7 @@ def generateLifetimeSummary(file_out, ds_na, out_dir):
     print 'Name:{},Smell:{}, Median:{}, Mean:{}, Min:{}, Max:{}'.format(ds_na, 'TOTAL', median_tot, mean_tot, min_tot, max_tot)
     print '*'*75
     df2ret = pd.DataFrame.from_records(details_ls, columns=['DS_NAME', 'TYPE', 'DUR_MON', 'TOT_PER_TYPE', 'PERC'])
-    df2ret.tocsv(out_dir + 'LIFETIME_DETAILS.csv')
+    df2ret.to_csv(out_dir + 'LIFETIME_DETAILS.csv')
 
 
 if __name__=='__main__':
@@ -255,11 +255,11 @@ if __name__=='__main__':
                     'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
                     'BASE_64',	'MISS_DFLT']
 
-   orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_BERG_CHEF.csv'
-   ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_SYM_BERG.PKL'
-   dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_berg/'
-   name = 'BLOOMBERG'
-   lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_berg/LIFETIME.csv'
+   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_BERG_CHEF.csv'
+   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_SYM_BERG.PKL'
+   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_berg/'
+   # name = 'BLOOMBERG'
+   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_berg/LIFETIME.csv'
 
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_CDAT_CHEF.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_SYM_CDAT.PKL'
