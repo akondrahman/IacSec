@@ -60,6 +60,14 @@ def makeCSV(lis_par, nam, dir):
     os_bytes = dumpContentIntoFile(str_, file2save)
     print 'DUMPED CSV FILE OF {} BYTES'.format(os_bytes)
 
+def processFileName(single_file_name):
+    splitted_dir_name = single_file_name.split('/')[5]
+    year  = splitted_dir_name.split('-')[-2]
+    month = splitted_dir_name.split('-')[-1]
+    str2del = '-' + year + '-' + month
+    str2ret = single_file_name.replace(str2del, '')
+    return str2ret
+
 def perfAnal(df_pa, header_pa, output_dir, ds_name):
     createOutputDirectory(output_dir)
     mon_lis = np.unique(df_pa['MONTH'].tolist())
@@ -86,7 +94,8 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
             '''
             extra work for unique file: no of unique scripts for each at least one smell occur
             '''
-            uni_fil_cnt = len(np.unique(mon_df['FILE_NAME'].tolist()))
+            all_fil_lis = mon_df['FILE_NAME'].tolist()
+            uni_fil_cnt = len(np.unique(all_fil_lis))
 
             mon_plt_lis.append(mon_)
             cnt_plt_lis.append(cnt_per_fil)
