@@ -66,10 +66,17 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
     mon_lis = sortDate(mon_lis)
     csv_list = []
     for head_ in header_pa:
+        '''
+        for summary puprpose
+        '''
+        stat_list = df_pa[head_].tolist()
+        print 'SMELL:{},MIN:{},MEDIAN:{},MAX:{}'.format(head_, min(stat_list), np.median(stat_list), max(stat_list))
+        print '#'*50
         mon_plt_lis, cnt_plt_lis, sme_den_lis = [], [], []
         for mon_ in mon_lis:
             mon_df = df_pa[df_pa['MONTH']==mon_]
-            per_mon_cnt = sum(mon_df[head_].tolist()) # we need the total count
+            per_mon_per_smell_list = mon_df[head_].tolist()
+            per_mon_cnt = sum(per_mon_per_smell_list) # we need the total count
             # per_mon_fil = np.unique(mon_df['FILE_NAME'].tolist()) # WRONG: unique file names exlcude the fact that a smell can appear mutliple tuime in the same file
 
             per_mon_fil = mon_df['FILE_NAME'].tolist() # we need all file names, a smell can appear multiple times in a file
@@ -83,6 +90,7 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
             sme_den_lis.append(smell_density)
             print '*'*25
             csv_list.append((mon_, head_, cnt_per_fil, smell_density))
+
         makePlot(mon_plt_lis, cnt_plt_lis, head_, output_dir, 'CNT_PER_FIL', ds_name)
         makePlot(mon_plt_lis, sme_den_lis, head_, output_dir, 'SMELL_DENSITY_KLOC', ds_name)
         print '='*50
@@ -101,10 +109,10 @@ if __name__=='__main__':
    # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3/'
    # ds_name = 'TEST'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_WIKIMEDIA_PUPPET.csv'
-   # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_wik/'
-   # ds_nam = 'WIKIMEDIA'
+   results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_WIKIMEDIA_PUPPET.csv'
+   results_df   = pd.read_csv(results_file)
+   plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_wik/'
+   ds_nam = 'WIKIMEDIA'
 
    # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_OPENSTACK_PUPPET.csv'
    # results_df   = pd.read_csv(results_file)

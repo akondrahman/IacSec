@@ -3,33 +3,29 @@ options(max.print=1000000)
 t1 <- Sys.time()
 library(ggplot2)
 
-
-#### IF YOU WANT TO KEEP THE LINE PLOTS::: REMEMBER TO REMOVE 0000
-
-# THE_FILE    <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_cdat/CASKDATA.csv"
-# THE_LIMIT   <- 65
-# THE_DS_NAME <- "CASKDATA"
-
-# THE_FILE    <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_expr/EXPRESS42.csv"
-# THE_LIMIT   <- 75
-# THE_DS_NAME <- "EXPRESS42"
-
-# THE_FILE    <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_berg/BLOOMBERG.csv"
+# THE_FILE    <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_berg/BLOOMBERG.csv"
 # THE_LIMIT   <- 30
 # THE_DS_NAME <- "BLOOMBERG"
 
-# THE_FILE    <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_moz/MOZILLA.csv"
-# THE_LIMIT   <- 110
+# THE_FILE    <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_cdat/CASKDATA.csv"
+# THE_LIMIT   <- 65
+# THE_DS_NAME <- "CASKDATA"
+
+# THE_FILE    <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_expr/EXPRESS42.csv"
+# THE_LIMIT   <- 75
+# THE_DS_NAME <- "EXPRESS42"
+
+# THE_FILE    <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_moz/MOZILLA.csv"
+# THE_LIMIT   <- 115
 # THE_DS_NAME <- "MOZILLA"
 
-# THE_FILE   <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_ost/OPENSTACK.csv"
-# THE_LIMIT  <- 100
+# THE_FILE   <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_ost/OPENSTACK.csv"
+# THE_LIMIT  <- 104
 # THE_DS_NAME <- "OPENSTACK"
 
-# THE_FILE   <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3_wik/WIKIMEDIA.csv"
+# THE_FILE   <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_wik/WIKIMEDIA.csv"
 # THE_LIMIT  <- 300
 # THE_DS_NAME <- "WIKIMEDIA"
-
 
 # Y_LABEL     <- "Count of Smells per File"
 Y_LABEL     <- "Smell Density (KLOC)"
@@ -43,11 +39,10 @@ the_plot  <- ggplot(data=LINE_DATA, aes(x=MONTH, y=SMELL_DENSITY, group=1)) +
   labs(x='Month', y=Y_LABEL) +
   theme(legend.position="none") +
   ggtitle(THE_DS_NAME) + theme(plot.title = element_text(hjust = 0.5)) +
-  theme(text = element_text(size=12.5), axis.text.x = element_text(angle=45, hjust=1, size=12.5), axis.text.y = element_text(size=15), axis.title=element_text(size=12.5, face="bold"))  
-
-
+  theme(text = element_text(size=11), axis.text.x = element_text(angle=45, hjust=1, size=11), axis.text.y = element_text(size=12.5), axis.title=element_text(size=11, face="bold"))  
 
 the_plot
+
 t2 <- Sys.time()
 print(t2 - t1)  
 rm(list = setdiff(ls(), lsf.str()))

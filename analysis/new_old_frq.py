@@ -230,8 +230,12 @@ def generateLifetimeSummary(file_out, ds_na, out_dir):
     details_ls = []
     for smell in smells:
         smell_df  = life_df[life_df['SMELL']==smell]
+
         dura_list = smell_df['DUR_MON'].tolist()
+
+
         smell_ls = doDetails(dura_list, ds_na, smell)
+
         details_ls = details_ls + smell_ls
         median_, mean_ = np.median(dura_list), np.mean(dura_list)
         min_, max_ = min(dura_list), max(dura_list)
