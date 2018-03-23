@@ -139,10 +139,10 @@ if __name__=='__main__':
    # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_ost/'
    # ds_nam = 'OPENSTACK'
 
-   results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_MOZILLA_PUPPET.csv'
-   results_df   = pd.read_csv(results_file)
-   plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_moz/'
-   ds_nam = 'MOZILLA'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_MOZILLA_PUPPET.csv'
+   # results_df   = pd.read_csv(results_file)
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_moz/'
+   # ds_nam = 'MOZILLA'
 
    '''
    CHEF REPOS
