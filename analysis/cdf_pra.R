@@ -10,8 +10,8 @@ lol <- read.csv('/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/out
 
 # plot(ecdf(lol$count))
 
-
-ggplot(lol, aes(density)) + stat_ecdf(geom = "step")
+#ggplot(BOXPLOT_DATA, aes(x=SMELL, y=density, fill=SMELL)) 
+ggplot(lol, aes(density)) + stat_ecdf(geom = "step") + facet_wrap(~ smell)
 
 t2 <- Sys.time()
 print(t2 - t1)  
