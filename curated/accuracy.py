@@ -27,9 +27,13 @@ def printAccu(file_name):
   conf_matr_output = confusion_matrix(actualLabels, predictedLabels, labels=target_labels)
   print conf_matr_output
   print "Confusion matrix end"
-  # preserve the order first test(real values from dataset), then predcited (from the classifier )
-  tn, fp, fn, tp = conf_matr_output.ravel()
-  print 'TN:{}, FP:{}, FN:{}, TP:{}'.format( tn, fp, fn, tp )
+  print ">"*10
+  '''
+  '''
+  print "precison, recall, F-stat"
+  class_report = classification_report(vScore_test, thePredictedScores, target_names=target_labels)
+  print class_report
+  print ">"*10
   '''
   accuracy_score ... reff: http://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter .... percentage of correct predictions
   ideally 1.0, higher the better
