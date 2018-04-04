@@ -31,7 +31,7 @@ def printAccu(file_name):
   '''
   '''
   print "precison, recall, F-stat"
-  class_report = classification_report(vScore_test, thePredictedScores, target_names=target_labels)
+  class_report = classification_report(actualLabels, predictedLabels, labels=target_labels)
   print class_report
   print ">"*10
   '''
@@ -40,7 +40,7 @@ def printAccu(file_name):
   '''
   accuracy_score_output = accuracy_score(actualLabels, predictedLabels)
   # preserve the order first test(real values from dataset), then predcited (from the classifier )
-  print "Accuracy output  is ", accuracy_score_output
+  print "Accuracy output is ", accuracy_score_output
   print">"*10
 
 
