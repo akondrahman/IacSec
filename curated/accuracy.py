@@ -14,16 +14,16 @@ def printAccu(file_name):
   actualLabels = df2read['ACTUAL'].tolist()
   predictedLabels = df2read['TOOL'].tolist()
   '''
-    the way skelarn treats is the following: first index -> lower index -> 0 -> 'Low'
-                                             next index after first  -> next lower index -> 1 -> 'high'
+    the way skelarn treats is the following: first index -> lower index -> 0 -> '0'
+                                             next index after first  -> next lower index -> 1 -> '1'
   '''
-  target_labels =  ['N', 'Y']
+  target_labels =  ['0', '1', '2']
   '''
   getting the confusion matrix
   '''
   print "Confusion matrix start"
   #print conf_matr_output
-  conf_matr_output = pd.crosstab(actualLabels, predictedLabels, rownames=['True'], colnames=['Predicted'], margins=True)
+  conf_matr_output = confusion_matrix(actualLabels, predictedLabels, labels=target_labels)
   print conf_matr_output
   print "Confusion matrix end"
   # preserve the order first test(real values from dataset), then predcited (from the classifier )
@@ -48,5 +48,5 @@ def printAccu(file_name):
 
 
 if __name__=='__main__':
-   curated_ds = 'cd /Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/Test.csv'
+   curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/Test.csv'
    printAccu(curated_ds)
