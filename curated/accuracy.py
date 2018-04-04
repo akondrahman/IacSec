@@ -10,7 +10,9 @@ import numpy as np, pandas as pd
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 
 def printAccu(file_name):
-
+  df2read = pd.read_csv(file_name)
+  actualLabels = df2read['ACTUAL'].tolist()
+  predictedLabels = df2read['TOOL'].tolist()
   '''
     the way skelarn treats is the following: first index -> lower index -> 0 -> 'Low'
                                              next index after first  -> next lower index -> 1 -> 'high'
@@ -46,5 +48,5 @@ def printAccu(file_name):
 
 
 if __name__=='__main__':
-   curated_ds = ''
+   curated_ds = 'cd /Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/Test.csv'
    printAccu(curated_ds)
