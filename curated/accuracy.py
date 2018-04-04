@@ -28,16 +28,8 @@ def printAccu(file_name):
   print conf_matr_output
   print "Confusion matrix end"
   # preserve the order first test(real values from dataset), then predcited (from the classifier )
-  '''
-  the precision score is computed as follows:
-  '''
-  prec_ = precision_score(actualLabels, predictedLabels, average=None)
-  #print "The precision score is:", prec_
-  #print">"*25
-  '''
-  the recall score is computed as follows:
-  '''
-  recall_ = recall_score(actualLabels, predictedLabels, average=None)
+  tn, fp, fn, tp = conf_matr_output.ravel()
+  print 'TN:{}, FP:{}, FN:{}, TP:{}'.format( tn, fp, fn, tp )
   '''
   accuracy_score ... reff: http://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter .... percentage of correct predictions
   ideally 1.0, higher the better
