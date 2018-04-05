@@ -7,7 +7,7 @@ This script maps each file to catgeory
 import pandas as pd
 import csv
 
-def getDict(file_):
+def getAPDict(file_):
     dict_ = {}
     with open(file_, 'rU') as f:
          reader_ = csv.reader(f)
@@ -19,6 +19,20 @@ def getDict(file_):
                  dict_[apID] = name
     return dict_
 
+def getAPDict(file_):
+    dict_ = {}
+    with open(file_, 'rU') as f:
+         reader_ = csv.reader(f)
+         next(reader_, None)
+         for row in reader_:
+             studentID = row[0]
+             sweExp = row[1]
+             iacExp = row[2]
+             time   = row[3]
+             if studentID not in dict_:
+                 dict_[studentID] = (studentID, sweExp, iacExp, time)
+    return dict_
+
 if __name__=='__main__':
    apa_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/antipattern_table.csv'
    pro_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/profile_table.csv'
@@ -28,13 +42,13 @@ if __name__=='__main__':
    '''
    get anti patterns
    '''
-   ap_di = getDict(apa_tbl)
-   print ap_di
+   ap_di = getAPDict(apa_tbl)
+   # print ap_di
    '''
    get profile
    '''
-   pr_df = pd.read_csv(pro_tbl)
-   print pr_df.head()
+   pr_di = getProDict(pro_tbl)
+   print pr_di
    '''
    get script table
    '''
