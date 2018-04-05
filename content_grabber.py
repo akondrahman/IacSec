@@ -34,12 +34,18 @@ if __name__=='__main__':
     file_counter = 0
     # list_of_ds = [bastion_files,  cisco_files, mirantis_files, mozilla_files , openstack_files, wikimedia_files]
     # list_of_ds = [cisco_files, mirantis_files, mozilla_files , openstack_files, wikimedia_files]
-    list_of_ds = [mozilla_files , wikimedia_files]
+    list_of_ds = [mozilla_files , openstack_files, wikimedia_files]
     for ds_ in list_of_ds:
-        for file_content in ds_:
+        for file_content_tup in ds_:
+            file_content , file_name = file_content_tup
             file_counter += 1
             print '='*25 + ':'*3 + str(file_counter)   + ':'*3  + 'START!' + '='*25
+            print file_name
+            print '*'*10
             print file_content
+            # if 'siebrand' in file_content:
+            #     # print file_content
+            #     print file_name
             print '*'*10
             print 'DECISION===>:'
             print '*'*10
