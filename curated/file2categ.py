@@ -48,26 +48,41 @@ def getSubmDict(file_):
                  dict_[scriptID] = [apID] + dict_[scriptID]
     return dict_
 
-def getAgreement(dict_pa):
+def getScriptPath(id_param, df_param):
+    path2ret = ''
+    path2ret = df_param[df_param['scriptID']==id_param]['path'].tolist()[0]
+    return path2ret
+
+def getLabel(dic, inp):
+    lab = ''
+    if inp in dic:
+        lab = dic[inp]
+    return lab
+
+def getAgreement(dict_pa, scr_df, dict_ap):
     agrCnt, disAgrCnt  = 0, 0
+    lis2ret = []
     for k_, v_ in dict_pa.iteritems():
-        scr_pat = getScriptPath(k_)
+        scr_pat = getScriptPath(k_, scr_df)
         if (len(v_)==1):
             agrCnt += 1
-            scr_lab = getLabel(v_)
+            scr_lab = getLabel(dict_ap, v_)
+            lis2ret.append((scr_pat, scr_lab))
         elif (len(np.unique(v_))==1):
             agrCnt += 1
-            scr_lab = getLabel(np.unique(v_)[0])
+            scr_lab = getLabel(dict_ap, np.unique(v_)[0])
+            lis2ret.append((scr_pat, scr_lab))
         else:
-            scr_lab = str(np.bincount(v_).argmax())
+            scr_lab = getLabel(dict_ap , str(np.bincount(v_).argmax()))
             scr_lab_occ = scr_lab.count(scr_lab)
             tot_len = len(v_)
             freq_perc  = float(scr_lab_occ)/float(tot_len)
             # if the most frequent is 75% of the list , then agreement
             if freq_perc >= 0.75:
                 agrCnt += 1
+                lis2ret.append((scr_pat, scr_lab))
             else:
-                disAgrCnt += 1 
+                disAgrCnt += 1
 
 
 if __name__=='__main__':
@@ -96,4 +111,4 @@ if __name__=='__main__':
    '''
    sb_di = getSubmDict(sub_tbl)
    # print sb_di
-   getAgreement(sb_di)
+   getAgreement(sb_di, sc_df, ap_di)
