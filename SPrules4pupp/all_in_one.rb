@@ -142,11 +142,12 @@ PuppetLint.new_check(:no_hardcode_secret_v1) do
                                 (token_valu.include? "uuid") || (token_valu.include? "key") || (token_valu.include? "crypt") ||
                                 (token_valu.include? "secret") || (token_valu.include? "certificate") || (token_valu.include? "id") ||
                                 (token_valu.include? "cert") || (token_valu.include? "token") || (token_valu.include? "ssh_key") ||
-                                (token_valu.include? "md5") || (token_valu.include? "rsa") || (token_valu.include? "ssl")
+                                (token_valu.include? "md5") || (token_valu.include? "rsa") || (token_valu.include? "ssl") ||
+                                (token_valu.include? "dsa") || (token_valu.include? "user")
                                ) && ((nxt_nxt_val.length > 0)) && ((!nxt_nxt_type.eql? 'VARIABLE')) &&
-                               ((!nxt_nxt_val.include? "(") && (!nxt_nxt_val.include? 'undef') && (!nxt_nxt_val.include? 'true') && (!nxt_nxt_val.include? 'false') &&
-                                (!nxt_nxt_val.include? 'hiera') && (!nxt_nxt_val.include? 'secret') && (!nxt_nxt_val.include? 'union') && (!nxt_nxt_val.include? '${') &&
-                                (!nxt_nxt_val.include? '$')
+                               ((!nxt_nxt_val.include? "(") || (!nxt_nxt_val.include? 'undef') || (!nxt_nxt_val.include? 'true') || (!nxt_nxt_val.include? 'false') ||
+                                (!nxt_nxt_val.include? 'hiera') || (!nxt_nxt_val.include? 'secret') || (!nxt_nxt_val.include? 'union') || (!nxt_nxt_val.include? '${') ||
+                                (!nxt_nxt_val.include? '$') || (!nxt_nxt_val.include? '{')
                                )
                               )
                                  # && (nxt_nxt_val.is_a? String)
@@ -268,9 +269,9 @@ PuppetLint.new_check(:no_expose_secret_location) do
                                 (nxt_nxt_val.include? "pem") || (nxt_nxt_val.include? "crt") ||
                                 (nxt_nxt_val.include? "key") || (nxt_nxt_val.include? "ssl") ||
                                 (nxt_nxt_val.include? "certificate") || (nxt_nxt_val.include? "crl") ||
-                                (nxt_nxt_val.include? "pub") || (nxt_nxt_val.include? "id")) &&
+                                (nxt_nxt_val.include? "pub") || (nxt_nxt_val.include? "id") || (nxt_nxt_val.include? "rsa")) &&
                                 ((nxt_nxt_val.start_with? '/') || (nxt_nxt_val.include? '\\')) &&
-                                (nxt_nxt_typ.eql? 'SSTRING')
+                                (nxt_nxt_typ.eql? 'SSTRING') && ((!nxt_nxt_val.include? '$') || (!nxt_nxt_val.include? '{'))
                               )
                               notify :warning, {
                                 message: 'SECURITY:::EXPOSING_SECRET_LOCATION:::Do not expose location of secrets. This may help an attacker to attack. You can use hiera to avoid this issue.@' + token_val +'='+nxt_nxt_val+'@',
