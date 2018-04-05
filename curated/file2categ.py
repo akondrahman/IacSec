@@ -19,7 +19,7 @@ def getAPDict(file_):
                  dict_[apID] = name
     return dict_
 
-def getAPDict(file_):
+def getProDict(file_):
     dict_ = {}
     with open(file_, 'rU') as f:
          reader_ = csv.reader(f)
