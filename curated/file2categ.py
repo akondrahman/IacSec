@@ -26,4 +26,9 @@ if __name__=='__main__':
    get script table
    '''
    sc_df = pd.read_csv(scr_tbl)
-   print sc_df.head()
+   # print sc_df.head()
+   '''
+   get submissions
+   '''
+   sb_df = pd.read_csv(sub_tbl)
+   print sb_df.head()
