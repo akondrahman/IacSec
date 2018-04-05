@@ -49,9 +49,12 @@ def getSubmDict(file_):
     return dict_
 
 def getScriptPath(id_param, df_param):
-    path2ret = ''
     path2ret = df_param[df_param['scriptID']==id_param]['path'].tolist()[0]
     return path2ret
+
+def getScriptContent(id_param, df_param):
+    content = df_param[df_param['scriptID']==id_param]['content'].tolist()[0]
+    return content
 
 def getLabel(dic, inp):
     lab = ''
@@ -62,6 +65,7 @@ def getLabel(dic, inp):
 def getAgreement(dict_pa, scr_df, dict_ap):
     agrCnt, disAgrCnt  = 0, 0
     lis2ret = []
+    disAgrDict = {}
     for k_, v_ in dict_pa.iteritems():
         scr_pat = getScriptPath(k_, scr_df)
         if (len(v_)==1):
@@ -83,6 +87,8 @@ def getAgreement(dict_pa, scr_df, dict_ap):
                 lis2ret.append((scr_pat, scr_lab))
             else:
                 disAgrCnt += 1
+                scr_con = getScriptContent(k_, scr_df)
+                disAgrDict[scr_pat] = scr_con
 
 
 if __name__=='__main__':
