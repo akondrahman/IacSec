@@ -30,7 +30,21 @@ def getProDict(file_):
              iacExp = row[2]
              time   = row[3]
              if studentID not in dict_:
-                 dict_[studentID] = (studentID, sweExp, iacExp, time)
+                 dict_[studentID] = ( sweExp, iacExp, time)
+    return dict_
+
+def getSubmDict(file_):
+    dict_ = {}
+    with open(file_, 'rU') as f:
+         reader_ = csv.reader(f)
+         next(reader_, None)
+         for row in reader_:
+             scriptID = row[0]
+             apID = row[1]
+             if scriptID not in dict_:
+                 dict_[scriptID] = [apID]
+             else:
+                 dict_[scriptID] = [apID] + dict_[scriptID] 
     return dict_
 
 if __name__=='__main__':
@@ -48,14 +62,14 @@ if __name__=='__main__':
    get profile
    '''
    pr_di = getProDict(pro_tbl)
-   print pr_di
+   # print pr_di
    '''
    get script table
    '''
    sc_df = pd.read_csv(scr_tbl)
-   print sc_df.head()
+   # print sc_df.head()
    '''
    get submissions
    '''
-   sb_df = pd.read_csv(sub_tbl)
-   print sb_df.head()
+   sb_di = getSubmDict(sub_tbl)
+   print sb_di
