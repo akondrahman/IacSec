@@ -216,9 +216,11 @@ def doDetails(ls, na, sm):
     ls2re = []
     freq=dict(Counter(ls))
     smell_count = len(ls)
+    cum_per = 0
     for k_, v_ in freq.iteritems():
         perc = round((float(v_)/float(smell_count))*100, 4)
-        print 'DATASET:{},SMELL:{},Duration(months):{},Count:{},Total:{},Perc:{}'.format(na, sm, k_, v_, smell_count, perc)
+        cum_per = cum_per + perc
+        print 'DATASET:{},SMELL:{},Duration(months):{},Count:{},Total:{},Perc:{},CumuPerc:{}'.format(na, sm, k_, v_, smell_count, perc, cum_per)
         print '-'*15
         ls2re.append((na, sm, k_, smell_count, perc))
     return ls2re
@@ -231,7 +233,12 @@ def generateLifetimeSummary(file_out, ds_na, out_dir):
     for smell in smells:
         smell_df  = life_df[life_df['SMELL']==smell]
 
-        dura_list = smell_df['DUR_MON'].tolist()
+        '''
+        need to filter out duplicate files, same smell, same file
+        '''
+        uni_sme_df = smell_df.drop_duplicates(subset=['FILE_PATH', 'SMELL', 'DUR_MON'])
+        print uni_sme_df.head()
+        dura_list = uni_sme_df['DUR_MON'].tolist()
 
 
         smell_ls = doDetails(dura_list, ds_na, smell)
@@ -277,11 +284,11 @@ if __name__=='__main__':
    # name = 'EXPRESS42'
    # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_expr/LIFETIME.csv'
 
-   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_MOZILLA_PUPPET.csv'
-   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_SYM_ALL_MOZ_PUP.PKL'
-   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_moz/'
-   # name = 'MOZILLA'
-   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_moz/LIFETIME.csv'
+   orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_MOZILLA_PUPPET.csv'
+   ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_SYM_ALL_MOZ_PUP.PKL'
+   dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_moz/'
+   name = 'MOZILLA'
+   lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_moz/LIFETIME.csv'
 
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_OPENSTACK_PUPPET.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_SYM_ALL_OST_PUP.PKL'
