@@ -98,6 +98,7 @@ def getAgreement(dict_pa, scr_df, dict_ap):
 
 def slicPreparation(cur_lis):
     ind_ = 0
+    list4slic = []
     ### only agreed files and existing files will be copied, rest is determined by SLIC
     for tup_ in cur_lis:
         ind_ += 1
@@ -108,11 +109,13 @@ def slicPreparation(cur_lis):
             if categ != 'DISAGREED':
                 if (os.path.exists(file_name)):
                    copyfile(file_name, '/Users/akond/SECU_REPOS/curated/agreed/' + str(ind_) + '.pp')
+                   list4slic.append(('AGREED', ind_, file_name, categ))
                 else:
-                   print '{},{}'.format('PATH_DO_NOT_EXIST', ind_, file_name)
+                   list4slic.append(('PATH_DO_NOT_EXIST', ind_, file_name, 'SLIC'))
             else:
                    copyfile(file_name, '/Users/akond/SECU_REPOS/curated/disagreed/' + str(ind_) + '.pp')
-                   print '{},{}'.format('DISAGREED', ind_, file_name)
+                   list4slic.append(('DISAGREED', ind_, file_name, 'SLIC'))
+    return list4slic
 
 if __name__=='__main__':
    apa_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/antipattern_table.csv'
@@ -150,6 +153,7 @@ if __name__=='__main__':
    the ones that are agreed upon by the raters, need to be checked , SLIC's decisions
    is final on the disagreed ones
    '''
-   # curated_df = pd.DataFrame.from_records(full_list, columns=['PATH', 'CATEG'])
-   # curated_df.to_csv(curated_ds)
-   slicPreparation(full_list)
+
+   compare_ls=slicPreparation(full_list)
+   curated_df = pd.DataFrame.from_records(full_list, columns=['TYPE', 'INDEX', 'PATH', 'SECU_LABEL'])
+   curated_df.to_csv(curated_ds)
