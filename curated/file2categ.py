@@ -98,18 +98,20 @@ def getAgreement(dict_pa, scr_df, dict_ap):
 
 def slicPreparation(cur_lis):
     ind_ = 0
-    ### only agreed files and existing files will be copied, rest is determined by SLIC 
+    ### only agreed files and existing files will be copied, rest is determined by SLIC
     for tup_ in cur_lis:
         ind_ += 1
         file_name = tup_[0]
-        categ = tup_[1]
-        if categ != 'DISAGREED':
-            if (os.path.exists(file_name)):
-               copyfile(file_name, '/Users/akond/SECU_REPOS/curated/' + str(ind_) + '.pp')
+        ## we will move forward for only with PUPPET files
+        if 'pp' in file_name:
+            categ = tup_[1]
+            if categ != 'DISAGREED':
+                if (os.path.exists(file_name)):
+                   copyfile(file_name, '/Users/akond/SECU_REPOS/curated/' + str(ind_) + '.pp')
+                else:
+                   print '{},{}'.format('PATH_DO_NOT_EXIST', ind_, file_name)
             else:
-               print ind_, file_name
-        else:
-            print ind_, file_name
+                   print '{},{}'.format('DISAGREED', ind_, file_name)
 
 if __name__=='__main__':
    apa_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/antipattern_table.csv'
