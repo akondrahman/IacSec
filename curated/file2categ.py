@@ -7,6 +7,8 @@ This script maps each file to catgeory
 import pandas as pd
 import csv
 import numpy as np
+import os
+from shutil import copyfile
 
 def getAPDict(file_):
     dict_ = {}
@@ -94,6 +96,18 @@ def getAgreement(dict_pa, scr_df, dict_ap):
 
     return lis2ret, agrCnt, disAgrCnt
 
+def slicPreparation(cur_lis):
+    ind_ = 0
+    for tup_ in cur_lis:
+        ind_ += 1
+        file_name = tup_[0]
+        categ = tup_[1]
+        if categ != 'DISAGREED':
+            if (os.path.exists(file_name)):
+               copyfile(file_name, '/Users/akond/SECU_REPOS/curated/' + str(ind_) + '.pp')
+        else:
+            print file_name
+
 if __name__=='__main__':
    apa_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/antipattern_table.csv'
    pro_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/profile_table.csv'
@@ -124,7 +138,12 @@ if __name__=='__main__':
    # print sb_di
    full_list, agrCnt, disAgrCnt = getAgreement(sb_di, sc_df, ap_di)
    print full_list
-   print agrCnt
-   print disAgrCnt
-   curated_df = pd.DataFrame.from_records(full_list, columns=['PATH', 'CATEG'])
-   curated_df.to_csv(curated_ds)
+   print "Agreements:{}, disagreements:{}".format(agrCnt, disAgrCnt)
+   '''
+   once we have the full list , we need to copy the files so that SLIC can run
+   the ones that are agreed upon by the raters, need to be checked , SLIC's decisions
+   is final on the disagreed ones
+   '''
+   # curated_df = pd.DataFrame.from_records(full_list, columns=['PATH', 'CATEG'])
+   # curated_df.to_csv(curated_ds)
+   slicPreparation(full_list)
