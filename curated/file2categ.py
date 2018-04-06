@@ -14,8 +14,8 @@ def getAPDict(file_):
          reader_ = csv.reader(f)
          next(reader_, None)
          for row in reader_:
-             apID = row[0]
-             name = row[1]
+             apID = int(row[1])
+             name = row[0]
              if apID not in dict_:
                  dict_[apID] = name
     return dict_
@@ -49,15 +49,18 @@ def getSubmDict(file_):
     return dict_
 
 def getScriptPath(id_param, df_param):
+    id_param = int(id_param)
     path2ret = df_param[df_param['scriptID']==id_param]['path'].tolist()[0]
     return path2ret
 
 def getScriptContent(id_param, df_param):
+    id_param = int(id_param)
     content = df_param[df_param['scriptID']==id_param]['content'].tolist()[0]
     return content
 
 def getLabel(dic, inp):
     lab = ''
+    inp = int(inp)
     if inp in dic:
         lab = dic[inp]
     return lab
@@ -65,12 +68,11 @@ def getLabel(dic, inp):
 def getAgreement(dict_pa, scr_df, dict_ap):
     agrCnt, disAgrCnt  = 0, 0
     lis2ret = []
-    disAgrDict = {}
     for k_, v_ in dict_pa.iteritems():
         scr_pat = getScriptPath(k_, scr_df)
         if (len(v_)==1):
             agrCnt += 1
-            scr_lab = getLabel(dict_ap, v_)
+            scr_lab = getLabel(dict_ap, v_[0])
             lis2ret.append((scr_pat, scr_lab))
         elif (len(np.unique(v_))==1):
             agrCnt += 1
@@ -81,21 +83,24 @@ def getAgreement(dict_pa, scr_df, dict_ap):
             scr_lab_occ = scr_lab.count(scr_lab)
             tot_len = len(v_)
             freq_perc  = float(scr_lab_occ)/float(tot_len)
-            # if the most frequent is 75% of the list , then agreement
-            if freq_perc >= 0.75:
+            # if the most frequent is 50% of the list , then agreement
+            if freq_perc >= 0.50:
                 agrCnt += 1
                 lis2ret.append((scr_pat, scr_lab))
             else:
                 disAgrCnt += 1
                 scr_con = getScriptContent(k_, scr_df)
-                disAgrDict[scr_pat] = scr_con
+                lis2ret.append((scr_pat, 'DISAGREED'))
 
+    return lis2ret, agrCnt, disAgrCnt
 
 if __name__=='__main__':
    apa_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/antipattern_table.csv'
    pro_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/profile_table.csv'
    scr_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/script_table.csv'
    sub_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/submission_table.csv'
+
+   curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/COMPLETE_CURATED.csv'
 
    '''
    get anti patterns
@@ -117,4 +122,9 @@ if __name__=='__main__':
    '''
    sb_di = getSubmDict(sub_tbl)
    # print sb_di
-   getAgreement(sb_di, sc_df, ap_di)
+   full_list, agrCnt, disAgrCnt = getAgreement(sb_di, sc_df, ap_di)
+   print full_list
+   print agrCnt
+   print disAgrCnt
+   curated_df = pd.DataFrame.from_records(full_list, columns=['PATH', 'CATEG'])
+   curated_df.to_csv(curated_ds)
