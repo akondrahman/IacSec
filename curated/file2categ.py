@@ -107,10 +107,11 @@ def slicPreparation(cur_lis):
             categ = tup_[1]
             if categ != 'DISAGREED':
                 if (os.path.exists(file_name)):
-                   copyfile(file_name, '/Users/akond/SECU_REPOS/curated/' + str(ind_) + '.pp')
+                   copyfile(file_name, '/Users/akond/SECU_REPOS/curated/agreed/' + str(ind_) + '.pp')
                 else:
                    print '{},{}'.format('PATH_DO_NOT_EXIST', ind_, file_name)
             else:
+                   copyfile(file_name, '/Users/akond/SECU_REPOS/curated/disagreed/' + str(ind_) + '.pp')
                    print '{},{}'.format('DISAGREED', ind_, file_name)
 
 if __name__=='__main__':
