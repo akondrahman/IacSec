@@ -155,5 +155,5 @@ if __name__=='__main__':
    '''
 
    compare_ls=slicPreparation(full_list)
-   curated_df = pd.DataFrame.from_records(full_list, columns=['TYPE', 'INDEX', 'PATH', 'SECU_LABEL'])
+   curated_df = pd.DataFrame.from_records(compare_ls, columns=['TYPE', 'INDEX', 'PATH', 'SECU_LABEL'])
    curated_df.to_csv(curated_ds)
