@@ -28,11 +28,13 @@ library(ggplot2)
 # THE_DS_NAME <- "WIKIMEDIA"
 
 # Y_LABEL     <- "Count of Smells per File"
-Y_LABEL     <- "Smell Density (KLOC)"
-#SMELL_DENSITY  ,  CNT_PER_FIL
+# Y_LABEL     <- "Smell Density (KLOC)"
+Y_LABEL     <- "Script (%)"
+
+#SMELL_DENSITY  ,  CNT_PER_FIL , UNI_FIL_PER
 
 LINE_DATA <- read.csv(THE_FILE)
-the_plot  <- ggplot(data=LINE_DATA, aes(x=MONTH, y=SMELL_DENSITY, group=1)) + 
+the_plot  <- ggplot(data=LINE_DATA, aes(x=MONTH, y=UNI_FIL_PER, group=1)) + 
   geom_point(size=0.1) + scale_x_discrete(breaks = LINE_DATA$MONTH[seq(1, length(LINE_DATA$MONTH), by = THE_LIMIT)]) + 
   geom_smooth(size=0.95, aes(color=TYPE), method='loess') +   
   facet_grid( . ~ TYPE) +
