@@ -20,7 +20,7 @@ def printAccu(df2param):
   '''
   col_nam = ['HARD_CODE_SECR', 'SUSP_COMM', 'SECR_LOCA', 'MD5_USAG', 'HTTP_USAG',	'BIND_USAG', 'EMPT_PASS',
            'DFLT_ADMN',	'BASE_64',	'MISS_DFLT', 'TOTAL', 'NONE']
-  target_labels =  [x_ for x_ in len(col_nam)]
+  target_labels =  [x_ for x_ in xrange(len(col_nam))]
   '''
   getting the confusion matrix
   '''
