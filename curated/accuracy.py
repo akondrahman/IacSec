@@ -43,7 +43,37 @@ def printAccu(file_name):
   print "Accuracy output is ", accuracy_score_output
   print">"*10
 
+def getLabels(file_):
+    df_ = pd.read_csv(file_)
+    ls_ = []
+    col_nam = ['HARD_CODE_SECR', 'SUSP_COMM', 'SECR_LOCA', 'MD5_USAG', 'HTTP_USAG',	'BIND_USAG', 'EMPT_PASS',
+               'DFLT_ADMN',	'BASE_64',	'MISS_DFLT', 'TOTAL']
+    for col_ in col_nam:
+        df_sel_fil_lis = df_[df_[col_]>0]['FILE_NAME'].tolist()
+        for fil_itm in df_sel_fil_lis:
+            ls_.append((fil_itm, col_, col_))
+    # to handle category 'none'
+    none_fil_lis = df_[df_['TOTAL']==0]['FILE_NAME'].tolist()
+    for non_fil_itm in none_fil_lis:
+            ls_.append((fil_itm, col_, col_))
+    df2ret = pd.DataFrame([x for x in ls_], columns=['SCRIPT', 'ACTUAL', 'PREDICTED'])
+    return df2ret
+
+def createDS(agr_fil, dis_agr_fil):
+    agr_df = getLabels(agr_fil)
+    dis_agr_df = getLabels(dis_agr_fil)
+    print agr_df.head()
+    print dis_agr_df.head()
 
 if __name__=='__main__':
-   curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/Test.csv'
-   printAccu(curated_ds)
+   '''
+   Step-1 : create the dataset from agree and disagree file
+   '''
+   agree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/V6_CURATED_AGREE_PUPPET.csv'
+   disagree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/V6_CURATED_DISAGREE_PUPPET.csv'
+   createDS(agree_file, disagree_file)
+   '''
+   Step-2 : pass the dataset to get accuracy
+   '''
+   # curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/Test.csv'
+   # printAccu(curated_ds)
