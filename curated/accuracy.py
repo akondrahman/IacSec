@@ -11,8 +11,8 @@ from sklearn.metrics import classification_report, accuracy_score, confusion_mat
 
 def printAccu(file_name):
   df2read = pd.read_csv(file_name)
-  actualLabels = df2param['ACTUAL'].tolist()
-  predictedLabels = df2param['TOOL'].tolist()
+  actualLabels = df2read['ACTUAL'].tolist()
+  predictedLabels = df2read['TOOL'].tolist()
   # print actualLabels
   '''
     the way skelarn treats is the following: first index -> lower index -> 0 -> 0
@@ -77,9 +77,9 @@ if __name__=='__main__':
    disagree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/V6_CURATED_DISAGREE_PUPPET.csv'
    curated_df = createDS(agree_file, disagree_file)
    # need to dump csv for hacking, after dumping check CSV, make chnages if needed , and save it as final
-   curated_df.to_csv('/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/V6_SEMIFINAL.csv')
+   # curated_df.to_csv('/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/V6_SEMIFINAL.csv')
    '''
    Step-2 : pass the dataset to get accuracy
    '''
-   # curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/FINAL.csv'
-   # printAccu(curated_df)
+   curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/V6_FINAL.csv'
+   printAccu(curated_ds)
