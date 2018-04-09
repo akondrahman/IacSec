@@ -118,7 +118,13 @@ end
 
 
 PuppetLint.new_check(:no_hardcode_secret_v1) do
+ # (!nxt_nxt_val.include? "(") || (!nxt_nxt_val.include? 'undef') || (!nxt_nxt_val.include? 'true') || (!nxt_nxt_val.include? 'false') ||
+ #  (!nxt_nxt_val.include? 'hiera') || (!nxt_nxt_val.include? 'secret') || (!nxt_nxt_val.include? 'union') || (!nxt_nxt_val.include? '${') ||
+ #  (!nxt_nxt_val.include? '$') || (!nxt_nxt_val.include? '{') || (!nxt_nxt_val.include? 'regsubst')
   def check
+           invalid_kw_list = ['(', 'undef', 'true', 'false', 'hiera', 'secret', 'union',
+                              '$', '{', 'regsubst', 'hiera_hash', 'pick', 'get_ssl_property',
+                             'inline_template', 'under', 'mysql_password', '/']
            tokens.each do |indi_token|
                nxt_token     = indi_token.next_code_token # next token which is not a white space
                if (!nxt_token.nil?) && (!indi_token.nil?)
@@ -137,18 +143,14 @@ PuppetLint.new_check(:no_hardcode_secret_v1) do
                            token_valu   = indi_token.value.downcase
                            nxt_nxt_val  = nxt_nxt_token.value.downcase
                            nxt_nxt_type = nxt_nxt_token.type.to_s  ## to handle false positives,
-
+                           # puts "KEY,PAIR----->#{token_valu}, #{nxt_nxt_val}"
                            if (((token_valu.include? "pwd") || (token_valu.include? "password") || (token_valu.include? "pass") ||
                                 (token_valu.include? "uuid") || (token_valu.include? "key") || (token_valu.include? "crypt") ||
                                 (token_valu.include? "secret") || (token_valu.include? "certificate") || (token_valu.include? "id") ||
                                 (token_valu.include? "cert") || (token_valu.include? "token") || (token_valu.include? "ssh_key") ||
                                 (token_valu.include? "md5") || (token_valu.include? "rsa") || (token_valu.include? "ssl") ||
                                 (token_valu.include? "dsa") || (token_valu.include? "user")
-                               ) && ((nxt_nxt_val.length > 0)) && ((!nxt_nxt_type.eql? 'VARIABLE')) &&
-                               ((!nxt_nxt_val.include? "(") || (!nxt_nxt_val.include? 'undef') || (!nxt_nxt_val.include? 'true') || (!nxt_nxt_val.include? 'false') ||
-                                (!nxt_nxt_val.include? 'hiera') || (!nxt_nxt_val.include? 'secret') || (!nxt_nxt_val.include? 'union') || (!nxt_nxt_val.include? '${') ||
-                                (!nxt_nxt_val.include? '$') || (!nxt_nxt_val.include? '{')
-                               )
+                               ) && ((! token_valu.include? "provider") && (!nxt_nxt_type.eql? 'VARIABLE') && (!invalid_kw_list.include? nxt_nxt_val) && (nxt_nxt_val.length > 1) )
                               )
                                  # && (nxt_nxt_val.is_a? String)
                                  # puts "KEY,PAIR,CURR_TYPE,NEXT_TYPE----->#{token_valu}, #{nxt_nxt_val}, #{token_type}, #{nxt_nxt_type}"
@@ -305,7 +307,7 @@ PuppetLint.new_check(:no_susp_comments) do
                 single_line.include?('fixme')    || single_line.include?('later') ||
                 single_line.include?('later2')   || single_line.include?('todo') ||
                 single_line.include?('ticket')   || single_line.include?('launchpad') ||
-                single_line.include?('bug') ) && (!single_line.include?('debug'))
+                single_line.include?('bug') || single_line.include?('to-do')) && (!single_line.include?('debug'))
                )
                 #print "#{single_line} #{lineNo}\n"
                 #print "-----\n"
