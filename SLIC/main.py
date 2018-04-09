@@ -35,8 +35,12 @@ if __name__=='__main__':
    PUPPET DIRECTORIES
    '''
    ds_path =    '/Users/akond/SECU_REPOS/curated/agreed/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_CURATED_AGREE_PUPPET.csv'
-   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_SYM_CURATED_AGREE_PUP.PKL'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_CURATED_AGREE_PUPPET.csv'
+   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_SYM_CURATED_AGREE_PUP.PKL'
+
+   # ds_path =    '/Users/akond/SECU_REPOS/curated/disagreed/'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_CURATED_DISAGREE_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_SYM_CURATED_DISAGREE_PUP.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_TEST_PUPPET.csv'
