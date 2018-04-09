@@ -9,16 +9,18 @@ from sklearn.metrics import precision_score, recall_score
 import numpy as np, pandas as pd
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 
-def printAccu(file_name):
-  df2read = pd.read_csv(file_name)
-  actualLabels = df2read['ACTUAL'].tolist()
-  predictedLabels = df2read['TOOL'].tolist()
+def printAccu(df2param):
+  # df2read = pd.read_csv(file_name)
+  actualLabels = df2param['ACTUAL'].tolist()
+  predictedLabels = df2param['TOOL'].tolist()
   # print actualLabels
   '''
     the way skelarn treats is the following: first index -> lower index -> 0 -> 0
                                              next index after first  -> next lower index -> 1 -> 1
   '''
-  target_labels =  [0, 1, 2]
+  col_nam = ['HARD_CODE_SECR', 'SUSP_COMM', 'SECR_LOCA', 'MD5_USAG', 'HTTP_USAG',	'BIND_USAG', 'EMPT_PASS',
+           'DFLT_ADMN',	'BASE_64',	'MISS_DFLT', 'TOTAL', 'NONE']
+  target_labels =  [x_ for x_ in len(col_nam)]
   '''
   getting the confusion matrix
   '''
@@ -56,14 +58,17 @@ def getLabels(file_):
     none_fil_lis = df_[df_['TOTAL']==0]['FILE_NAME'].tolist()
     for non_fil_itm in none_fil_lis:
             ls_.append((fil_itm, col_, col_))
-    df2ret = pd.DataFrame([x for x in ls_], columns=['SCRIPT', 'ACTUAL', 'PREDICTED'])
-    return df2ret
+
+    return ls_
 
 def createDS(agr_fil, dis_agr_fil):
-    agr_df = getLabels(agr_fil)
-    dis_agr_df = getLabels(dis_agr_fil)
-    print agr_df.head()
-    print dis_agr_df.head()
+    agr_ls = getLabels(agr_fil)
+    dis_agr_ls = getLabels(dis_agr_fil)
+    complete_ls = agr_ls + dis_agr_ls
+    # print agr_df.head()
+    # print dis_agr_df.head()
+    df2ret = pd.DataFrame([x for x in complete_ls], columns=['SCRIPT', 'ACTUAL', 'PREDICTED'])
+    return df2ret
 
 if __name__=='__main__':
    '''
@@ -71,9 +76,9 @@ if __name__=='__main__':
    '''
    agree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/V6_CURATED_AGREE_PUPPET.csv'
    disagree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/V6_CURATED_DISAGREE_PUPPET.csv'
-   createDS(agree_file, disagree_file)
+   curated_df = createDS(agree_file, disagree_file)
    '''
    Step-2 : pass the dataset to get accuracy
    '''
    # curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/Test.csv'
-   # printAccu(curated_ds)
+   printAccu(curated_df)
