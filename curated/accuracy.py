@@ -20,20 +20,19 @@ def printAccu(df2param):
   '''
   col_nam = ['HARD_CODE_SECR', 'SUSP_COMM', 'SECR_LOCA', 'MD5_USAG', 'HTTP_USAG',	'BIND_USAG', 'EMPT_PASS',
            'DFLT_ADMN',	'BASE_64',	'MISS_DFLT', 'TOTAL', 'NONE']
-  target_labels =  [x_ for x_ in xrange(len(col_nam))]
   '''
   getting the confusion matrix
   '''
   print "Confusion matrix start"
   #print conf_matr_output
-  conf_matr_output = confusion_matrix(actualLabels, predictedLabels, labels=target_labels)
+  conf_matr_output = confusion_matrix(actualLabels, predictedLabels)
   print conf_matr_output
   print "Confusion matrix end"
   print ">"*10
   '''
   '''
   print "precison, recall, F-stat"
-  class_report = classification_report(actualLabels, predictedLabels, labels=target_labels)
+  class_report = classification_report(actualLabels, predictedLabels)
   print class_report
   print ">"*10
   '''
@@ -57,7 +56,7 @@ def getLabels(file_):
     # to handle category 'none'
     none_fil_lis = df_[df_['TOTAL']==0]['FILE_NAME'].tolist()
     for non_fil_itm in none_fil_lis:
-            ls_.append((fil_itm, col_, col_))
+            ls_.append((fil_itm, 'NONE', 'NONE'))
 
     return ls_
 
