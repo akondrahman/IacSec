@@ -85,8 +85,8 @@ def getAgreement(dict_pa, scr_df, dict_ap):
             scr_lab_occ = scr_lab.count(scr_lab)
             tot_len = len(v_)
             freq_perc  = float(scr_lab_occ)/float(tot_len)
-            # if the most frequent is 50% of the list , then agreement
-            if freq_perc >= 0.50:
+            # if the most frequent is 70% of the list , then agreement
+            if freq_perc >= 0.80:
                 agrCnt += 1
                 lis2ret.append((scr_pat, scr_lab))
             else:

@@ -24,26 +24,26 @@ t1 <- Sys.time()
 # BAR_COL <- 8
 # BAR_BIN <- 10
 
-# BAR_FIL <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_moz/LIFETIME.csv"
+# BAR_FIL <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_new_old_moz/LIFETIME.csv"
 # BAR_DAT <- read.csv(BAR_FIL)
 # BAR_TIT <- "MOZILLA"
 # BAR_LIM <- c(0, 40)
 # BAR_COL <- 8
 # BAR_BIN <- 20
 
-# BAR_FIL <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_ost/LIFETIME.csv"
+# BAR_FIL <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_new_old_ost/LIFETIME.csv"
 # BAR_DAT <- read.csv(BAR_FIL)
 # BAR_TIT <- "OPENSTACK"
 # BAR_LIM <- c(0, 500)
 # BAR_COL <- 8
 # BAR_BIN <- 30
 
-BAR_FIL <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_wik/LIFETIME.csv"
-BAR_DAT <- read.csv(BAR_FIL)
-BAR_TIT <- "WIKIMEDIA"
-BAR_LIM <- c(0, 50)
-BAR_COL <- 8
-BAR_BIN <- 25
+# BAR_FIL <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_new_old_wik/LIFETIME.csv"
+# BAR_DAT <- read.csv(BAR_FIL)
+# BAR_TIT <- "WIKIMEDIA"
+# BAR_LIM <- c(0, 50)
+# BAR_COL <- 8
+# BAR_BIN <- 25
 
 ### same file , one occurence, if all occurences for the same file is considered then ti systematically overshoots 
 BAR_DAT  <- BAR_DAT[!duplicated(BAR_DAT), ]

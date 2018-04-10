@@ -47,16 +47,16 @@ if __name__=='__main__':
    # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_SYM_TEST_PUP.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/mozi-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_ALL_MOZILLA_PUPPET.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_SYM_ALL_MOZ_PUP.PKL'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_ALL_MOZILLA_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_SYM_ALL_MOZ_PUP.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/ostk-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_ALL_OPENSTACK_PUPPET.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_SYM_ALL_OST_PUP.PKL'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_ALL_OPENSTACK_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_SYM_ALL_OST_PUP.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/wiki-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_ALL_WIKIMEDIA_PUPPET.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_SYM_ALL_WIK_PUP.PKL'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_ALL_WIKIMEDIA_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_SYM_ALL_WIK_PUP.PKL'
 
    '''
    CHEF DIRECTORIES

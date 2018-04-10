@@ -120,29 +120,33 @@ if __name__=='__main__':
    '''
    pass the needed colun headers
    '''
-   needed_header = ['HARD_CODE_SECR',	'SUSP_COMM',	'SECR_LOCA',	'MD5_USAG',
+   # needed_header = ['HARD_CODE_SECR',	'SUSP_COMM',	'SECR_LOCA',	'MD5_USAG',
+   #                  'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
+   #                  'BASE_64',	'MISS_DFLT',	'TOTAL']
+
+   needed_header = ['HARD_CODE_SECR',	'SUSP_COMM',	'MD5_USAG',
                     'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
-                    'BASE_64',	'MISS_DFLT',	'TOTAL']
+                    'BASE_64',	'TOTAL']
 
    # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_TEST_PUPPET.csv'
    # results_df   = pd.read_csv(results_file)
    # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3/'
    # ds_name = 'TEST'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_WIKIMEDIA_PUPPET.csv'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_OUTPUT/V6_ALL_MOZILLA_PUPPET.csv'
    # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_wik/'
-   # ds_nam = 'WIKIMEDIA'
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_moz/'
+   # ds_nam = 'MOZILLA'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_OPENSTACK_PUPPET.csv'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_OUTPUT/V6_ALL_OPENSTACK_PUPPET.csv'
    # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_ost/'
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_ost/'
    # ds_nam = 'OPENSTACK'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_MOZILLA_PUPPET.csv'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_OUTPUT/V6_ALL_WIKIMEDIA_PUPPET.csv'
    # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_moz/'
-   # ds_nam = 'MOZILLA'
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_wik/'
+   # ds_nam = 'WIKIMEDIA'
 
    '''
    CHEF REPOS
