@@ -64,8 +64,6 @@ def createDS(agr_fil, dis_agr_fil):
     agr_ls = getLabels(agr_fil)
     dis_agr_ls = getLabels(dis_agr_fil)
     complete_ls = agr_ls + dis_agr_ls
-    # print agr_df.head()
-    # print dis_agr_df.head()
     df2ret = pd.DataFrame([x for x in complete_ls], columns=['SCRIPT', 'ACTUAL', 'TOOL'])
     return df2ret
 

@@ -42,9 +42,9 @@ if __name__=='__main__':
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_CURATED_DISAGREE_PUPPET.csv'
    # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_SYM_CURATED_DISAGREE_PUP.PKL'
 
-   # ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_TEST_PUPPET.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_SYM_TEST_PUP.PKL'
+   ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V7_TEST_PUPPET.csv'
+   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V7_SYM_TEST_PUP.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/mozi-pupp/'
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_ALL_MOZILLA_PUPPET.csv'

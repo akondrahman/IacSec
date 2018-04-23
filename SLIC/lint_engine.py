@@ -132,22 +132,29 @@ def parseOutput():
         rul_bind_use_cnt,  rul_bind_use_lin   = getBindUsageCount(file_lines)
         rul_empt_pwd_cnt,  rul_empt_pwd_lin   = getEmptyPwdCount(file_lines)
         rul_defa_adm_cnt,  rul_defa_adm_lin   = getDefaultAdminCount(file_lines)
-        rul_base64_cnt,    rul_base64_lin     = getBase64Count(file_lines)
+        rul_base64_cnt,    rul_base64_lin     = getBase64Count(file_lines)    
         rul_mis_case_cnt,  rul_mis_case_lin   = getMissingDefaultCount(file_lines)
 
     # this will be expanded
-    output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt,
-                  rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt,
-                  rul_base64_cnt, rul_mis_case_cnt)
+    # output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt,
+    #               rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt,
+    #               rul_base64_cnt, rul_mis_case_cnt)
+
+    output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_md5_usage_cnt,
+                  rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt)  # // removing base 64 after luke feedback
     # total count
-    tot_cnt = sum(output2ret) 
-    output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt,
+    tot_cnt = sum(output2ret)
+    # output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt,
+    #               rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt,
+    #               rul_base64_cnt, rul_mis_case_cnt, tot_cnt)
+    output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_md5_usage_cnt,
                   rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt,
-                  rul_base64_cnt, rul_mis_case_cnt, tot_cnt)
+                  tot_cnt )  # // removing base 64 after luke feedback
     # this will be expanded
     str2ret    = (rul_hardcode_lin, rul_susp_comm_lin, rul_secr_loca_lin, rul_md5_usage_lin,
                   rul_http_use_lin, rul_bind_use_lin, rul_empt_pwd_lin, rul_defa_adm_lin,
                   rul_base64_lin, rul_mis_case_lin)
+
     # print str2ret
     return output2ret, str2ret
 

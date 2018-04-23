@@ -52,8 +52,11 @@ LINT_MIS_DEFAU ='WARNING: case statement without a default case'
 NEWLINE   = '\n'
 AT_SYMBOL = '@'
 ### HEADER STRING
-headerStr1 = 'MONTH,'    + 'FILE_NAME,' + 'HARD_CODE_SECR,' + 'SUSP_COMM,' + 'SECR_LOCA,'
+# headerStr1 = 'MONTH,'    + 'FILE_NAME,' + 'HARD_CODE_SECR,' + 'SUSP_COMM,' + 'SECR_LOCA,'
+# headerStr2 = 'MD5_USAG,' + 'HTTP_USAG,' + 'BIND_USAG,' + 'EMPT_PASS,' + 'DFLT_ADMN,'
+# headerStr3 = 'BASE_64,'  + 'MISS_DFLT,' + 'TOTAL,'
+headerStr1 = 'MONTH,'    + 'FILE_NAME,' + 'HARD_CODE_SECR,' + 'SUSP_COMM,'
 headerStr2 = 'MD5_USAG,' + 'HTTP_USAG,' + 'BIND_USAG,' + 'EMPT_PASS,' + 'DFLT_ADMN,'
-headerStr3 = 'BASE_64,'  + 'MISS_DFLT,' + 'TOTAL,'
+headerStr3 = 'TOTAL,'
 HEADER_STR = headerStr1 + headerStr2 + headerStr3
 SYM_HEAD   = 'MONTH,FILE,SYMBOL,TYPE'
