@@ -24,6 +24,8 @@ t1 <- Sys.time()
 # BAR_COL <- 8
 # BAR_BIN <- 10
 
+### ======================================================================================== ###
+
 # BAR_FIL <- "/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_new_old_moz/LIFETIME.csv"
 # BAR_DAT <- read.csv(BAR_FIL)
 # BAR_TIT <- "MOZILLA"
@@ -45,12 +47,21 @@ t1 <- Sys.time()
 # BAR_COL <- 8
 # BAR_BIN <- 25
 
+### ======================================================================================== ###
+
+### remove BASE 64 stuff , if any 
+BAR_DAT <- BAR_DAT[!BAR_DAT$SMELL == "BASE_64", ]
+
 ### same file , one occurence, if all occurences for the same file is considered then ti systematically overshoots 
 BAR_DAT  <- BAR_DAT[!duplicated(BAR_DAT), ]
 
-the_plot <- ggplot(BAR_DAT, aes(x = DUR_MON)) + geom_bar(stat='bin', bins=BAR_BIN,  fill='#CC79A7', color = "black")  + labs(x='Lifetime (Months)', y = 'Count of Smells') 
+BAR_DAT$SMELL <- as.character(BAR_DAT$SMELL)
+BAR_DAT$SMELL[BAR_DAT$SMELL == "BIND_USAG"] <- "INVALID_IP"
+print(tail(BAR_DAT))
+
+the_plot <- ggplot(BAR_DAT, aes(x = DUR_MON)) + geom_histogram(fill='#CC79A7', color = "black", bins=BAR_BIN, stat='bin')  + labs(x='Lifetime (Months)', y = 'Count of Smells')
 the_plot <- the_plot + ggtitle(BAR_TIT)  + theme(plot.title = element_text(hjust = 0.5), text = element_text(size=12.5), axis.text=element_text(size=12.5))
-the_plot <- the_plot + scale_y_continuous(limits=BAR_LIM) + theme(legend.position="none")
+the_plot <- the_plot + scale_y_continuous(limits=BAR_LIM) + theme(legend.position="none") 
 the_plot <- the_plot + facet_wrap(~ SMELL, ncol=BAR_COL)
 
 the_plot
