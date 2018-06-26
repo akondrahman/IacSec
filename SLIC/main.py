@@ -83,7 +83,7 @@ if __name__=='__main__':
    # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_CHEF.PKL'
 
    final_output_str, sym_out_full = executor.sniffSmells(ds_path) # 1. count, 2. symbols for whcih we observe smells
-   final_output_str = constants.HEADER_STR + '\n' +  final_output_str
+   final_output_str = constants.HEADER_STR + '\n' +  final_output_str   ### header is used here 
    print '*'*100
    # print sym_out_full
    bytes_out = dumpContentIntoFile(final_output_str, output_file)

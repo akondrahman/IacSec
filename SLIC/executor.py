@@ -11,6 +11,7 @@ def checkValidity(file_path):
     # skip files that are in hidden directories, and in spec folders
     flag2ret = False
     if ((file_path.count(constants.DOT) == 1) and (constants.TEST_DIR_SPEC not in file_path) and (constants.TEST_DIR_ACCE not in file_path)):
+    # if ((file_path.count(constants.DOT) <= 5) and (constants.TEST_DIR_SPEC not in file_path) and (constants.TEST_DIR_ACCE not in file_path)):
         flag2ret  = True
     return flag2ret
 
