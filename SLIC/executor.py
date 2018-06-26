@@ -39,7 +39,9 @@ def buildSymOut(sym_tup_par, mon_par, fil_par):
                  6:constants.LINT_EMPT,
                  7:constants.LINT_DEF_ADM,
                  8:constants.LINT_BASE64,
-                 9:constants.LINT_MIS_DEFAU
+                 9:constants.LINT_MIS_DEFAU, 
+                 10:constants.LINT_HARD_CODE_UNAME, 
+                 11:constants.LINT_HARD_CODE_PASS
                 }
     # str2ret   = ''
     list_ = []

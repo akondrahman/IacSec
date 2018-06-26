@@ -21,7 +21,7 @@ def generateOutput(path2file):
         # raise RuntimeError("command '{}' return with error (code {}): {}".format(e_.cmd, e_.returncode, e_.output))
 
 def getOutputLines():
-    file_ = open(constants.OUTPUT_TMP_LOG, 'rU', errors='ignore'):
+    file_ = open(constants.OUTPUT_TMP_LOG, 'rU', errors='ignore')
     file_str = file_.read()
     file_lines = file_str.split(constants.NEWLINE)
     return file_lines

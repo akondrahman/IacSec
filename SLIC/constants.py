@@ -52,8 +52,6 @@ LINT_MIS_DEFAU ='WARNING: case statement without a default case'
 #### For Hard coded secreat breakdown 
 LINT_HARD_CODE_UNAME ='SECURITY:::HARD_CODED_SECRET_USER_NAME:::'
 LINT_HARD_CODE_PASS  ='SECURITY:::HARD_CODED_SECRET_PASSWORD:::'
-LINT_HARD_CODE_KEY1  ='SECURITY:::HARD_CODED_SECRET_KEYS:::'
-LINT_HARD_CODE_KEY2  ='SECURITY:::HARD_CODED_SECRET_V2:::'
 
 NEWLINE   = '\n'
 AT_SYMBOL = '@'
@@ -63,6 +61,6 @@ AT_SYMBOL = '@'
 # headerStr3 = 'BASE_64,'  + 'MISS_DFLT,' + 'TOTAL,'
 headerStr1 = 'MONTH,'    + 'FILE_NAME,' + 'HARD_CODE_SECR,' + 'SUSP_COMM,'
 headerStr2 = 'MD5_USAG,' + 'HTTP_USAG,' + 'BIND_USAG,' + 'EMPT_PASS,' + 'DFLT_ADMN,'
-headerStr3 = 'HARD_CODE_UNAME,' + 'HARD_CODE_PASS,' + 'HARD_CODE_KEYS,' + 'TOTAL,'
+headerStr3 = 'HARD_CODE_UNAME,' + 'HARD_CODE_PASS,' + 'TOTAL,'
 HEADER_STR = headerStr1 + headerStr2 + headerStr3
 SYM_HEAD   = 'MONTH,FILE,SYMBOL,TYPE'
