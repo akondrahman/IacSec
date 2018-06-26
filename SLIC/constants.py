@@ -24,7 +24,7 @@ PP_RULE_BIND      = '../SPrules4pupp/no_full_binding.rb'
 PP_RULE_EMPTY_PWD = '../SPrules4pupp/no_empty_pwd.rb'
 PP_RULE_DEFAU_ADM = '../SPrules4pupp/no_default_admin.rb'
 PP_RULE_BASE64    = '../SPrules4pupp/no_base64.rb'
-PP_RULE_ALL_IN_ONE= '../SPrules4pupp/all_in_one.rb'
+PP_RULE_ALL_IN_ONE= '../SPrules4pupp/all_in_one.rb'  ### ultimately we are using this 
 NO_OF_RULES       = 9
 #### CHEF ZONE
 ### PUPPET LINT AND ITS RULES
@@ -49,6 +49,12 @@ LINT_EMPT      ='SECURITY:::EMPTY_PASSWORD:::'
 LINT_DEF_ADM   ='SECURITY:::ADMIN_BY_DEFAULT:::'
 LINT_BASE64    ='SECURITY:::BASE64:::'
 LINT_MIS_DEFAU ='WARNING: case statement without a default case'
+#### For Hard coded secreat breakdown 
+LINT_HARD_CODE_UNAME ='SECURITY:::HARD_CODED_SECRET_USER_NAME:::'
+LINT_HARD_CODE_PASS  ='SECURITY:::HARD_CODED_SECRET_PASSWORD:::'
+LINT_HARD_CODE_KEY1  ='SECURITY:::HARD_CODED_SECRET_KEYS:::'
+LINT_HARD_CODE_KEY2  ='SECURITY:::HARD_CODED_SECRET_V2:::'
+
 NEWLINE   = '\n'
 AT_SYMBOL = '@'
 ### HEADER STRING
@@ -57,6 +63,6 @@ AT_SYMBOL = '@'
 # headerStr3 = 'BASE_64,'  + 'MISS_DFLT,' + 'TOTAL,'
 headerStr1 = 'MONTH,'    + 'FILE_NAME,' + 'HARD_CODE_SECR,' + 'SUSP_COMM,'
 headerStr2 = 'MD5_USAG,' + 'HTTP_USAG,' + 'BIND_USAG,' + 'EMPT_PASS,' + 'DFLT_ADMN,'
-headerStr3 = 'TOTAL,'
+headerStr3 = 'HARD_CODE_UNAME,' + 'HARD_CODE_PASS,' + 'HARD_CODE_KEYS,' + 'TOTAL,'
 HEADER_STR = headerStr1 + headerStr2 + headerStr3
 SYM_HEAD   = 'MONTH,FILE,SYMBOL,TYPE'
