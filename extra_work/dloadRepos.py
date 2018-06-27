@@ -40,9 +40,16 @@ def getPuppetFiles(directory):
                pp_list.append(os.path.join(root_, file_))
     return pp_list        
 
+def dumpContentIntoFile(strP, fileP):
+    fileToWrite = open( fileP, 'w')
+    fileToWrite.write(strP )
+    fileToWrite.close()
+    return str(os.stat(fileP).st_size)
+
 def cloneRepos(repo_list):
+    counter = 0     
     for repo_batch in repo_list:
-        counter = 0 
+        str_ = ''
         for repo_ in repo_batch:
             counter += 1 
             print 'Cloning ', repo_
@@ -62,7 +69,9 @@ def cloneRepos(repo_list):
             else:
                 print 'Keeping ', repo_
             print '*'*50
+            str_ = str_ + dirName + ',' + '\n'
             print "So far we have processed {} repos".format(counter)
+        dumpContentIntoFile(str_, 'tracker_completed_repos.csv')
                
 
 if __name__=='__main__':
