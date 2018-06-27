@@ -31,6 +31,14 @@ def cloneRepo(repo_name):
     cmd_ = "git clone " + repo_name
     subprocess.check_output(['bash','-c', cmd_])    
 
+def getPuppetFiles(directory):
+    pp_list = []
+    for root_, dirnames, filenames in os.walk(directory):
+        for file_ in filenames:
+            if (file_.endswith('pp')):
+               pp_list.append(os.path.join(root_, file_))
+    return pp_list             
+
 def cloneRepos(repo_list):
     for repo_batch in repo_list:
         str_ = ''
@@ -38,7 +46,12 @@ def cloneRepos(repo_list):
             print 'Cloning ', repo_
             cloneRepo(repo_)
             dirName = repo_.split('/')[-1].split('.')[0]
-            print dirName
+            # print dirName
+            ### get file count 
+            all_fil_cnt = sum([len(files) for r_, d_, files in os.walk(dirName)])
+            pp_fil_cnt  = len(getPuppetFiles(dirName))
+            pp_perc     = float(pp_fil_cnt)/float(all_fil_cnt)
+            print dirName, all_fil_cnt, pp_perc
 
 if __name__=='__main__':
    srcFile1='/Users/akond.rahman/Documents/Personal/misc/icse19-work/gh-repo-list-batch1.csv'
