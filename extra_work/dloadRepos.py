@@ -3,6 +3,7 @@ Akond Rahman
 June 27, 2018 
 Download repos from Github 
 '''
+from itertools import izip_longest
 import os 
 import csv 
 import subprocess
@@ -21,6 +22,12 @@ def getRepos(file_name):
     return list_
 
 
+
+def grouper(the_list, size_, fillvalue=None):
+    args = [iter(the_list)] * size_
+    return izip_longest(*args, fillvalue=fillvalue)
+
+
 if __name__=='__main__':
    srcFile1='/Users/akond.rahman/Documents/Personal/misc/icse19-work/gh-repo-list-batch1.csv'
    srcFile2='/Users/akond.rahman/Documents/Personal/misc/icse19-work/gh-repo-list-batch2.csv'
@@ -29,3 +36,6 @@ if __name__=='__main__':
    list = list1 + list2 
    list_ = np.unique(list)
    print 'Repos to download:', len(list_)
+   ## need to create chunks as too many repos 
+   chunked_list = grouper(list_, 1000)
+   print chunked_list
