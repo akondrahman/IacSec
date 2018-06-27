@@ -8,6 +8,7 @@ import os
 import csv 
 import subprocess
 import numpy as np
+import shutil
 
 def getRepos(file_name):
     list_ = []
@@ -37,12 +38,13 @@ def getPuppetFiles(directory):
         for file_ in filenames:
             if (file_.endswith('pp')):
                pp_list.append(os.path.join(root_, file_))
-    return pp_list             
+    return pp_list        
 
 def cloneRepos(repo_list):
     for repo_batch in repo_list:
-        str_ = ''
+        counter = 0 
         for repo_ in repo_batch:
+            counter += 1 
             print 'Cloning ', repo_
             cloneRepo(repo_)
             dirName = repo_.split('/')[-1].split('.')[0]
@@ -51,7 +53,17 @@ def cloneRepos(repo_list):
             all_fil_cnt = sum([len(files) for r_, d_, files in os.walk(dirName)])
             pp_fil_cnt  = len(getPuppetFiles(dirName))
             pp_perc     = float(pp_fil_cnt)/float(all_fil_cnt)
+            print '*'*50
             print dirName, all_fil_cnt, pp_perc
+            print '*'*50
+            if (pp_perc < 0.11):
+                shutil.rmtree(dirName)
+                print 'Deleting ', repo_
+            else:
+                print 'Keeping ', repo_
+            print '*'*50
+            print "So far we have processed {} repos".format(counter)
+               
 
 if __name__=='__main__':
    srcFile1='/Users/akond.rahman/Documents/Personal/misc/icse19-work/gh-repo-list-batch1.csv'
