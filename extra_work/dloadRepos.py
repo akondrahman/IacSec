@@ -59,18 +59,30 @@ def cloneRepos(repo_list):
             ### get file count 
             all_fil_cnt = sum([len(files) for r_, d_, files in os.walk(dirName)])
             pp_fil_cnt  = len(getPuppetFiles(dirName))
-            pp_perc     = float(pp_fil_cnt)/float(all_fil_cnt)
+            if (all_fil_cnt <= 0):
+                print 'Deleting ', repo_
+                try:
+                   shutil.rmtree(dirName)
+                except OSError:
+                   print 'Failed deleting, will try manually'
+                pp_perc     = float(0)
+            else:
+                pp_perc     = float(pp_fil_cnt)/float(all_fil_cnt)
             print '*'*50
             print dirName, all_fil_cnt, pp_perc
             print '*'*50
             if (pp_perc < 0.11):
-                shutil.rmtree(dirName)
                 print 'Deleting ', repo_
+                try:
+                   shutil.rmtree(dirName)
+                except OSError:
+                   print 'Failed deleting, will try manually'
             else:
                 print 'Keeping ', repo_
             print '*'*50
-            str_ = str_ + dirName + ',' + '\n'
+            str_ = str_ + dirName + ',' + str(pp_perc) + ',' + '\n'
             print "So far we have processed {} repos".format(counter)
+            print '*'*50
         dumpContentIntoFile(str_, 'tracker_completed_repos.csv')
                
 
