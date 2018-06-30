@@ -30,7 +30,10 @@ def makeChunks(the_list, size_):
 
 def cloneRepo(repo_name):
     cmd_ = "git clone " + repo_name
-    subprocess.check_output(['bash','-c', cmd_])    
+    try:
+       subprocess.check_output(['bash','-c', cmd_])    
+    except subprocess.CalledProcessError:
+       print 'Skipping this repo ... trouble cloning repo', repo_name 
 
 def getPuppetFiles(directory):
     pp_list = []
@@ -62,19 +65,21 @@ def cloneRepos(repo_list):
             if (all_fil_cnt <= 0):
                 print 'Deleting ', repo_
                 try:
-                   shutil.rmtree(dirName)
+                   if os.path.exists(dirName):
+                      shutil.rmtree(dirName)
                 except OSError:
                    print 'Failed deleting, will try manually'
                 pp_perc     = float(0)
             else:
                 pp_perc     = float(pp_fil_cnt)/float(all_fil_cnt)
             print '*'*50
-            print dirName, all_fil_cnt, pp_perc
+            # print dirName, all_fil_cnt, pp_perc
             print '*'*50
             if (pp_perc < 0.11):
                 print 'Deleting ', repo_
                 try:
-                   shutil.rmtree(dirName)
+                   if os.path.exists(dirName):
+                      shutil.rmtree(dirName)
                 except OSError:
                    print 'Failed deleting, will try manually'
             else:
@@ -82,6 +87,7 @@ def cloneRepos(repo_list):
             print '*'*50
             str_ = str_ + dirName + ',' + str(pp_perc) + ',' + '\n'
             print "So far we have processed {} repos".format(counter)
+            print str_
             print '*'*50
         dumpContentIntoFile(str_, 'tracker_completed_repos.csv')
                
