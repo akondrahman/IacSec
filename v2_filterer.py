@@ -14,11 +14,12 @@ def dumpContentIntoFile(strP, fileP):
     return str(os.stat(fileP).st_size)
 
 def getMonDiff(st_mo, en_mo):
-    mon_ = 1
     d0 = date(int(st_mo.split('-')[0]), int(st_mo.split('-')[1]), int(st_mo.split('-')[2]))
     d1 = date(int(en_mo.split('-')[0]), int(en_mo.split('-')[1]), int(en_mo.split('-')[2]))
     delta = d1 - d0
-    mon_ =  delta.month
+    mon_ =  float(delta.days) / float(30)
+    if mon_ <= 1.0 :
+        mon_ = 1.0
     return mon_
 
 def findValidRepos(file_p):
