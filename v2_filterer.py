@@ -15,8 +15,8 @@ def dumpContentIntoFile(strP, fileP):
 
 def getMonDiff(st_mo, en_mo):
     mon_ = 1
-    d0 = date(st_mo.split('-')[0], st_mo.split('-')[1], st_mo.split('-')[2])
-    d1 = date(en_mo.split('-')[0], en_mo.split('-')[1], en_mo.split('-')[2])
+    d0 = date(int(st_mo.split('-')[0]), int(st_mo.split('-')[1]), int(st_mo.split('-')[2]))
+    d1 = date(int(en_mo.split('-')[0]), int(en_mo.split('-')[1]), int(en_mo.split('-')[2]))
     delta = d1 - d0
     mon_ =  delta.month
     return mon_
@@ -33,6 +33,7 @@ def findValidRepos(file_p):
 
             months = getMonDiff(start_month, end_month)                        
             comm_per_mon = float(commit_count)/float(months)
+            print repo_name, months 
             if comm_per_mon >= 2.0  :
                 valid_list.append(repo_name)
     str_ = ''
