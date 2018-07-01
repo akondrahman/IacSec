@@ -55,11 +55,11 @@ def findValidRepos(file_p, src_dir_p, des_dir_p):
         #     print 'Directory not copied, error:', err_
     out_tar_fil = des_dir_p + 'all_github_pp_repos.tar'
     tar_cmd = 'tar -cf ' + out_tar_fil + ' ' + tar_str
-    print tar_cmd
-    # try:
-    #    subprocess.check_output(['bash','-c', tar_cmd])        
-    # except subprocess.CalledProcessError:
-    #    print "Tar process failed? "
+    # print tar_cmd
+    try:
+       subprocess.check_output(['bash','-c', tar_cmd])        
+    except subprocess.CalledProcessError:
+       print "Tar process failed? "
     return str_
                 
 
