@@ -37,7 +37,7 @@ def findValidRepos(file_p, src_dir_p, des_dir_p):
 
             months = getMonDiff(start_month, end_month)                        
             comm_per_mon = float(commit_count)/float(months)
-            print repo_name + "," + str(months) + "," + str(comm_per_mon)
+            # print repo_name + "," + str(months) + "," + str(comm_per_mon)
             all_tar_str = all_tar_str + src_dir_p + '/' + repo_name + ' '
             if comm_per_mon >= 2.0  :
                 valid_list.append(repo_name)
@@ -50,18 +50,19 @@ def findValidRepos(file_p, src_dir_p, des_dir_p):
         full_src_path = src_dir_p + repo_ 
         tar_str = tar_str + full_src_path + ' '
 
-    out_tar_fil = des_dir_p + 'all_github_pp_repos.tar'
+    # out_tar_fil = des_dir_p + 'all_github_pp_repos.tar'
     # tar_cmd = 'tar -cf ' + out_tar_fil + ' ' + tar_str
 
     out_tar_fil = des_dir_p + 'non_filtered_gh_repos.tar'
     tar_cmd = 'tar -cf ' + out_tar_fil + ' ' + all_tar_str
 
-    print tar_cmd
-    # try:
-    #    subprocess.check_output(['bash','-c', tar_cmd])        
-    # except subprocess.CalledProcessError:
-    #    print "Tar process failed? "
-    # return str_
+    # print tar_cmd
+    try:
+       subprocess.check_output(['bash','-c', tar_cmd])        
+    except subprocess.CalledProcessError:
+       print "Tar process failed? "
+
+    return str_
                 
 
 if __name__=='__main__':
