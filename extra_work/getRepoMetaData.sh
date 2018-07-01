@@ -5,6 +5,6 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
   echo $repo_name
   jsonFileName=`echo $repo_name | tr '/' _`
   # echo $jsonFileName
-  curl -H "Authorization: token 1d1637009c9daa00eb77c7de21a8abe30771c833" -ni "https://api.github.com/repos/"$repo_name -H 'Accept: json' > $jsonFileName.json
+  curl -H "Authorization: token <TOKEN_GOES_HERE>" -ni "https://api.github.com/repos/"$repo_name -H 'Accept: json' > $jsonFileName.json
   echo "----------------------------------------------------------------------------"
-done < "$1"
+done < "$1" 
