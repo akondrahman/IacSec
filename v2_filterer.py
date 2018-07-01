@@ -45,14 +45,8 @@ def findValidRepos(file_p, src_dir_p, des_dir_p):
     for repo_ in valid_list:
         cnt += 1
         str_ = str_ + repo_ + ',' + '\n'
-        full_src_path = src_dir_p + repo_ + '/'
-        full_des_path = des_dir_p + repo_ + '/'
+        full_src_path = src_dir_p + repo_ 
         tar_str = tar_str + full_src_path + ' '
-        # print 'CNT:' + str(cnt) + ',SRC:' + full_src_path + ',DES:' + full_des_path
-        # try:
-        #     shutil.copytree(full_src_path, full_des_path)
-        # except shutil.Error as err_:
-        #     print 'Directory not copied, error:', err_
     out_tar_fil = des_dir_p + 'all_github_pp_repos.tar'
     tar_cmd = 'tar -cf ' + out_tar_fil + ' ' + tar_str
     # print tar_cmd
