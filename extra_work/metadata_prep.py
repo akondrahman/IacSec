@@ -30,16 +30,17 @@ def dumpContentIntoFile(strP, fileP):
     return str(os.stat(fileP).st_size)
 
 if __name__=='__main__':
-   filtered_list_file = ''
-   all_list_file = ''
+   filtered_list_file = 'v3_filtered_list.csv'
+   all_list_file = 'all_pp_repo_names.txt'
    filt_list = getFilteredNames(filtered_list_file)
    all_list = getAllNames(all_list_file)
    list_to_explore = []
-   for names_ in all_list:
+   for name_ in all_list:
        for filtered_name in filt_list:
-           if filtered_name in names_:
-              list_to_explore.append(names_)
+           if (name_.split('/')[-1]==filtered_name) :
+              list_to_explore.append(name_)
    str_to_dump = '' 
+   list_to_explore = np.unique(list_to_explore)
    for repo_name in list_to_explore:
        str_to_dump = str_to_dump + repo_name + '\n'
    dumpContentIntoFile(str_to_dump, 'RepoListForMetaData.txt')
