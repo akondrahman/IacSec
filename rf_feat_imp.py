@@ -97,8 +97,22 @@ if __name__=='__main__':
    # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Tree/dataset/PHASE7_MIRANTIS_FULL_DATASET.csv'
    # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Tree/dataset/PHASE7_MOZ_FULL_DATASET.csv'
    # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Tree/dataset/PHASE7_OST_FULL_DATASET.csv'
-   # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Tree/dataset/PHASE7_WIKI_FULL_DATASET.csv'   
+   # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Tree/dataset/PHASE7_WIKI_FULL_DATASET.csv'
 
+   '''
+   ICSE 19 / FSE 19 PUSH
+   '''
+   # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/ICSE19_TSE/MIR_FUL_PRO.csv'
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/ICSE19_TSE/MIR.csv'
+
+   # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/ICSE19_TSE/MOZ_FUL_PRO.csv'
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/ICSE19_TSE/MOZ.csv'
+
+   # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/ICSE19_TSE/OST_FUL_PRO.csv'
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/ICSE19_TSE/OST.csv'
+
+   # ds_file_name='/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/dataset/ICSE19_TSE/WIK_FUL_PRO.csv'
+   # output_file_param  = '/Users/akond/Documents/AkondOneDrive/OneDrive/ProcessInIaC/output/rf_feat_imp/ICSE19_TSE/WIK.csv'
 
    full_ds=readDataset(ds_file_name)
    full_rows, full_cols = np.shape(full_ds)
@@ -108,8 +122,8 @@ if __name__=='__main__':
    defected_file_count     = len([x_ for x_ in all_labels if x_==1.0])
    non_defected_file_count = len([x_ for x_ in all_labels if x_==0.0])
    feature_names = getColumnNames(ds_file_name, 2, feature_cols)
-   # calcFeatureImp(all_features, all_labels, feature_names, output_file_param)
+   calcFeatureImp(all_features, all_labels, feature_names, output_file_param)
    print '='*100
    print ds_file_name
-   calcRFE(all_features, all_labels, feature_names)
+   # calcRFE(all_features, all_labels, feature_names)
    print '='*100

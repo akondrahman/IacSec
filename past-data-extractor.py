@@ -69,4 +69,15 @@ if __name__=='__main__':
    # y_list      = ['2012', '2013', '2014', '2015', '2016']
    # m_list      = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 
+  ### ICSE 2019 Work
+
+   # folder2walk = '/Users/akond/PUPP_REPOS/openstack-downloads/extra_repos_icse19/'
+   # y_list      = ['2018']
+   # m_list      = ['04', '05', '06']
+
+   # folder2walk = '/Users/akond/PUPP_REPOS/wikimedia-downloads/extra_repos_icse19/'
+   # y_list      = ['2018']
+   # m_list      = ['04', '05', '06']
+
+
    generatePastData(folder2walk, y_list, m_list)
