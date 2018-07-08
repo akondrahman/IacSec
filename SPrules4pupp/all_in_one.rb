@@ -150,7 +150,7 @@ PuppetLint.new_check(:no_hardcode_secret_v1) do
                                 (token_valu.include? "secret") || (token_valu.include? "certificate") ||
                                 (token_valu.include? "cert") || (token_valu.include? "token") || (token_valu.include? "ssh_key") ||
                                 (token_valu.include? "md5") || (token_valu.include? "rsa") || (token_valu.include? "ssl") ||
-                                (token_valu.include? "dsa") || (token_valu.include? "user")) && (! token_valu.include? "::")
+                                (token_valu.include? "dsa") || (token_valu.include? "user")) && (! token_valu.include? "::") && (! token_valu.include? "passive")
                                ) && ((! token_valu.include? "provider") && (!nxt_nxt_type.eql? 'VARIABLE') && (!invalid_kw_list.include? nxt_nxt_val) && (nxt_nxt_val.length > 1) )
                               )
                                  # && (nxt_nxt_val.is_a? String)
@@ -272,7 +272,7 @@ PuppetLint.new_check(:no_expose_secret_location) do
                                 (nxt_nxt_val.include? "pem") || (nxt_nxt_val.include? "crt") ||
                                 (nxt_nxt_val.include? "key") || (nxt_nxt_val.include? "ssl") ||
                                 (nxt_nxt_val.include? "certificate") || (nxt_nxt_val.include? "crl") ||
-                                (nxt_nxt_val.include? "pub") || (nxt_nxt_val.include? "id") || (nxt_nxt_val.include? "rsa")) &&
+                                (nxt_nxt_val.include? "pub") || (nxt_nxt_val.include? "rsa")) &&
                                 ((nxt_nxt_val.start_with? '/') || (nxt_nxt_val.include? '\\')) &&
                                 (nxt_nxt_typ.eql? 'SSTRING') && ((!nxt_nxt_val.include? '$') || (!nxt_nxt_val.include? '{'))
                               )
@@ -389,7 +389,7 @@ PuppetLint.new_check(:no_hardcode_secret_password) do
                              nxt_nxt_val  = nxt_nxt_token.value.downcase
                              nxt_nxt_type = nxt_nxt_token.type.to_s  ## to handle false positives,
                              if (((token_valu.include? "pwd") || (token_valu.include? "password") || (token_valu.include? "pass")
-                                 ) && ((! token_valu.include? "provider") && (!nxt_nxt_type.eql? 'VARIABLE') && (!invalid_kw_list.include? nxt_nxt_val) && (nxt_nxt_val.length > 1) )
+                                 ) && ((! token_valu.include? "provider") && (! token_valu.include? "passive") && (!nxt_nxt_type.eql? 'VARIABLE') && (!invalid_kw_list.include? nxt_nxt_val) && (nxt_nxt_val.length > 1) )
                                 )
                                    print nxt_token.value.downcase
                                    print ' '
