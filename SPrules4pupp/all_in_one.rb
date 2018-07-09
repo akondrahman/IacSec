@@ -235,9 +235,9 @@ PuppetLint.new_check(:no_md5) do
                token_valu = token_valu.downcase
                # print "#{token_name} \t"
                token_type = indi_token.type.to_s
-               if (token_valu.include? "md5") && (!token_type.eql? "COMMENT")
+               if ((token_valu.include? "md5") || (token_valu.include? "sha1")) && (!token_type.eql? "COMMENT")
                   notify :warning, {
-                     message: 'SECURITY:::MD5:::Do not use MD5, as it has security weakness. Use SHA-512.@' + token_valu+'@',
+                     message: 'SECURITY:::MD5:::Do not use MD5 or SHA1, as they have security weakness. Use SHA-512.@' + token_valu+'@',
                      line:    indi_token.line,
                      column:  indi_token.column,
                      token:   token_valu
