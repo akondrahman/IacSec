@@ -81,8 +81,11 @@ def getRepoLink(repo_src, df_, metadata_df, mo_param):
             selected_df = metadata_df[metadata_df['dir_name']==repo_json_file]
             non_fork_df = selected_df[selected_df['fork?']==0]
             watcher_filtered_df = non_fork_df[non_fork_df['watchers'] > 1]
-            
-            print repo_json_file, watcher_filtered_df['repo_name'].tolist()[0].split('.')[0], pp_file_name
+            repo_ = watcher_filtered_df['repo_name'].tolist()[0].split('.')[0]
+            smell_df = valid_df[valid_df['FILE_NAME']==file_]
+            print repo_json_file, repo_, pp_file_name 
+            print smell_df
+            print '='*50
             tracker.append(repo_json_file)
 
 
