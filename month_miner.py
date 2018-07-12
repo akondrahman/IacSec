@@ -19,7 +19,7 @@ def getSmellDensity(mon_df):
     smell_names = [x_ for x_ in features if x_ not in dropcols]
     for smell_name in smell_names:
         all_smell_cnt = sum(mon_df[smell_name].tolist())
-        smell_density = float(all_smell_cnt)/float(tot_loc)
+        smell_density = float(all_smell_cnt)/(float(tot_loc) / float(1000))
         print smell_name + ',' + str(round(smell_density, 5))
 
 def getOccurences(mon_df):
@@ -47,7 +47,7 @@ def getAppearance(mon_df):
 def mineMonthData(df_param, mo_param):
     mon_df = df_param[df_param['MONTH']==mo_param]
     print '='*100
-    print 'SMELL DENSITY'
+    print 'SMELL DENSITY (PER KLOC)'
     print '='*50
     getSmellDensity(mon_df)
     print '='*100
@@ -83,23 +83,31 @@ def getRepoLink(repo_src, df_, metadata_df, mo_param):
             watcher_filtered_df = non_fork_df[non_fork_df['watchers'] > 1]
             repo_ = watcher_filtered_df['repo_name'].tolist()[0].split('.')[0]
             smell_df = valid_df[valid_df['FILE_NAME']==file_]
-            print repo_json_file, repo_, pp_file_name 
-            print smell_df
-            print '='*50
+            print repo_json_file + ',' + repo_  + ',' + pp_file_name 
+            #print smell_df
+            #print '='*50
             tracker.append(repo_json_file)
 
 
 if __name__=='__main__':
-   results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_GITHUB_PUPPET.csv'
+   #results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_GITHUB_PUPPET.csv'
+   #results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_MOZILLA_PUPPET.csv'
+   #results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_OPENSTACK_PUPPET.csv'
+   #results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_WIKIMEDIA_PUPPET.csv'
+   
+
    result_df = pd.read_csv(results_file)
    the_month = '2018-06'
-   #mineMonthData(result_df, the_month)
+   print '='*100
+   print results_file
+   print '='*100
+   mineMonthData(result_df, the_month)
 
    '''
    for Github issues
    '''
-   repo_dir = '/Users/akond/SECU_REPOS/ghub-pupp/'
-   repo_name_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/metadata_output.csv'
-   repo_name_df = pd.read_csv(repo_name_file)
-   #print repo_name_df.head()
-   getRepoLink(repo_dir, result_df, repo_name_df, the_month)
+   # repo_dir = '/Users/akond/SECU_REPOS/ghub-pupp/'
+   # repo_name_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/metadata_output.csv'
+   # repo_name_df = pd.read_csv(repo_name_file)
+   # #print repo_name_df.head()
+   # getRepoLink(repo_dir, result_df, repo_name_df, the_month)
