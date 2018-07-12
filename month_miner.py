@@ -61,9 +61,10 @@ def mineMonthData(df_param, mo_param):
     print '='*100
 
 
-def getRepoLink(repo_src, df_):
+def getRepoLink(repo_src, df_, metadata_df, mo_param):
     #/Users/akond/SECU_REPOS/ghub-pupp/puppet-sonarqube-2017-11/tests/runner.pp
-    file_names = df_['FILE_NAME'].tolist()    
+    mon_df = df_[df_['MONTH']==mo_param]
+    file_names = mon_df['FILE_NAME'].tolist()    
     for file_ in file_names:
         relative_name = file_.replace(repo_src, '')
         folder_name = relative_name.split('/')[0]
@@ -71,7 +72,12 @@ def getRepoLink(repo_src, df_):
         y_, m_ = y_m[-2], y_m[-1]
         month_str = '-' + y_ + '-' + m_
         repo_name = folder_name.replace(month_str, '')
-        print relative_name, repo_name
+        repo_json_file =  repo_name + '.json'
+        print relative_name, repo_json_file
+        selected_df = metadata_df[metadata_df['dir_name']==repo_json_file]
+        non_fork_df = selected_df[selected_df['fork?']==0]
+        print non_fork_df.head()
+
 
 if __name__=='__main__':
    results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_GITHUB_PUPPET.csv'
@@ -83,4 +89,7 @@ if __name__=='__main__':
    for Github issues
    '''
    repo_dir = '/Users/akond/SECU_REPOS/ghub-pupp/'
-   getRepoLink(repo_dir, result_df)
+   repo_name_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/metadata_output.csv'
+   repo_name_df = pd.read_csv(repo_name_file)
+   #print repo_name_df.head()
+   getRepoLink(repo_dir, result_df, repo_name_df, the_month)
