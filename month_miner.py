@@ -65,10 +65,12 @@ def getRepoLink(repo_src, df_, metadata_df, mo_param):
     tracker = []
     #/Users/akond/SECU_REPOS/ghub-pupp/puppet-sonarqube-2017-11/tests/runner.pp
     mon_df = df_[df_['MONTH']==mo_param]
-    file_names = mon_df['FILE_NAME'].tolist()    
+    valid_df = mon_df[mon_df['TOTAL'] > 0 ]
+    file_names = valid_df['FILE_NAME'].tolist()    
     for file_ in file_names:
         relative_name = file_.replace(repo_src, '')
         folder_name = relative_name.split('/')[0]
+        pp_file_name   = relative_name.replace(folder_name, '')
         y_m = folder_name.split('-')
         y_, m_ = y_m[-2], y_m[-1]
         month_str = '-' + y_ + '-' + m_
@@ -79,8 +81,8 @@ def getRepoLink(repo_src, df_, metadata_df, mo_param):
             selected_df = metadata_df[metadata_df['dir_name']==repo_json_file]
             non_fork_df = selected_df[selected_df['fork?']==0]
             watcher_filtered_df = non_fork_df[non_fork_df['watchers'] > 1]
-            print repo_json_file
-            print watcher_filtered_df['repo_name'].tolist()[0].split('.')[0]
+            
+            print repo_json_file, watcher_filtered_df['repo_name'].tolist()[0].split('.')[0], pp_file_name
             tracker.append(repo_json_file)
 
 
