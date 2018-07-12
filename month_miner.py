@@ -62,6 +62,7 @@ def mineMonthData(df_param, mo_param):
 
 
 def getRepoLink(repo_src, df_, metadata_df, mo_param):
+    tracker = []
     #/Users/akond/SECU_REPOS/ghub-pupp/puppet-sonarqube-2017-11/tests/runner.pp
     mon_df = df_[df_['MONTH']==mo_param]
     file_names = mon_df['FILE_NAME'].tolist()    
@@ -73,10 +74,14 @@ def getRepoLink(repo_src, df_, metadata_df, mo_param):
         month_str = '-' + y_ + '-' + m_
         repo_name = folder_name.replace(month_str, '')
         repo_json_file =  repo_name + '.json'
-        print relative_name, repo_json_file
-        selected_df = metadata_df[metadata_df['dir_name']==repo_json_file]
-        non_fork_df = selected_df[selected_df['fork?']==0]
-        print non_fork_df.head()
+        #print relative_name, repo_json_file
+        if repo_json_file not in tracker:
+            selected_df = metadata_df[metadata_df['dir_name']==repo_json_file]
+            non_fork_df = selected_df[selected_df['fork?']==0]
+            watcher_filtered_df = non_fork_df[non_fork_df['watchers'] > 1]
+            print repo_json_file
+            print watcher_filtered_df['repo_name'].tolist()[0].split('.')[0]
+            tracker.append(repo_json_file)
 
 
 if __name__=='__main__':
