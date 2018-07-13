@@ -35,33 +35,37 @@ if __name__=='__main__':
    PUPPET DIRECTORIES
    '''
    # ds_path =    '/Users/akond/SECU_REPOS/curated/agreed/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_CURATED_AGREE_PUPPET.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_SYM_CURATED_AGREE_PUP.PKL'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_CURATED_AGREE_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_SYM_CURATED_AGREE_PUP.PKL'
 
    # ds_path =    '/Users/akond/SECU_REPOS/curated/disagreed/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_CURATED_DISAGREE_PUPPET.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_SYM_CURATED_DISAGREE_PUP.PKL'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_CURATED_DISAGREE_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_SYM_CURATED_DISAGREE_PUP.PKL'
 
-#    ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
-#    output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V7_TEST_PUPPET.csv'
-#    sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V7_SYM_TEST_PUP.PKL'
+   # ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V7_TEST_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V7_SYM_TEST_PUP.PKL'
 
-   ### testing code at IBM YKT
-   ds_path = '/Users/akond.rahman/Documents/Personal/misc/ccs-rebuttal-work/test/'
-   output_file = '/Users/akond.rahman/Documents/Personal/misc/ccs-rebuttal-work/CCS_REBUTTAL_TEST.csv'
-   sym_output_file = '/Users/akond.rahman/Documents/Personal/misc/ccs-rebuttal-work/CCS_REBUTTAL_TEST.PKL'
+   ### CCS Rebuttal code
+   # ds_path = '/Users/akond.rahman/Documents/Personal/misc/ccs-rebuttal-work/test/'
+   # output_file = '/Users/akond.rahman/Documents/Personal/misc/ccs-rebuttal-work/CCS_REBUTTAL_TEST.csv'
+   # sym_output_file = '/Users/akond.rahman/Documents/Personal/misc/ccs-rebuttal-work/CCS_REBUTTAL_TEST.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/mozi-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_ALL_MOZILLA_PUPPET.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_SYM_ALL_MOZ_PUP.PKL'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_MOZILLA_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_SYM_ALL_MOZ_PUP.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/ostk-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_ALL_OPENSTACK_PUPPET.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_SYM_ALL_OST_PUP.PKL'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_OPENSTACK_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_SYM_ALL_OST_PUP.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/wiki-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_ALL_WIKIMEDIA_PUPPET.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_SYM_ALL_WIK_PUP.PKL'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_WIKIMEDIA_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_SYM_ALL_WIK_PUP.PKL'
+
+   # ds_path = '/Users/akond/SECU_REPOS/ghub-pupp/'
+   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_GITHUB_PUPPET.csv'
+   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_SYM_ALL_GIT_PUP.PKL'
 
    '''
    CHEF DIRECTORIES
@@ -82,8 +86,8 @@ if __name__=='__main__':
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_EXPR_CHEF.csv'
    # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_CHEF.PKL'
 
-   final_output_str, sym_out_full = executor.sniffSmells(ds_path) # 1. count, 2. symbols for whcih we observe smells
-   final_output_str = constants.HEADER_STR + '\n' +  final_output_str   ### header is used here 
+   final_output_str, sym_out_full = executor.sniffSmells(ds_path) # 1. count, 2. symbols for which we observe smells
+   final_output_str = constants.HEADER_STR + '\n' +  final_output_str   ### header is used here
    print '*'*100
    # print sym_out_full
    bytes_out = dumpContentIntoFile(final_output_str, output_file)

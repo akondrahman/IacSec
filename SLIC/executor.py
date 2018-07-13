@@ -10,7 +10,9 @@ import lint_engine
 def checkValidity(file_path):
     # skip files that are in hidden directories, and in spec folders
     flag2ret = False
-    if ((file_path.count(constants.DOT) == 1) and (constants.TEST_DIR_SPEC not in file_path) and (constants.TEST_DIR_ACCE not in file_path)):
+    ## the previosu conditions have to be removded as now we dont have any Puppet files in spec or acceptance directories
+    if ((file_path.count(constants.DOT) == 1)): 
+    # if ((file_path.count(constants.DOT) == 1) and (constants.TEST_DIR_SPEC not in file_path) and (constants.TEST_DIR_ACCE not in file_path)):
     # if ((file_path.count(constants.DOT) <= 5) and (constants.TEST_DIR_SPEC not in file_path) and (constants.TEST_DIR_ACCE not in file_path)):
         flag2ret  = True
     return flag2ret
@@ -26,8 +28,11 @@ def buildOutput(output_tuple, file_name):
 def getMonthData(file_p, dir_p):
     temp_     = file_p.replace(dir_p, '')
     time_dir  = temp_.split('/')[0]
-    time_list = time_dir.split('-')
-    month2ret = time_list[-2] + '-' + time_list[-1] + ','
+    if '-' in time_dir:
+       time_list = time_dir.split('-')
+       month2ret = time_list[-2] + '-' + time_list[-1] + ','
+    else:
+       month2ret = '2018-06'
     return month2ret
 
 def buildSymOut(sym_tup_par, mon_par, fil_par):
@@ -40,8 +45,8 @@ def buildSymOut(sym_tup_par, mon_par, fil_par):
                  6:constants.LINT_EMPT,
                  7:constants.LINT_DEF_ADM,
                  8:constants.LINT_BASE64,
-                 9:constants.LINT_MIS_DEFAU, 
-                 10:constants.LINT_HARD_CODE_UNAME, 
+                 9:constants.LINT_MIS_DEFAU,
+                 10:constants.LINT_HARD_CODE_UNAME,
                  11:constants.LINT_HARD_CODE_PASS
                 }
     # str2ret   = ''

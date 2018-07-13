@@ -71,13 +71,13 @@ if __name__=='__main__':
    '''
    Step-1 : create the dataset from agree and disagree file
    '''
-   agree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/V6_CURATED_AGREE_PUPPET.csv'
-   disagree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/V6_CURATED_DISAGREE_PUPPET.csv'
-   curated_df = createDS(agree_file, disagree_file)
+   # agree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/V6_CURATED_AGREE_PUPPET.csv'
+   # disagree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/V6_CURATED_DISAGREE_PUPPET.csv'
+   # curated_df = createDS(agree_file, disagree_file)
    # need to dump csv for hacking, after dumping check CSV, make chnages if needed , and save it as final
    # curated_df.to_csv('/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/V6_SEMIFINAL.csv')
    '''
    Step-2 : pass the dataset to get accuracy
    '''
-   curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/V6_FINAL.csv'
+   curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/V10_FINAL.csv'
    printAccu(curated_ds)

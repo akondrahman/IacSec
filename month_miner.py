@@ -83,14 +83,15 @@ def getRepoLink(repo_src, df_, metadata_df, mo_param):
             watcher_filtered_df = non_fork_df[non_fork_df['watchers'] > 1]
             repo_ = watcher_filtered_df['repo_name'].tolist()[0].split('.')[0]
             smell_df = valid_df[valid_df['FILE_NAME']==file_]
-            print repo_json_file + ',' + repo_  + ',' + pp_file_name 
+            direct_url = 'https://github.com/' + repo_ + '/' + 'blob/master/' + pp_file_name
+            print repo_json_file + ',' + repo_  + ',' + pp_file_name + ',' + direct_url
             #print smell_df
             #print '='*50
             tracker.append(repo_json_file)
 
 
 if __name__=='__main__':
-   #results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_GITHUB_PUPPET.csv'
+   results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_GITHUB_PUPPET.csv'
    #results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_MOZILLA_PUPPET.csv'
    #results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_OPENSTACK_PUPPET.csv'
    #results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_ALL_WIKIMEDIA_PUPPET.csv'
@@ -106,8 +107,8 @@ if __name__=='__main__':
    '''
    for Github issues
    '''
-   # repo_dir = '/Users/akond/SECU_REPOS/ghub-pupp/'
-   # repo_name_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/metadata_output.csv'
-   # repo_name_df = pd.read_csv(repo_name_file)
-   # #print repo_name_df.head()
-   # getRepoLink(repo_dir, result_df, repo_name_df, the_month)
+   repo_dir = '/Users/akond/SECU_REPOS/ghub-pupp/'
+   repo_name_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/metadata_output.csv'
+   repo_name_df = pd.read_csv(repo_name_file)
+   #print repo_name_df.head()
+   getRepoLink(repo_dir, result_df, repo_name_df, the_month)
