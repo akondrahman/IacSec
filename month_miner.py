@@ -61,11 +61,11 @@ def mineMonthData(df_param, mo_param):
     print '='*100
 
 
-def getRepoLink(repo_src, df_, metadata_df, mo_param):
+def getRepoLink(repo_src, df_, metadata_df, mo_param, smell_to_look):
     tracker = []
     #/Users/akond/SECU_REPOS/ghub-pupp/puppet-sonarqube-2017-11/tests/runner.pp
     mon_df = df_[df_['MONTH']==mo_param]
-    valid_df = mon_df[mon_df['TOTAL'] > 0 ]
+    valid_df = mon_df[mon_df[smell_to_look] > 0 ]
     file_names = valid_df['FILE_NAME'].tolist()    
     for file_ in file_names:
         relative_name = file_.replace(repo_src, '')
@@ -83,8 +83,8 @@ def getRepoLink(repo_src, df_, metadata_df, mo_param):
             watcher_filtered_df = non_fork_df[non_fork_df['watchers'] > 1]
             repo_ = watcher_filtered_df['repo_name'].tolist()[0].split('.')[0]
             smell_df = valid_df[valid_df['FILE_NAME']==file_]
-            direct_url = 'https://github.com/' + repo_ + '/' + 'blob/master/' + pp_file_name
-            print repo_json_file + ',' + repo_  + ',' + pp_file_name + ',' + direct_url
+            direct_url = 'https://github.com/' + repo_ + '/' + 'blob/master' + pp_file_name
+            print repo_json_file + ',' + repo_  + ',' + pp_file_name + ',' + direct_url + ',' + file_
             #print smell_df
             #print '='*50
             tracker.append(repo_json_file)
@@ -107,8 +107,9 @@ if __name__=='__main__':
    '''
    for Github issues
    '''
+   SMELL_TO_LOOK = 'HARD_CODE_PASS'
    repo_dir = '/Users/akond/SECU_REPOS/ghub-pupp/'
    repo_name_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/metadata_output.csv'
    repo_name_df = pd.read_csv(repo_name_file)
    #print repo_name_df.head()
-   getRepoLink(repo_dir, result_df, repo_name_df, the_month)
+   getRepoLink(repo_dir, result_df, repo_name_df, the_month, SMELL_TO_LOOK)
