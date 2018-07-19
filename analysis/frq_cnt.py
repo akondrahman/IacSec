@@ -126,26 +126,31 @@ if __name__=='__main__':
 
    needed_header = ['HARD_CODE_SECR',	'SUSP_COMM',	'MD5_USAG',
                     'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
-                    'BASE_64',	'TOTAL']
+                    'HARD_CODE_UNAME', 'HARD_CODE_PASS', 'TOTAL']
 
    # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V3_OUTPUT/V3_TEST_PUPPET.csv'
    # results_df   = pd.read_csv(results_file)
    # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v3/'
    # ds_name = 'TEST'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_OUTPUT/V6_ALL_MOZILLA_PUPPET.csv'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_ALL_GITHUB_PUPPET.csv'
    # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_moz/'
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_git/'
+   # ds_nam = 'GITHUB'
+
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_ALL_MOZILLA_PUPPET.csv'
+   # results_df   = pd.read_csv(results_file)
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_moz/'
    # ds_nam = 'MOZILLA'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_OUTPUT/V6_ALL_OPENSTACK_PUPPET.csv'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_ALL_OPENSTACK_PUPPET.csv'
    # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_ost/'
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_ost/'
    # ds_nam = 'OPENSTACK'
 
-   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_OUTPUT/V6_ALL_WIKIMEDIA_PUPPET.csv'
+   # results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_ALL_WIKIMEDIA_PUPPET.csv'
    # results_df   = pd.read_csv(results_file)
-   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_wik/'
+   # plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_wik/'
    # ds_nam = 'WIKIMEDIA'
 
    '''
@@ -169,3 +174,6 @@ if __name__=='__main__':
 
 
    perfAnal(results_df, needed_header, plot_out_dir, ds_nam)
+   print '='*100 
+   print 'The dataset was:', results_file
+   print '='*100 

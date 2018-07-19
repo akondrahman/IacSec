@@ -37,7 +37,9 @@ def getSmellName(sme_nam):
              'SECURITY:::BINDING_TO_ALL:::':'BIND_USAG',
              'SECURITY:::EMPTY_PASSWORD:::':'EMPT_PASS',
              'SECURITY:::ADMIN_BY_DEFAULT:::':'DFLT_ADMN',
-             'SECURITY:::BASE64:::':'BASE_64'
+             'SECURITY:::BASE64:::':'BASE_64', 
+             'SECURITY:::HARD_CODED_SECRET_PASSWORD:::':'HARD_CODE_PASS',
+             'SECURITY:::HARD_CODED_SECRET_USER_NAME:::':'HARD_CODE_UNAME'
             }
     return dict_[sme_nam]
 
@@ -50,14 +52,16 @@ def processFileName(single_file_name):
     return str2ret
 
 def getTotalCount(df_, file, smel, mont):
+    smel_cnt = 0
     # print mont
     file_df   = df_[df_['FILE_NAME']==file]
     mont_df   = file_df[file_df['MONTH']==mont]
     # print mont_df
     smel_name = getSmellName(smel)
-    smel_     = mont_df[smel_name].tolist()
-    # print smel_
-    smel_cnt = smel_[0]
+    if smel_name != 'BASE_64':
+       smel_     = mont_df[smel_name].tolist()
+       # print smel_
+       smel_cnt = smel_[0]
     return smel_cnt
 
 '''
@@ -266,9 +270,9 @@ if __name__=='__main__':
    #                  'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
    #                  'BASE_64',	'MISS_DFLT']
 
-   needed_header = ['HARD_CODE_SECR',	'SUSP_COMM',	'SECR_LOCA',	'MD5_USAG',
+   needed_header = ['HARD_CODE_SECR',	'SUSP_COMM',	'MD5_USAG',
                     'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
-                    'BASE_64']
+                    'HARD_CODE_UNAME', 'HARD_CODE_PASS']
 
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_BERG_CHEF.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_SYM_BERG.PKL'
@@ -288,23 +292,29 @@ if __name__=='__main__':
    # name = 'EXPRESS42'
    # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_expr/LIFETIME.csv'
 
-   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_OUTPUT/V6_ALL_MOZILLA_PUPPET.csv'
-   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_OUTPUT/V6_SYM_ALL_MOZ_PUP.PKL'
-   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_new_old_moz/'
+   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_ALL_GITHUB_PUPPET.csv'
+   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_SYM_ALL_GIT_PUP.PKL'
+   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_git/'
+   # name = 'GITHUB'
+   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_git/LIFETIME.csv'
+
+   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_ALL_MOZILLA_PUPPET.csv'
+   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_SYM_ALL_MOZ_PUP.PKL'
+   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_moz/'
    # name = 'MOZILLA'
-   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_new_old_moz/LIFETIME.csv'
+   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_moz/LIFETIME.csv'
 
-   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_OUTPUT/V6_ALL_OPENSTACK_PUPPET.csv'
-   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_OUTPUT/V6_SYM_ALL_OST_PUP.PKL'
-   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_new_old_ost/'
-   # name = 'OPENSTACK'
-   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_new_old_ost/LIFETIME.csv'
+   orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_ALL_OPENSTACK_PUPPET.csv'
+   ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_SYM_ALL_OST_PUP.PKL'
+   dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_ost/'
+   name = 'OPENSTACK'
+   lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_ost/LIFETIME.csv'
 
-   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_OUTPUT/V6_ALL_WIKIMEDIA_PUPPET.csv'
-   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_OUTPUT/V6_SYM_ALL_WIK_PUP.PKL'
-   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_new_old_wik/'
+   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_ALL_WIKIMEDIA_PUPPET.csv'
+   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_SYM_ALL_WIK_PUP.PKL'
+   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_wik/'
    # name = 'WIKIMEDIA'
-   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v6_new_old_wik/LIFETIME.csv'
+   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_wik/LIFETIME.csv'
 
    orig_df = pd.read_csv(orig_csv)
    pkl_lis = pickle.load(open(ds_pkl, 'rb'))
