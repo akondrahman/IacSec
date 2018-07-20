@@ -274,6 +274,10 @@ if __name__=='__main__':
                     'HTTP_USAG',	'BIND_USAG',	'EMPT_PASS',	'DFLT_ADMN',
                     'HARD_CODE_UNAME', 'HARD_CODE_PASS']
 
+   '''
+   CHEF REPOS
+   '''
+
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_ALL_BERG_CHEF.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_OUTPUT/V4_SYM_BERG.PKL'
    # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_berg/'
@@ -292,6 +296,10 @@ if __name__=='__main__':
    # name = 'EXPRESS42'
    # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v4_new_old_expr/LIFETIME.csv'
 
+   '''
+   PUPPPET REPOS
+   '''
+
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_ALL_GITHUB_PUPPET.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_SYM_ALL_GIT_PUP.PKL'
    # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_git/'
@@ -304,11 +312,11 @@ if __name__=='__main__':
    # name = 'MOZILLA'
    # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_moz/LIFETIME.csv'
 
-   orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_ALL_OPENSTACK_PUPPET.csv'
-   ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_SYM_ALL_OST_PUP.PKL'
-   dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_ost/'
-   name = 'OPENSTACK'
-   lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_ost/LIFETIME.csv'
+   # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_ALL_OPENSTACK_PUPPET.csv'
+   # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_SYM_ALL_OST_PUP.PKL'
+   # dir2dump = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_ost/'
+   # name = 'OPENSTACK'
+   # lifetime_out_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v10_new_old_ost/LIFETIME.csv'
 
    # orig_csv = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_ALL_WIKIMEDIA_PUPPET.csv'
    # ds_pkl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_OUTPUT/V10_SYM_ALL_WIK_PUP.PKL'
