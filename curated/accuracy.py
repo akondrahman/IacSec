@@ -79,5 +79,11 @@ if __name__=='__main__':
    '''
    Step-2 : pass the dataset to get accuracy
    '''
-   curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/V10_FINAL.csv'
-   printAccu(curated_ds)
+   #curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/V10_FINAL.csv'
+
+   '''
+   Step-3 : sanity dataset to get accuracy
+   '''
+   sanity_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/sanity-check/V3_SANITY.csv'
+
+   printAccu(sanity_ds)
