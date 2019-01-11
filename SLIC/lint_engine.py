@@ -13,17 +13,16 @@ def generateOutput(path2file):
     if(path2file.endswith(constants.PP_EXT)):
         rulesToCheck = [constants.PP_RULE_ALL_IN_ONE]
         lintToolCmd = constants.PP_LINT_TOOL
-    else:
-        rulesToCheck = [constants.CHEF_ALL_RULES, constants.LINT_MIS_DEFAU]
+    elif(path2file.endswith(constants.CH_EXT)):
+        rulesToCheck = [constants.CHEF_ALL_RULES, constants.LINT_MIS_DEFAU] 
         lintToolCmd = constants.CHEF_LINT_TOOL
     for rule_ in rulesToCheck:
         try:
            command2exec = lintToolCmd + ' ' + rule_ + ' ' + path2file + ' ' + constants.REDIRECT_APP + ' ' + constants.OUTPUT_TMP_LOG
-           # print command2exec
+           print command2exec
            subprocess.check_output([constants.BASH_CMD, constants.BASH_FLAG, command2exec])
         except subprocess.CalledProcessError as e_:
            print constants.EXCEPTION + str(e_)
-        # raise RuntimeError("command '{}' return with error (code {}): {}".format(e_.cmd, e_.returncode, e_.output))
 
 def getOutputLines():
     file_lines = []

@@ -63,6 +63,6 @@ AT_SYMBOL = '@'
 # headerStr3 = 'BASE_64,'  + 'MISS_DFLT,' + 'TOTAL,'
 headerStr1 = 'MONTH,'    + 'FILE_NAME,' + 'HARD_CODE_SECR,' + 'SUSP_COMM,'
 headerStr2 = 'MD5_USAG,' + 'HTTP_USAG,' + 'BIND_USAG,' + 'EMPT_PASS,' + 'DFLT_ADMN,'
-headerStr3 = 'HARD_CODE_UNAME,' + 'HARD_CODE_PASS,' + 'TOTAL,'
+headerStr3 = 'HARD_CODE_UNAME,' + 'HARD_CODE_PASS,' + 'MISS_DFLT,' + 'TOTAL,'
 HEADER_STR = headerStr1 + headerStr2 + headerStr3
 SYM_HEAD   = 'MONTH,FILE,SYMBOL,TYPE'

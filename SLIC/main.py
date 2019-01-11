@@ -91,7 +91,7 @@ if __name__=='__main__':
    print '*'*100
    # print sym_out_full
    bytes_out = dumpContentIntoFile(final_output_str, output_file)
-   print 'Dumped output file of {} bytes'.format(bytes_out)
+   print 'Dumped CSV output file of {} bytes'.format(bytes_out)
    print '*'*100
    sym_out = dumpContentIntoPickle(sym_out_full, sym_output_file)
    print 'Dumped symbolic output PICKLE of {} bytes'.format(sym_out)
