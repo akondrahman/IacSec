@@ -23,7 +23,7 @@ cand_child_nodes.each do |child_node|
         else_content =child_node.else_branch.to_s()
         else_len = else_content.length
         if (else_len <= 0)
-           print "SECURITY:::MISSING_DEFAULT:::Default case (else block) is missing."
+           print "SECURITY:::MISSING_DEFAULT:::Default case (else block) is missing. Need to add a default case"
            print "\n"
         end
     end

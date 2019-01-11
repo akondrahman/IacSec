@@ -70,8 +70,9 @@ def sniffSmells(path_to_dir):
        for file_ in files_:
            if (file_.endswith(constants.PP_EXT) or file_.endswith(constants.CH_EXT)):
                  full_p_file = os.path.join(root_, file_)
+                 # for analyzing Puppet scripts
                  if (os.path.exists(full_p_file) and checkValidity(full_p_file) and (full_p_file.endswith(constants.CH_EXT)==False)):
-                    counter += 1
+                    counter += 1 
                     print 'Analyzing:{},Index:{}'.format(full_p_file, counter)
                     month_str      = getMonthData(full_p_file, path_to_dir)
                     secu_lint_outp = lint_engine.runLinter(full_p_file)
@@ -85,7 +86,8 @@ def sniffSmells(path_to_dir):
                     symbol_out   = secu_lint_outp[1] # a tuple, where each element is a list of strs
                     per_file_sym = buildSymOut(symbol_out, month_str, full_p_file)
                     all_sym_list = all_sym_list + per_file_sym
-                 elif (os.path.exists(full_p_file) and (constants.CH_DIR in full_p_file) and (full_p_file.endswith(constants.PP_EXT)==False)):
+                 # for analyzing Chef scripts
+                 elif (os.path.exists(full_p_file) and (constants.CH_DIR in full_p_file) and (full_p_file.endswith(constants.CH_EXT)==True)):
                      counter += 1
                      print 'Analyzing:{},Index:{}'.format(full_p_file, counter)
                      month_str      = getMonthData(full_p_file, path_to_dir)

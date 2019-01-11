@@ -11,15 +11,10 @@ import numpy as np
 def generateOutput(path2file):
     ## Add rules to check automatically here
     if(path2file.endswith(constants.PP_EXT)):
-        ## this list is not used anymore , as all rules are in one lint check file
-        # rulesToCheck = [constants.PP_RULE_HARDCODE, constants.PP_RULE_SUSP_COMM, constants.PP_RULE_SECR_LOCA,
-        #                 constants.PP_RULE_MD5, constants.PP_RULE_HTTP, constants.PP_RULE_BIND,
-        #                 constants.PP_RULE_EMPTY_PWD, constants.PP_RULE_DEFAU_ADM, constants.PP_RULE_BASE64
-        #                ]
         rulesToCheck = [constants.PP_RULE_ALL_IN_ONE]
         lintToolCmd = constants.PP_LINT_TOOL
     else:
-        rulesToCheck = [constants.CHEF_ALL_RULES]
+        rulesToCheck = [constants.CHEF_ALL_RULES, constants.LINT_MIS_DEFAU]
         lintToolCmd = constants.CHEF_LINT_TOOL
     for rule_ in rulesToCheck:
         try:
@@ -163,7 +158,9 @@ def parseOutput():
     #               rul_base64_cnt, rul_mis_case_cnt)
 
     output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_md5_usage_cnt,
-                  rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt)  # // removing base 64 after luke feedback
+                  rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt, 
+                  rul_mis_case_cnt
+                 )  # // removing base 64 after luke feedback
     # total count
     tot_cnt = sum(output2ret)
     # output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt,
@@ -172,6 +169,7 @@ def parseOutput():
     output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_md5_usage_cnt,
                   rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt,
                   rul_sec_user_cnt, rul_sec_pass_cnt,                  ### added June 26, 2018   
+                  rul_mis_case_cnt, 
                   tot_cnt )  # // removing base 64 after luke feedback
     # this will be expanded
     str2ret    = (rul_hardcode_lin, rul_susp_comm_lin, rul_secr_loca_lin, rul_md5_usage_lin,

@@ -6,7 +6,7 @@ This file holds all constants
 
 PP_EXT = '.pp'
 CH_EXT = '.rb'
-CH_DIR = 'recipes'
+CH_DIR = 'cookbooks' 
 TEST_DIR_SPEC = 'spec/'
 TEST_DIR_ACCE = 'acceptance/'
 DOT = '.'
@@ -26,11 +26,13 @@ PP_RULE_DEFAU_ADM = '../SPrules4pupp/no_default_admin.rb'
 PP_RULE_BASE64    = '../SPrules4pupp/no_base64.rb'
 PP_RULE_ALL_IN_ONE= '../SPrules4pupp/all_in_one.rb'  ### ultimately we are using this 
 NO_OF_RULES       = 9
+
 #### CHEF ZONE
 ### PUPPET LINT AND ITS RULES
 CHEF_LINT_TOOL = 'foodcritic -I'
 # CHEF_RULE_HARDCODE  = '../SPrules4pupp/no_hardcode_key.rb'
 CHEF_ALL_RULES = '../SPrules4chef/my-rules/my_rules.rb'
+CHEF_SWITCH_RULE = '../SPrules4chef/my-rules/special_missing_case.rb'
 
 ###### FOLLOWING APPLICABLE FOR CHEF AND PUPPET
 ### OUTPUT TMP LOG
@@ -48,7 +50,7 @@ LINT_BIND      ='SECURITY:::BINDING_TO_ALL:::'
 LINT_EMPT      ='SECURITY:::EMPTY_PASSWORD:::'
 LINT_DEF_ADM   ='SECURITY:::ADMIN_BY_DEFAULT:::'
 LINT_BASE64    ='SECURITY:::BASE64:::'
-LINT_MIS_DEFAU ='WARNING: case statement without a default case'
+LINT_MIS_DEFAU ='SECURITY:::MISSING_DEFAULT:::'
 #### For Hard coded secreat breakdown 
 LINT_HARD_CODE_UNAME ='SECURITY:::HARD_CODED_SECRET_USER_NAME:::'
 LINT_HARD_CODE_PASS  ='SECURITY:::HARD_CODED_SECRET_PASSWORD:::'

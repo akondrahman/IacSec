@@ -42,9 +42,9 @@ if __name__=='__main__':
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_CURATED_DISAGREE_PUPPET.csv'
    # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_SYM_CURATED_DISAGREE_PUP.PKL'
 
-   # ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V7_TEST_PUPPET.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V7_SYM_TEST_PUP.PKL'
+  #  ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
+  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_TEST_PUPPET.csv'
+  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_SYM_TEST_PUP.PKL'
 
    ### CCS Rebuttal code
    # ds_path = '/Users/akond.rahman/Documents/Personal/misc/ccs-rebuttal-work/test/'
@@ -70,9 +70,9 @@ if __name__=='__main__':
    '''
    CHEF DIRECTORIES
    '''
-   # ds_path = '/Users/akond/SECU_REPOS/test-chef/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_TEST_CHEF.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V5_SYM_TEST_CHEF.PKL'
+   ds_path = '/Users/akond/SECU_REPOS/test-chef/'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_TEST_CHEF.csv'
+   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_SYM_TEST_CHEF.PKL'
 
    # ds_path = '/Users/akond/SECU_REPOS/berg-chef/'
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_BERG_CHEF.csv'
