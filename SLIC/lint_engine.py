@@ -14,12 +14,12 @@ def generateOutput(path2file):
         rulesToCheck = [constants.PP_RULE_ALL_IN_ONE]
         lintToolCmd = constants.PP_LINT_TOOL
     elif(path2file.endswith(constants.CH_EXT)):
-        rulesToCheck = [constants.CHEF_ALL_RULES, constants.LINT_MIS_DEFAU] 
+        rulesToCheck = [constants.CHEF_ALL_RULES, constants.CHEF_SWITCH_RULE] 
         lintToolCmd = constants.CHEF_LINT_TOOL
     for rule_ in rulesToCheck:
         try:
            command2exec = lintToolCmd + ' ' + rule_ + ' ' + path2file + ' ' + constants.REDIRECT_APP + ' ' + constants.OUTPUT_TMP_LOG
-           print command2exec
+        #    print command2exec
            subprocess.check_output([constants.BASH_CMD, constants.BASH_FLAG, command2exec])
         except subprocess.CalledProcessError as e_:
            print constants.EXCEPTION + str(e_)
@@ -86,14 +86,14 @@ def getBase64Count(file_lines):
     return cnt2ret, line2ret
 
 def getMissingDefaultCount(file_lines):
+    cnt2ret = 0 
     line2ret = [ s_ for s_ in file_lines if constants.LINT_MIS_DEFAU in s_]
     line2ret = [str_.split(constants.AT_SYMBOL)[1] for str_ in line2ret if constants.AT_SYMBOL in str_]
-    cnt2ret = sum(constants.LINT_MIS_DEFAU in s_ for s_ in file_lines)
+    for s_ in file_lines:
+        if constants.LINT_MIS_DEFAU in s_:
+           cnt2ret += 1 
     if cnt2ret > 0:
         line2ret = list(np.unique(line2ret))
-        cnt2ret  = len(line2ret)
-    else:
-        cnt2ret = 0
     return cnt2ret, line2ret
 
 '''

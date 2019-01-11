@@ -95,7 +95,6 @@ def sniffSmells(path_to_dir):
                      lint_cnt_out   = secu_lint_outp[0]
                      lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
                      final_str      = final_str + month_str + lint_cnt_str
-                     # print secu_lint_outp
                      '''
                      for same/new checking data
                      '''
