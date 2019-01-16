@@ -22,6 +22,8 @@ Instructions to run tool and see results:
 4. run the command `docker run -it --name slic akondrahman/ruby_for_sp bash` 
 5. run the command `cd /SecurityInIaC/IacSec/SLIC/`
 
+> To get the results for a few test scripts it takes *0.04 minutes to complete*. run `python main.py -t`. This command will execute SLIC for the test scripts. Upon completion of the analysis `Dumped CSV output file of 1197 bytes`, `Dumped symbolic output PICKLE of 6 bytes`, and `Duration: 0.0453675349553 minutes` will be displayed, which indicates that SLIC's execution is complete. 
+
 
 > To get the results for the Mozilla repositories it takes *251 minutes to complete*. Follow steps 6-8: 
 6. run `python main.py -m`. This command will execute SLIC for the scripts collected from the Mozilla repositories. Upon completion of the analysis `Dumped CSV output file of XXX bytes`, `Dumped symbolic output PICKLE of XXX bytes`, and `Ended at:XXX` will be displayed, which indicates that SLIC's execution is complete and it generated the result files used to answer RQ2 and RQ3. 
