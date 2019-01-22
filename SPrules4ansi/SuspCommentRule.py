@@ -9,7 +9,7 @@ from ansiblelint import AnsibleLintRule
 class SuspCommentRule(AnsibleLintRule):
     id = 'SECURITY:::SUSPICOUS_COMMENTS:::'
     shortdesc = 'Suspicious comment'
-    description = 'Check for lines that have suspicious comments ${var}'
+    description = 'Check for suspicious comments'
     tags = { 'security' }
 
     def match(self, file, line):
