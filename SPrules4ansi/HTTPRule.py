@@ -1,6 +1,6 @@
 '''
 Akond Rahman 
-Rule to detect suspicious comments 
+Rule to detect  use of HTTP without TLS 
 Jan 21, 2019 
 '''
 
