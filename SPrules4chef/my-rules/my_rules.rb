@@ -241,3 +241,46 @@ rule "SECURITY", "Locations of secrets should not be exposed (V2)" do
       end
   end
 end
+
+# integrity check rule for nodes 
+rule "INTEGRITY_CHECK_1", "NO_CHECKSUM" do
+  tags %w{security akondrahman}
+  prop_list = []
+  recipe do |ast|
+    noed_array = attribute_access(ast, :type => :string).find_all do |tmp_| 
+      tmp_.each do |key_, val_|
+         key2see = key_.to_s.downcase
+         val2see = val_.to_s.downcase
+         prop_list.push(val2see)
+      end
+    end 
+    if  ( (!(prop_list.include? 'checksum') || !(prop_list.include? 'checksum_linux_x64') || !(prop_list.include? 'checksum_linux_x86') || !(prop_list.include? 'check_sha') || !(prop_list.include? 'gcc_installer_checksum')) && 
+        ((prop_list.include? 'src_url') || (prop_list.include? 'repo_rpm_url') || (prop_list.include? 'gcc_installer_url') || (prop_list.include? 'url')) 
+        )
+            print 'SECURITY:::SOURCE_INTEGRITY:::ATTRIBUTE:::Validate downloaded content using checksum' 
+            print '\n'
+    end
+  end
+end
+
+rule "INTEGRITY_CHECK_2", "NO_CHECKSUM" do
+  tags %w{security akondrahman}
+  repo_flag = false 
+  check_flag = false 
+  recipe do |ast_, filename_|
+      text_content=File.open(filename_).read
+      text_content.gsub!(/\r\n?/, "\n")
+      text_content.each_line do |line_as_str|
+            single_line = line_as_str.downcase
+            if ( (single_line.include? '.tgz') || (single_line.include? '.tar.gz') || (single_line.include? 'repo_url') ||  (single_line.include? '.rpm') || (single_line.include? 'package_url') || (single_line.include? '.dmg')  ) 
+              repo_flag = true 
+            elsif (single_line.include? 'checksum') 
+              check_flag = true 
+            end
+      end
+      if (repo_flag) && (!check_flag)
+         print 'SECURITY:::SOURCE_INTEGRITY:::LINES:::Validate downloaded content using checksum' 
+         print '\n'     
+      end
+  end 
+end
