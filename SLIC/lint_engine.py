@@ -112,6 +112,14 @@ def getHardCodePassCount(file_lines):
     cnt2ret = sum(constants.LINT_HARD_CODE_PASS in s_ for s_ in file_lines)
     return cnt2ret, line2ret
 
+
+def getIntegCheckCount(file_lines):
+    line2ret = [ s_ for s_ in file_lines if constants.LINT_INTEG_VIO in s_]
+    line2ret = [str_.split(constants.AT_SYMBOL)[1] for str_ in line2ret if constants.AT_SYMBOL in str_]
+    cnt2ret = sum(constants.LINT_INTEG_VIO in s_ for s_ in file_lines)
+    return cnt2ret, line2ret
+
+
 def parseOutput():
     '''
     Initialization
@@ -129,6 +137,8 @@ def parseOutput():
     ## added June 26, 2018 
     rul_sec_user_cnt,  rul_sec_user_lin   = 0, ''
     rul_sec_pass_cnt,  rul_sec_pass_lin   = 0, ''
+    ## added June 26, 2018 
+    rul_sec_inte_cnt,  rul_sec_inte_lin   = 0, ''
     '''
     '''
     file_ = open(constants.OUTPUT_TMP_LOG, constants.FILE_OPEN_MODE)
@@ -151,6 +161,8 @@ def parseOutput():
         rul_sec_user_cnt,  rul_sec_user_lin   = getHardCodeUserCount(file_lines)
         rul_sec_pass_cnt,  rul_sec_pass_lin   = getHardCodePassCount(file_lines)
 
+        ## added June 26, 2018 
+        rul_sec_inte_cnt,  rul_sec_inte_lin   = getIntegCheckCount(file_lines)
     # this will be expanded
     # output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt,
     #               rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt,
@@ -158,22 +170,19 @@ def parseOutput():
 
     output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_md5_usage_cnt,
                   rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt, 
-                  rul_mis_case_cnt
+                  rul_mis_case_cnt, rul_sec_inte_cnt
                  )  # // removing base 64 after luke feedback
-    # total count
     tot_cnt = sum(output2ret)
-    # output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_secr_loca_cnt, rul_md5_usage_cnt,
-    #               rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt,
-    #               rul_base64_cnt, rul_mis_case_cnt, tot_cnt)
+
     output2ret = (rul_hardcode_cnt, rul_susp_comm_cnt, rul_md5_usage_cnt,
                   rul_http_use_cnt, rul_bind_use_cnt, rul_empt_pwd_cnt, rul_defa_adm_cnt,
                   rul_sec_user_cnt, rul_sec_pass_cnt,                  ### added June 26, 2018   
-                  rul_mis_case_cnt, 
-                  tot_cnt )  # // removing base 64 after luke feedback
+                  rul_mis_case_cnt, rul_sec_inte_cnt, 
+                  tot_cnt )  
     # this will be expanded
     str2ret    = (rul_hardcode_lin, rul_susp_comm_lin, rul_secr_loca_lin, rul_md5_usage_lin,
                   rul_http_use_lin, rul_bind_use_lin, rul_empt_pwd_lin, rul_defa_adm_lin,
-                  rul_base64_lin, rul_mis_case_lin, rul_sec_user_lin, rul_sec_pass_lin) ### added June 26, 2018   
+                  rul_base64_lin, rul_mis_case_lin, rul_sec_user_lin, rul_sec_pass_lin, rul_sec_inte_lin) ### added June 26, 2018   
 
     # print str2ret
     return output2ret, str2ret

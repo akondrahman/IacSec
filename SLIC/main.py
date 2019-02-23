@@ -71,20 +71,12 @@ if __name__=='__main__':
    CHEF DIRECTORIES
    '''
    ds_path = '/Users/akond/SECU_REPOS/test-chef/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_TEST_CHEF.csv'
-   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V6_SYM_TEST_CHEF.PKL'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_TEST_CHEF.csv'
+   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_SYM_TEST_CHEF.PKL'
 
-   # ds_path = '/Users/akond/SECU_REPOS/berg-chef/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_BERG_CHEF.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_BERG.PKL'
-
-   # ds_path = '/Users/akond/SECU_REPOS/cdat-chef/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_CDAT_CHEF.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_CDAT.PKL'
-
-   # ds_path = '/Users/akond/SECU_REPOS/expr-chef/'
-   # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_EXPR_CHEF.csv'
-   # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_CHEF.PKL'
+  #  ds_path = '/Users/akond/SECU_REPOS/ostk-chef/'
+  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_OSTK_CHEF.csv'
+  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_SYM_OSTK_CHEF.PKL'
 
    final_output_str, sym_out_full = executor.sniffSmells(ds_path) # 1. count, 2. symbols for which we observe smells
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str   ### header is used here

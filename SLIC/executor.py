@@ -32,7 +32,7 @@ def getMonthData(file_p, dir_p):
        time_list = time_dir.split('-')
        month2ret = time_list[-2] + '-' + time_list[-1] + ','
     else:
-       month2ret = '2018-06'
+       month2ret = '2019-03'
     return month2ret
 
 def buildSymOut(sym_tup_par, mon_par, fil_par):
@@ -47,7 +47,8 @@ def buildSymOut(sym_tup_par, mon_par, fil_par):
                  8:constants.LINT_BASE64,
                  9:constants.LINT_MIS_DEFAU,
                  10:constants.LINT_HARD_CODE_UNAME,
-                 11:constants.LINT_HARD_CODE_PASS
+                 11:constants.LINT_HARD_CODE_PASS,
+                 12:constants.LINT_INTEG_VIO 
                 }
     # str2ret   = ''
     list_ = []
@@ -87,7 +88,7 @@ def sniffSmells(path_to_dir):
                     per_file_sym = buildSymOut(symbol_out, month_str, full_p_file)
                     all_sym_list = all_sym_list + per_file_sym
                  # for analyzing Chef scripts
-                 elif (os.path.exists(full_p_file) and (constants.CH_DIR in full_p_file) and (full_p_file.endswith(constants.CH_EXT)==True)):
+                 elif (os.path.exists(full_p_file) and ((constants.CH_DIR_RECIPE in full_p_file) or (constants.CH_DIR_COOKBOOK in full_p_file)) and (full_p_file.endswith(constants.CH_EXT)==True)):
                      counter += 1
                      print 'Analyzing:{},Index:{}'.format(full_p_file, counter)
                      month_str      = getMonthData(full_p_file, path_to_dir)
