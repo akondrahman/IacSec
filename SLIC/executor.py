@@ -88,14 +88,16 @@ def sniffSmells(path_to_dir):
                     per_file_sym = buildSymOut(symbol_out, month_str, full_p_file)
                     all_sym_list = all_sym_list + per_file_sym
                  # for analyzing Chef scripts
-                 elif (os.path.exists(full_p_file) and ((constants.CH_DIR_RECIPE in full_p_file) or (constants.CH_DIR_COOKBOOK in full_p_file)) and (full_p_file.endswith(constants.CH_EXT)==True)):
+                 #  elif (os.path.exists(full_p_file) and ((constants.CH_DIR_RECIPE in full_p_file) or (constants.CH_DIR_COOKBOOK in full_p_file)) and (full_p_file.endswith(constants.CH_EXT)==True)):
+                 elif ( (os.path.exists(full_p_file)) and  (full_p_file.endswith(constants.CH_EXT)==True) ):
                      counter += 1
-                     print 'Analyzing:{},Index:{}'.format(full_p_file, counter)
-                     month_str      = getMonthData(full_p_file, path_to_dir)
+                     print 'Analyzing:{},Repo:{},Index:{}'.format(full_p_file, root_ , counter)
+                     #  month_str      = getMonthData(full_p_file, path_to_dir)
+                     month_str      = '2019-03'
                      secu_lint_outp = lint_engine.runLinter(full_p_file)
                      lint_cnt_out   = secu_lint_outp[0]
                      lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
-                     final_str      = final_str + month_str + lint_cnt_str
+                     final_str      = final_str + month_str + ',' + root_ + ',' + lint_cnt_str
                      '''
                      for same/new checking data
                      '''
