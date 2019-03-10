@@ -81,27 +81,33 @@ def getProcessMetrics(file_path_p, repo_path_p):
     MINOR        = getMinorContribCount(file_path_p, repo_path_p, LOC)
     OWNER_LINES  = getHighestContribsPerc(file_path_p, repo_path_p, LOC)
 
-    all_process_metrics = str(DEV) + ',' + str(MINOR) + ',' + str(OWNER_LINES) + ',' 
+    all_process_metrics = str(DEV) + ',' + str(MINOR) + ',' + str(OWNER_LINES) 
 
-    return all_process_metrics
+    return all_process_metrics, DEV
 
 if __name__=='__main__':
-    SLIC_OUTPUT_FILE= '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_SLIC_CHEF.csv'
-    AUTHOR_OUTPUT_FILE = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_AUTHOR_CHEF.csv'
+    SLIC_OUTPUT_FILE   = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_TEST_SLIC_CHEF.csv'
+    AUTHOR_OUTPUT_FILE = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_TEST_AUTHOR_CHEF.csv'
 
     final_str = ''
     SLIC_OUT_DF = pd.read_csv(SLIC_OUTPUT_FILE) 
     all_files   = np.unique( SLIC_OUT_DF['FILE_NAME'].tolist() )
     for file_ in all_files:
-        repo_dir_  = SLIC_OUT_DF[SLIC_OUT_DF['FILE_NAME']==file_]['REPO_DIR'][0]
-        SMELL_CNT  = SLIC_OUT_DF[SLIC_OUT_DF['FILE_NAME']==file_]['TOTAL'][0]
+        print 'Processing:', file_ 
+        repo_dir_  = SLIC_OUT_DF[SLIC_OUT_DF['FILE_NAME']==file_]['REPO_DIR'].tolist()[0]
+        repo_dir_  = repo_dir_ + '/'
+        #print repo_dir_ 
+        SMELL_CNT  = SLIC_OUT_DF[SLIC_OUT_DF['FILE_NAME']==file_]['TOTAL'].tolist()[0]
         if SMELL_CNT > 0:
            SMELL_FLAG = 1 
         else:
            SMELL_FLAG = 0 
 
-        author_metrics = getProcessMetrics(file_, repo_dir_)
-        per_file_str = repo_dir_ + ',' + file_ + ',' + author_metrics + ',' + str(SMELL_CNT) + ',' + str(SMELL_FLAG) 
+        author_metrics, devCount = getProcessMetrics(file_, repo_dir_)
+
+        if devCount > 0 :
+           per_file_str = repo_dir_ + ',' + file_ + ',' + author_metrics + ',' + str(SMELL_CNT) + ',' + str(SMELL_FLAG) 
         final_str = final_str + per_file_str + '\n' 
     
+    final_str = 'REPO,FILE,DEV,MINOR,OWNER_LINES,SMELL_COUNT,SMELL_FLAG' + '\n' + final_str 
     dumpContentIntoFile(final_str, AUTHOR_OUTPUT_FILE)
