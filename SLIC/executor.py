@@ -6,6 +6,7 @@ Executor : detects the script type, and triggers the linter
 import os
 import constants
 import lint_engine
+import numpy as np  
 
 def checkValidity(file_path):
     # skip files that are in hidden directories, and in spec folders
@@ -67,10 +68,24 @@ def sniffSmells(path_to_dir):
     counter = 0
     final_str = ''
     all_sym_list = []
+    '''
+    to get sense how many files to analyze 
+    '''
+    all_iac_scripts_list, relevant_iac_list = [], []
     for root_, dirs, files_ in os.walk(path_to_dir):
        for file_ in files_:
            if (file_.endswith(constants.PP_EXT) or file_.endswith(constants.CH_EXT)):
-                 full_p_file = os.path.join(root_, file_)
+                   full_p_file = os.path.join(root_, file_)
+                   all_iac_scripts_list.append(full_p_file)
+    
+    all_iac_scripts_list = np.unique(all_iac_scripts_list)
+    for full_p_file in all_iac_scripts_list:
+        if (os.path.exists(full_p_file) and ((constants.CH_DIR_RECIPE in full_p_file) or (constants.CH_DIR_COOKBOOK in full_p_file)) and (full_p_file.endswith(constants.CH_EXT)==True)):
+            relevant_iac_list.append(full_p_file)
+    print '*'*100
+    print 'Final set of scripts to analyze:', len(relevant_iac_list)
+    print '*'*100
+    for full_p_file in relevant_iac_list:
                  # for analyzing Puppet scripts
                  if (os.path.exists(full_p_file) and checkValidity(full_p_file) and (full_p_file.endswith(constants.CH_EXT)==False)):
                     counter += 1 
@@ -88,8 +103,8 @@ def sniffSmells(path_to_dir):
                     per_file_sym = buildSymOut(symbol_out, month_str, full_p_file)
                     all_sym_list = all_sym_list + per_file_sym
                  # for analyzing Chef scripts
-                 #  elif (os.path.exists(full_p_file) and ((constants.CH_DIR_RECIPE in full_p_file) or (constants.CH_DIR_COOKBOOK in full_p_file)) and (full_p_file.endswith(constants.CH_EXT)==True)):
-                 elif ( (os.path.exists(full_p_file)) and  (full_p_file.endswith(constants.CH_EXT)==True) ):
+                 elif (os.path.exists(full_p_file) and ((constants.CH_DIR_RECIPE in full_p_file) or (constants.CH_DIR_COOKBOOK in full_p_file)) and (full_p_file.endswith(constants.CH_EXT)==True)):
+                 # elif ( (os.path.exists(full_p_file)) and  (full_p_file.endswith(constants.CH_EXT)==True) ):
                      counter += 1
                      print 'Analyzing:{},Repo:{},Index:{}'.format(full_p_file, root_ , counter)
                      #  month_str      = getMonthData(full_p_file, path_to_dir)

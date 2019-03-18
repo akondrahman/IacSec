@@ -70,13 +70,17 @@ if __name__=='__main__':
    '''
    CHEF DIRECTORIES
    '''
-   ds_path = '/Users/akond/SECU_REPOS/test-chef/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_TEST_SLIC_CHEF.csv'
-   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_SYM_TEST_SLIC_CHEF.PKL'
+  #  ds_path = '/Users/akond/SECU_REPOS/test-chef/'
+  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_TEST_SLIC_CHEF.csv'
+  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_SYM_TEST_SLIC_CHEF.PKL'
 
   #  ds_path = '/Users/akond/SECU_REPOS/ostk-chef/'
   #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_OSTK_CHEF.csv'
   #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_SYM_OSTK_CHEF.PKL'
+
+   ds_path = '/Users/akond/SECU_REPOS/ghub-chef/'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_GHUB_SLIC_CHEF.csv'
+   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_SYM_GHUB_SLIC_CHEF.PKL'
 
    final_output_str, sym_out_full = executor.sniffSmells(ds_path) # 1. count, 2. symbols for which we observe smells
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str   ### header is used here
