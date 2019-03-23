@@ -284,3 +284,116 @@ rule "INTEGRITY_CHECK_2", "NO_CHECKSUM" do
       end
   end 
 end
+
+rule "SECURITY", "Use of hard-coded secrets (password) to be avoided" do
+  tags %w{security akondrahman}
+  kw_list = ['password', 'pass'] 
+  recipe do |ast_, filename_|
+      matchCnt = 0
+      lines  = []
+      text_content=File.open(filename_).read
+      text_content.gsub!(/\r\n?/, "\n")
+      text_content.each_line do |line_as_str|
+         if (! line_as_str.include?('#')) && (! line_as_str.include?('(')) 
+            single_line = line_as_str.downcase
+            kw_list.each do |kw_|
+              if (single_line.include?(kw_)) && ( (single_line.include?(':'))  || (single_line.include?('=')) )
+                  print "SECURITY:::HARD_CODED_SECRET_:::Do not hard code secrets. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
+                  print "\n"
+               end
+            end
+         end
+      end
+  end
+end
+
+rule "SECURITY", "Use of hard-coded passwords to be avoided" do
+  tags %w{security akondrahman}
+  kw_list = ['password', 'pass']
+  recipe do |ast_, filename_|
+      matchCnt = 0
+      lines  = []
+      text_content=File.open(filename_).read
+      text_content.gsub!(/\r\n?/, "\n")
+      text_content.each_line do |line_as_str|
+         if (! line_as_str.include?('#')) && (! line_as_str.include?('(')) 
+            single_line = line_as_str.downcase
+            kw_list.each do |kw_|
+               if (single_line.include?(kw_)) && ( (single_line.include?(':'))  || (single_line.include?('=')) )
+                  print "SECURITY:::HARD_CODED_SECRET_PASSWORD:::Do not hard code passwords. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
+                  print "\n"
+               end
+            end
+         end
+      end
+  end
+end
+
+rule "SECURITY", "Use of hard-coded secrets (username) to be avoided" do
+  tags %w{security akondrahman}
+  kw_list = ['username'] 
+  recipe do |ast_, filename_|
+      matchCnt = 0
+      lines  = []
+      text_content=File.open(filename_).read
+      text_content.gsub!(/\r\n?/, "\n")
+      text_content.each_line do |line_as_str|
+         if (! line_as_str.include?('#')) && (! line_as_str.include?('(')) 
+            single_line = line_as_str.downcase
+            kw_list.each do |kw_|
+              if (single_line.include?(kw_)) && ( (single_line.include?(':'))  || (single_line.include?('=')) )
+                  print "SECURITY:::HARD_CODED_SECRET_:::Do not hard code secrets. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
+                  print "\n"
+               end
+            end
+         end
+      end
+  end
+end
+
+
+rule "SECURITY", "Use of hard-coded usernames  to be avoided" do
+  tags %w{security akondrahman}
+  kw_list = ['username']
+  recipe do |ast_, filename_|
+      matchCnt = 0
+      lines  = []
+      text_content=File.open(filename_).read
+      text_content.gsub!(/\r\n?/, "\n")
+      text_content.each_line do |line_as_str|
+         if (! line_as_str.include?('#')) && (! line_as_str.include?('(')) 
+            single_line = line_as_str.downcase
+            kw_list.each do |kw_|
+               if (single_line.include?(kw_)) && ( (single_line.include?(':'))  || (single_line.include?('=')) )
+                  print "SECURITY:::HARD_CODED_SECRET_USER_NAME:::Do not hard code usernames. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
+                  print "\n"
+               end
+            end
+         end
+      end
+  end
+end
+
+rule "SECURITY", "Do not use weak crypotgraphy algorithms such as MD5" do
+   tags %w{security akondrahman}
+   kw_list = ['md5']
+   recipe do |ast_, filename_|
+       matchCnt = 0
+       lines  = []
+       text_content=File.open(filename_).read
+       text_content.gsub!(/\r\n?/, "\n")
+       text_content.each_line do |line_as_str|
+          if (! line_as_str.include?('#')) 
+             single_line = line_as_str.downcase
+             kw_list.each do |kw_|
+                if (single_line.include?(kw_)) && ( (single_line.include?('=>'))  
+                   print "SECURITY:::MD5:::Do not use MD5, as it has security weakness. Use SHA-512."
+                   print "\n"
+                end
+             end
+          end
+       end
+   end
+ end
+
+##command foodcritic -I SPrules4chef/my-rules/my_rules.rb SPrules4chef/create_win_dir.rb 

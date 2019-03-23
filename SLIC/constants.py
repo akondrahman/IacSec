@@ -14,6 +14,7 @@ DOT = '.'
 EXCEPTION = 'EXCEPTION:::'
 BASH_CMD  = 'bash'
 BASH_FLAG = '-c'
+HIDDEN_GIT = '/.git/'
 ### PUPPET LINT AND ITS RULES
 PP_LINT_TOOL = 'puppet-lint -l'
 PP_RULE_HARDCODE  = '../SPrules4pupp/no_hardcode_key.rb'
@@ -68,3 +69,6 @@ headerStr2 = 'MD5_USAG,' + 'HTTP_USAG,' + 'BIND_USAG,' + 'EMPT_PASS,' + 'DFLT_AD
 headerStr3 = 'HARD_CODE_UNAME,' + 'HARD_CODE_PASS,' + 'MISS_DFLT,' + 'INTE_CHCK,' + 'TOTAL,'
 HEADER_STR = headerStr1 + headerStr2 + headerStr3
 SYM_HEAD   = 'MONTH,FILE,SYMBOL,TYPE'
+
+ALREADY_VISITED_LOCATION = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/IacSec/SLIC/TEMP_DATA_HOLDER.csv'
+TEMP_HOLDER = 'TEMP_DATA_HOLDER.csv'

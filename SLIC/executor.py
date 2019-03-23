@@ -64,7 +64,23 @@ def buildSymOut(sym_tup_par, mon_par, fil_par):
             list_.append(tup_)
     return list_
 
+def dumpContentIntoFile(strP, fileP):
+    fileToWrite = open( fileP, 'w')
+    fileToWrite.write(strP)
+    fileToWrite.close()
+    return str(os.stat(fileP).st_size)
+
+
+def getVisited():
+    import pandas as pd 
+    df_ = pd.read_csv(constants.ALREADY_VISITED_LOCATION) 
+    already_visited = df_['FILE_NAME'].tolist()
+    return already_visited
+
 def sniffSmells(path_to_dir):
+    already_visited = []
+    # how many files are already done ?
+    # already_visited = getVisited()
     counter = 0
     final_str = ''
     all_sym_list = []
@@ -74,13 +90,14 @@ def sniffSmells(path_to_dir):
     all_iac_scripts_list, relevant_iac_list = [], []
     for root_, dirs, files_ in os.walk(path_to_dir):
        for file_ in files_:
-           if (file_.endswith(constants.PP_EXT) or file_.endswith(constants.CH_EXT)):
+           if (file_.endswith(constants.PP_EXT) or file_.endswith(constants.CH_EXT)) :
                    full_p_file = os.path.join(root_, file_)
-                   all_iac_scripts_list.append(full_p_file)
+                   if full_p_file not in already_visited:
+                      all_iac_scripts_list.append(full_p_file)
     
     all_iac_scripts_list = np.unique(all_iac_scripts_list)
     for full_p_file in all_iac_scripts_list:
-        if (os.path.exists(full_p_file) and ((constants.CH_DIR_RECIPE in full_p_file) or (constants.CH_DIR_COOKBOOK in full_p_file)) and (full_p_file.endswith(constants.CH_EXT)==True)):
+        if (os.path.exists(full_p_file) and ((constants.CH_DIR_RECIPE in full_p_file) or (constants.CH_DIR_COOKBOOK in full_p_file)) and (full_p_file.endswith(constants.CH_EXT)==True) and (constants.HIDDEN_GIT not in full_p_file) ):
             relevant_iac_list.append(full_p_file)
     print '*'*100
     print 'Final set of scripts to analyze:', len(relevant_iac_list)
@@ -122,4 +139,6 @@ def sniffSmells(path_to_dir):
                  else:
                      print "Not analyzing, failed validity checks:", full_p_file
                  print "="*50
+                 if ((counter % 1000) == 0):
+                    dumpContentIntoFile(final_str, constants.TEMP_HOLDER) 
     return final_str, all_sym_list
