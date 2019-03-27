@@ -285,7 +285,6 @@ rule "INTEGRITY_CHECK_2", "NO_CHECKSUM" do
   tags %w{security akondrahman}
   repo_flag  = false 
   check_flag = false 
-  list_flag  = []
   recipe do |ast_, filename_|
       text_content=File.open(filename_).read
       text_content.gsub!(/\r\n?/, "\n")
@@ -297,23 +296,11 @@ rule "INTEGRITY_CHECK_2", "NO_CHECKSUM" do
             if (( (single_line.include? 'checksum') || (single_line.include? 'gpgcheck') || (single_line.include? 'checksha') ) && (! single_line.include? 'false') )
               check_flag = true 
             end
-            temp_list = []
-            temp_list.push(repo_flag) 
-            temp_list.push(check_flag)  
-            list_flag.push(temp_list)
-            # puts "VALUE: #{list_flag}"
       end
-      list_flag.each do |sub_lis|
-            if (sub_lis.length > 0)
-                  repo_flag_  = sub_lis[0]
-                  check_flag_ = sub_lis[1]
-                  if (repo_flag_) && (!check_flag_)
-                     print 'SECURITY:::SOURCE_INTEGRITY:::LINES:::Validate downloaded content using checksum' 
-                     print '\n'     
-                  end
-            end 
-      end 
-      list_flag  = []
+      if (repo_flag) && (!check_flag)
+            print 'SECURITY:::SOURCE_INTEGRITY:::LINES:::Validate downloaded content using checksum' 
+            print '\n'     
+      end
   end 
 end
 
