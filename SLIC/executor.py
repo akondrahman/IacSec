@@ -74,7 +74,7 @@ def dumpContentIntoFile(strP, fileP):
 def getVisited():
     import pandas as pd 
     df_ = pd.read_csv(constants.ALREADY_VISITED_LOCATION) 
-    already_visited = df_['FILE_NAME'].tolist()
+    already_visited = df_[constants.ALREADY_VISITED_FIELD].tolist()
     return already_visited
 
 def sniffSmells(path_to_dir):
@@ -122,14 +122,17 @@ def sniffSmells(path_to_dir):
                  # for analyzing Chef scripts
                  elif (os.path.exists(full_p_file) and ((constants.CH_DIR_RECIPE in full_p_file) or (constants.CH_DIR_COOKBOOK in full_p_file)) and (full_p_file.endswith(constants.CH_EXT)==True)):
                  # elif ( (os.path.exists(full_p_file)) and  (full_p_file.endswith(constants.CH_EXT)==True) ):
+                     path_list = full_p_file.split( constants.PATH_SPLITTER ) 
+                     repo_dir_list = path_list[0:constants.PATH_INDEX]  
+                     dir_of_file = constants.PATH_SPLITTER.join(repo_dir_list) + constants.PATH_SPLITTER
                      counter += 1
-                     print 'Analyzing:{},Repo:{},Index:{}'.format(full_p_file, root_ , counter)
+                     print 'Analyzing:{},Repo:{},Index:{}'.format(full_p_file, dir_of_file , counter)
                      #  month_str      = getMonthData(full_p_file, path_to_dir)
                      month_str      = '2019-03'
                      secu_lint_outp = lint_engine.runLinter(full_p_file)
                      lint_cnt_out   = secu_lint_outp[0]
                      lint_cnt_str   = buildOutput(lint_cnt_out, full_p_file)
-                     final_str      = final_str + month_str + ',' + root_ + ',' + lint_cnt_str
+                     final_str      = final_str + month_str + ',' + dir_of_file + ',' + lint_cnt_str
                      '''
                      for same/new checking data
                      '''

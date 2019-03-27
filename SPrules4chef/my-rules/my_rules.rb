@@ -41,7 +41,7 @@ rule "SECURITY", "Use of BASE64 should be avoided" do
   end
 end
 
-rule "SECURITY", "Use of HTTP should be avoided" do
+rule "SECURITY", "Use of HTTP should be avoided (V1)" do
   tags %w{security akondrahman}
   recipe do |ast_|
      all_reso = find_resources(ast_)
@@ -58,6 +58,23 @@ rule "SECURITY", "Use of HTTP should be avoided" do
      end
   end
 end
+
+rule "SECURITY", "Use of HTTP should be avoided (V2)" do
+   tags %w{security akondrahman}
+   recipe do |ast_, filename_|
+      text_content=File.open(filename_).read
+      text_content.gsub!(/\r\n?/, "\n")
+      text_content.each_line do |line_as_str|
+         if (! line_as_str.include?('#')) && ( line_as_str.include?('=>')) 
+               single_line = line_as_str.downcase
+               if (single_line.include?("http://"))  
+                  print "SECURITY:::HTTP:::Do not use HTTP without TLS. This may cause a man in the middle attack. Use TLS with HTTP."
+                  print "\n"
+               end
+         end    
+      end
+   end
+ end
 
 # rule "SECURITY", "IP Addresses should not be bound to 0.0.0.0 (V1)" do
 #   tags %w{security akondrahman}
@@ -206,7 +223,7 @@ end
 # end
 
 
-
+# reff: https://www.reddit.com/r/aws/comments/5nx418/what_does_00000_means/
 rule "SECURITY", "IP Addresses should not be bound to 0.0.0.0 (V2)" do
   tags %w{security akondrahman}
   recipe do |ast_, filename_|
@@ -214,7 +231,7 @@ rule "SECURITY", "IP Addresses should not be bound to 0.0.0.0 (V2)" do
       text_content.gsub!(/\r\n?/, "\n")
       text_content.each_line do |line_as_str|
             single_line = line_as_str.downcase
-            if single_line.include? '0.0.0.0'
+            if ((single_line.include? '0.0.0.0') && (! line_as_str.include?('#'))) 
                    # puts single_line
                    print "SECURITY:::BINDING_TO_ALL:::Do not bind to 0.0.0.0. This may cause a DDOS attack. Restrict your available IPs."
                    print "\n"
@@ -263,25 +280,40 @@ rule "INTEGRITY_CHECK_1", "NO_CHECKSUM" do
   end
 end
 
+#reff: https://gist.github.com/maplebed/24ebfdc4f0d0c0cd0cfd3667228cd0bf
 rule "INTEGRITY_CHECK_2", "NO_CHECKSUM" do
   tags %w{security akondrahman}
-  repo_flag = false 
+  repo_flag  = false 
   check_flag = false 
+  list_flag  = []
   recipe do |ast_, filename_|
       text_content=File.open(filename_).read
       text_content.gsub!(/\r\n?/, "\n")
       text_content.each_line do |line_as_str|
             single_line = line_as_str.downcase
-            if ( (single_line.include? '.tgz') || (single_line.include? '.tar.gz') || (single_line.include? 'repo_url') ||  (single_line.include? '.rpm') || (single_line.include? 'package_url') || (single_line.include? '.dmg')  ) 
+            if ( (single_line.include? '.tgz') || (single_line.include? '.tar.gz') || (single_line.include? 'repo_url') ||  (single_line.include? '.rpm') || (single_line.include? 'package_url') || (single_line.include? '.dmg')  )  && (single_line.include? 'http') 
               repo_flag = true 
-            elsif (single_line.include? 'checksum') 
+            end 
+            if (( (single_line.include? 'checksum') || (single_line.include? 'gpgcheck') || (single_line.include? 'checksha') ) && (! single_line.include? 'false') )
               check_flag = true 
             end
+            temp_list = []
+            temp_list.push(repo_flag) 
+            temp_list.push(check_flag)  
+            list_flag.push(temp_list)
+            # puts "VALUE: #{list_flag}"
       end
-      if (repo_flag) && (!check_flag)
-         print 'SECURITY:::SOURCE_INTEGRITY:::LINES:::Validate downloaded content using checksum' 
-         print '\n'     
-      end
+      list_flag.each do |sub_lis|
+            if (sub_lis.length > 0)
+                  repo_flag_  = sub_lis[0]
+                  check_flag_ = sub_lis[1]
+                  if (repo_flag_) && (!check_flag_)
+                     print 'SECURITY:::SOURCE_INTEGRITY:::LINES:::Validate downloaded content using checksum' 
+                     print '\n'     
+                  end
+            end 
+      end 
+      list_flag  = []
   end 
 end
 
@@ -386,8 +418,28 @@ rule "SECURITY", "Do not use weak crypotgraphy algorithms such as MD5" do
           if (! line_as_str.include?('#')) 
              single_line = line_as_str.downcase
              kw_list.each do |kw_|
-                if (single_line.include?(kw_)) && ( (single_line.include?('=>'))  
+                if (single_line.include?(kw_)) &&  (single_line.include?('=>'))  
                    print "SECURITY:::MD5:::Do not use MD5, as it has security weakness. Use SHA-512."
+                   print "\n"
+                end
+             end
+          end
+       end
+   end
+ end
+
+ rule "SECURITY", "Use of admin as default users should be avoided" do
+   tags %w{security akondrahman}
+   kw_list = ['admin']
+   recipe do |ast_, filename_|
+       text_content=File.open(filename_).read
+       text_content.gsub!(/\r\n?/, "\n")
+       text_content.each_line do |line_as_str|
+          if (! line_as_str.include?('#')) && (! line_as_str.include?('=>')) 
+             single_line = line_as_str.downcase
+             kw_list.each do |kw_|
+                if (single_line.include?(kw_)) 
+                   print "SECURITY:::ADMIN_BY_DEFAULT:::Do not make default user as admin. This violates the secure by design principle."
                    print "\n"
                 end
              end
