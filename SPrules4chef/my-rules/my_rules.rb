@@ -187,7 +187,7 @@ rule "SECURITY", "Use of hard-coded secrets should be avoided" do
                     (key2see.include? 'uuid') || (key2see.include? 'key') || (key2see.include? 'crypt') ||
                     (key2see.include? 'secret') || (key2see.include? 'certificate') || (key2see.include? 'id') ||
                     (key2see.include? 'cert') || (key2see.include? 'token') || (key2see.include? 'ssh_key') ||
-                    (key2see.include? 'md5') || (key2see.include? 'rsa') || (key2see.include? 'ssl')) && (val2see.length > 0))
+                    (key2see.include? 'md5') || (key2see.include? 'rsa') || (key2see.include? 'ssl')) && (val2see.length > 0) && (!key2see.include?('#') || !val2see.include?('#')) )
                       print "SECURITY:::HARD_CODED_SECRET_:::Do not hard code secrets. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
                       print "\n"
                end
@@ -283,24 +283,30 @@ end
 #reff: https://gist.github.com/maplebed/24ebfdc4f0d0c0cd0cfd3667228cd0bf
 rule "INTEGRITY_CHECK_2", "NO_CHECKSUM" do
   tags %w{security akondrahman}
-  repo_flag  = false 
-  check_flag = false 
+  repo_count  = 0 
+  check_count = 0 
   recipe do |ast_, filename_|
       text_content=File.open(filename_).read
       text_content.gsub!(/\r\n?/, "\n")
       text_content.each_line do |line_as_str|
             single_line = line_as_str.downcase
             if ( (single_line.include? '.tgz') || (single_line.include? '.tar.gz') || (single_line.include? 'repo_url') ||  (single_line.include? '.rpm') || (single_line.include? 'package_url') || (single_line.include? '.dmg')  )  && (single_line.include? 'http') 
-              repo_flag = true 
+              repo_count = repo_count + 1
             end 
             if (( (single_line.include? 'checksum') || (single_line.include? 'gpgcheck') || (single_line.include? 'checksha') ) && (! single_line.include? 'false') )
-              check_flag = true 
+              check_count = check_count + 1 
             end
       end
-      if (repo_flag) && (!check_flag)
-            print 'SECURITY:::SOURCE_INTEGRITY:::LINES:::Validate downloaded content using checksum' 
-            print '\n'     
+      check_diff_ = repo_count - check_count
+      while check_diff_ > 0
+         print "SECURITY:::SOURCE_INTEGRITY:::LINES:::Validate downloaded content using checksum"
+         puts " "
+         print "\n"     
+         check_diff_ = check_diff_ - 1
       end
+      check_diff_ = 0
+      repo_count  = 0 
+      check_count = 0
   end 
 end
 
@@ -316,7 +322,7 @@ rule "SECURITY", "Use of hard-coded secrets (password) to be avoided" do
          if (! line_as_str.include?('#')) && (! line_as_str.include?('(')) 
             single_line = line_as_str.downcase
             kw_list.each do |kw_|
-              if (single_line.include?(kw_)) && ( (single_line.include?(':'))  || (single_line.include?('=')) )
+              if (single_line.include?(kw_)) && ( (single_line.include?(':'))  || (single_line.include?('=')) ) && ( !single_line.include?('[') || !single_line.include?(']') || !single_line.include?(':') )
                   print "SECURITY:::HARD_CODED_SECRET_:::Do not hard code secrets. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
                   print "\n"
                end
@@ -326,27 +332,27 @@ rule "SECURITY", "Use of hard-coded secrets (password) to be avoided" do
   end
 end
 
-rule "SECURITY", "Use of hard-coded passwords to be avoided" do
-  tags %w{security akondrahman}
-  kw_list = ['password', 'pass']
-  recipe do |ast_, filename_|
-      matchCnt = 0
-      lines  = []
-      text_content=File.open(filename_).read
-      text_content.gsub!(/\r\n?/, "\n")
-      text_content.each_line do |line_as_str|
-         if (! line_as_str.include?('#')) && (! line_as_str.include?('(')) 
-            single_line = line_as_str.downcase
-            kw_list.each do |kw_|
-               if (single_line.include?(kw_)) && ( (single_line.include?(':'))  || (single_line.include?('=')) )
-                  print "SECURITY:::HARD_CODED_SECRET_PASSWORD:::Do not hard code passwords. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
-                  print "\n"
-               end
-            end
-         end
-      end
-  end
-end
+# rule "SECURITY", "Use of hard-coded passwords to be avoided" do
+#   tags %w{security akondrahman}
+#   kw_list = ['password', 'pass']
+#   recipe do |ast_, filename_|
+#       matchCnt = 0
+#       lines  = []
+#       text_content=File.open(filename_).read
+#       text_content.gsub!(/\r\n?/, "\n")
+#       text_content.each_line do |line_as_str|
+#          if (! line_as_str.include?('#')) && (! line_as_str.include?('(')) 
+#             single_line = line_as_str.downcase
+#             kw_list.each do |kw_|
+#                if (single_line.include?(kw_)) && ( (single_line.include?(':'))  || (single_line.include?('=')) ) && ( !single_line.include?('[') || !single_line.include?(']') || !single_line.include?(':') )
+#                   print "SECURITY:::HARD_CODED_SECRET_PASSWORD:::Do not hard code passwords. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
+#                   print "\n"
+#                end
+#             end
+#          end
+#       end
+#   end
+# end
 
 rule "SECURITY", "Use of hard-coded secrets (username) to be avoided" do
   tags %w{security akondrahman}
@@ -360,7 +366,7 @@ rule "SECURITY", "Use of hard-coded secrets (username) to be avoided" do
          if (! line_as_str.include?('#')) && (! line_as_str.include?('(')) 
             single_line = line_as_str.downcase
             kw_list.each do |kw_|
-              if (single_line.include?(kw_)) && ( (single_line.include?(':'))  || (single_line.include?('=')) )
+               if (single_line.include?(kw_)) && ( (single_line.include?(':'))  || (single_line.include?('=')) ) && ( !single_line.include?('[') || !single_line.include?(']') || !single_line.include?(':') )
                   print "SECURITY:::HARD_CODED_SECRET_:::Do not hard code secrets. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
                   print "\n"
                end
