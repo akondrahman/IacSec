@@ -86,6 +86,13 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
             ## CNT_PER_FILE is an interesting metric, which will not be used now , but for future. 
             print '-'*25
             ### code for PROPORTION metric 
+            at_least_one_files = np.unique( mon_df[mon_df[head_] > 0 ]['FILE_NAME'].tolist() )
+            all_files          = np.unique( mon_df['FILE_NAME'].tolist() )
+            prop_metric        = round(float(len(at_least_one_files)) / float(len(all_files)), 5) * 100 
+            print 'MON:{}, ALL_FILE_CNT:{}, AT_LEAST_ONE_CNT:{}, PROP:{}, TYPE:{}'.format(mon_, len(at_least_one_files), len(all_files), prop_metric , head_)
+            print '-'*25
+        print '*'*50 
+
 
 
 if __name__=='__main__':
