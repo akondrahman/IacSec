@@ -60,8 +60,7 @@ def makeCSV(lis_par, nam, dir):
     os_bytes = dumpContentIntoFile(str_, file2save)
     print 'DUMPED CSV FILE OF {} BYTES'.format(os_bytes)
 
-def perfAnal(df_pa, header_pa, output_dir, ds_name):
-    createOutputDirectory(output_dir)
+def perfAnal(df_pa, header_pa, ds_name):
     mon_lis = np.unique(df_pa['MONTH'].tolist())
     mon_lis = sortDate(mon_lis)
     csv_list = []
@@ -70,7 +69,7 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
         for summary puprpose
         '''
         stat_list = df_pa[head_].tolist()
-        print 'DATASET:{},SMELL:{},MIN:{},MEDIAN:{},MAX:{}'.format(ds_nam, head_, min(stat_list), np.median(stat_list), max(stat_list))
+        # print 'DATASET:{},SMELL:{},MIN:{},MEDIAN:{},MAX:{}'.format(ds_nam, head_, min(stat_list), np.median(stat_list), max(stat_list))
         uni_fil_lis, mon_plt_lis, cnt_plt_lis, sme_den_lis = [], [], [], []
         for mon_ in mon_lis:
             mon_df = df_pa[df_pa['MONTH']==mon_]
@@ -82,18 +81,15 @@ def perfAnal(df_pa, header_pa, output_dir, ds_name):
             per_mon_fil_cnt = len(np.unique(per_mon_fil)) #  file count
             cnt_per_fil   = round(float(per_mon_cnt)/float(per_mon_fil_cnt), 3)
             smell_density = calcSmellDensity(per_mon_cnt, per_mon_fil)
-            print 'MON:{}, CNT:{}, FIL:{}, CNT_PER_FIL:{}, SMELL_DENS:{}, TYPE:{}'.format(mon_, per_mon_cnt, per_mon_fil_cnt, cnt_per_fil, smell_density, head_)
+            # print 'MON:{}, CNT:{}, FIL:{}, CNT_PER_FIL:{}, SMELL_DENS:{}, TYPE:{}'.format(mon_, per_mon_cnt, per_mon_fil_cnt, cnt_per_fil, smell_density, head_)
             ## CNT_PER_FILE is an interesting metric, which will not be used now , but for future. 
-            print '-'*25
+            # print '-'*25
             ### code for PROPORTION metric 
             at_least_one_files = np.unique( mon_df[mon_df[head_] > 0 ]['FILE_NAME'].tolist() )
             all_files          = np.unique( mon_df['FILE_NAME'].tolist() )
             prop_metric        = round(float(len(at_least_one_files)) / float(len(all_files)), 5) * 100 
-            print 'MON:{}, ALL_FILE_CNT:{}, AT_LEAST_ONE_CNT:{}, PROP:{}, TYPE:{}'.format(mon_, len(at_least_one_files), len(all_files), prop_metric , head_)
+            print 'MON:{}, AT_LEAST_ONE_CNT:{}, ALL_FILE_CNT:{}, SMELL_DENS:{}, PROP:{}, TYPE:{}'.format(mon_, len(at_least_one_files), len(all_files), smell_density, prop_metric , head_)
             print '-'*25
-        print '*'*50 
-
-
 
 if __name__=='__main__':
    '''
@@ -105,13 +101,15 @@ if __name__=='__main__':
                     'MISS_DFLT', 'INTE_CHCK', 'TOTAL']
 
 
-   results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_GHUB_SLIC_CHEF.csv'
+#    results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_GHUB_SLIC_CHEF.csv'
+#    results_df   = pd.read_csv(results_file)
+#    ds_nam = 'GITHUB'
+
+   results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_OSTK_CHEF.csv'
    results_df   = pd.read_csv(results_file)
-   plot_out_dir = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/plots_v1_chef/'
-   ds_nam = 'GITHUB'
+   ds_nam = 'OPENSTACK'
 
-
-   perfAnal(results_df, needed_header, plot_out_dir, ds_nam)
+   perfAnal(results_df, needed_header, ds_nam)
    print '='*100 
    print 'The dataset was:', results_file
    print '='*100 
