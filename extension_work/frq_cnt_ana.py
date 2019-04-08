@@ -105,9 +105,9 @@ if __name__=='__main__':
 #    results_df   = pd.read_csv(results_file)
 #    ds_nam = 'GITHUB'
 
-   results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_OSTK_CHEF.csv'
-   results_df   = pd.read_csv(results_file)
-   ds_nam = 'OPENSTACK'
+#    results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_OSTK_CHEF.csv'
+#    results_df   = pd.read_csv(results_file)
+#    ds_nam = 'OPENSTACK'
 
    perfAnal(results_df, needed_header, ds_nam)
    print '='*100 
