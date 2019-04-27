@@ -28,15 +28,15 @@ def getDF(ap_df_, sub_df_, script_df_, ext_):
         else: 
             agree_count = agree_count + 1 
             agree_list.append((script, 'AGREED', list(np.unique(categs))[0])) 
-    agree_df    = pd.Dataframe(agree_list) 
-    disagree_df = pd.Dataframe(disagree_list)
+    agree_df    = pd.DataFrame(agree_list) 
+    disagree_df = pd.DataFrame(disagree_list)
     return agree_count, disagree_count, agree_df, disagree_df 
 
 
 if __name__=='__main__':
     anti_pattern_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/ap2019.csv'
-    submission_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/script2019.csv'
-    script_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/submission2019.csv' 
+    script_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/script2019.csv'
+    submission_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/submission2019.csv' 
 
     chef_final_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/COMPLETE_CURATED_CHEF.csv'
     ansi_final_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/COMPLETE_CURATED_ANSI.csv'
