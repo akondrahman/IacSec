@@ -71,8 +71,12 @@ if __name__=='__main__':
    '''
    Step-1 : create the dataset from agree and disagree file
    '''
-   # agree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/V6_CURATED_AGREE_PUPPET.csv'
-   # disagree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/V6_CURATED_DISAGREE_PUPPET.csv'
+   # agree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/AGREE_CHEF.csv'
+   # disagree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/DISAGREE_CHEF.csv'
+
+   # agree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/AGREE_ANSI.csv'
+   # disagree_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/curated/DISAGREE_ANSI.csv'
+
    # curated_df = createDS(agree_file, disagree_file)
    # need to dump csv for hacking, after dumping check CSV, make chnages if needed , and save it as final
    # curated_df.to_csv('/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/V6_SEMIFINAL.csv')

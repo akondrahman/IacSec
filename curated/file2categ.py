@@ -117,13 +117,35 @@ def slicPreparation(cur_lis):
                    list4slic.append(('DISAGREED', ind_, file_name, 'SLIC'))
     return list4slic
 
-if __name__=='__main__':
-   apa_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/antipattern_table.csv'
-   pro_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/profile_table.csv'
-   scr_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/script_table.csv'
-   sub_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/submission_table.csv'
+def chefSLICPrep(cur_lis):
+    ind_ = 0
+    list4slic = []
+    for tup_ in cur_lis:
+        ind_ += 1
+        file_name = tup_[0]
+        if 'rb' in file_name:
+            categ = tup_[1]
+            if categ != 'DISAGREED':
+                if (os.path.exists(file_name)):
+                   copyfile(file_name, '/Users/akond/SECU_REPOS/curated/agreed/' + str(ind_) + '.rb')
+                   list4slic.append(('AGREED', ind_, file_name, categ))
+                else:
+                   list4slic.append(('PATH_DO_NOT_EXIST', ind_, file_name, 'SLIC'))
+            else:
+                   copyfile(file_name, '/Users/akond/SECU_REPOS/curated/disagreed/' + str(ind_) + '.rb')
+                   list4slic.append(('DISAGREED', ind_, file_name, 'SLIC'))
+    return list4slic
 
-   curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/COMPLETE_CURATED.csv'
+if __name__=='__main__':
+#    apa_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/antipattern_table.csv'
+#    pro_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/profile_table.csv'
+#    scr_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/script_table.csv'
+#    sub_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/submission_table.csv'
+
+   apa_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/ap2019.csv'
+   scr_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/script2019.csv'
+   sub_tbl = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/submission2019.csv'
+   curated_ds = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/COMPLETE_CURATED_CHEF.csv'
 
    '''
    get anti patterns
@@ -133,7 +155,7 @@ if __name__=='__main__':
    '''
    get profile
    '''
-   pr_di = getProDict(pro_tbl)
+   # pr_di = getProDict(pro_tbl)
    # print pr_di
    '''
    get script table
@@ -154,6 +176,7 @@ if __name__=='__main__':
    is final on the disagreed ones
    '''
 
-   compare_ls=slicPreparation(full_list)
+   #compare_ls=slicPreparation(full_list)
+   chef_compare_ls = chefSLICPrep(full_list)    
    curated_df = pd.DataFrame.from_records(compare_ls, columns=['TYPE', 'INDEX', 'PATH', 'SECU_LABEL'])
    curated_df.to_csv(curated_ds)
