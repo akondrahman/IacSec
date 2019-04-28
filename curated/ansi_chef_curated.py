@@ -5,6 +5,7 @@ Get curated dataset for Ansible and Chef
 '''
 import pandas as pd 
 import numpy as np 
+from shutil import copyfile
 
 def getDF(ap_df_, sub_df_, script_df_, ext_):
     script_dict = {}
@@ -36,6 +37,15 @@ def getDF(ap_df_, sub_df_, script_df_, ext_):
     agree_df    = pd.DataFrame(agree_list) 
     disagree_df = pd.DataFrame(disagree_list)
     return agree_count, disagree_count, agree_df, disagree_df 
+
+def copyFiles(file_name):
+    curated_rating_df = pd.read_csv(file_name)
+    files = curated_rating_df['FILE'].tolist() 
+    for file_ in files: 
+        dest_file = file_.replace('/', '_')
+        copyfile(file_, '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/curated2019/' +  dest_file )
+    
+
 
 
 if __name__=='__main__':
@@ -75,4 +85,10 @@ if __name__=='__main__':
     # chef_agreements, chef_disagreemnts, chef_agree_df, chef_disagree_df = getDF(ap_df, sub_df, scr_df, 'rb') 
     # chef_agree_df.to_csv(chef_final_file_agr)  
     # chef_disagree_df.to_csv(chef_final_file_dis)
-    # print '.rb', chef_agreements, chef_disagreemnts     
+    # print '.rb', chef_agreements, chef_disagreemnts  
+    # 
+    '''
+    Copy files 
+    '''   
+    chef_curated_file_name = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/datasets/curated/COMPLETE_CURATED_CHEF_AGREE.csv'
+    copyFiles(chef_curated_file_name) 
