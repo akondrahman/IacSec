@@ -70,9 +70,14 @@ if __name__=='__main__':
    '''
    CHEF DIRECTORIES
    '''
-   ds_path = '/Users/akond/SECU_REPOS/test-chef/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_TEST_CHEF.csv'
-   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_SYM_TEST_SLAC_CHEF.PKL'
+
+   ds_path = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/curated2019NEW/'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_CURATED_CHEF.csv'
+   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_CURATED_SLAC_CHEF.PKL'
+
+  #  ds_path = '/Users/akond/SECU_REPOS/test-chef/'
+  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_TEST_CHEF.csv'
+  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_SYM_TEST_SLAC_CHEF.PKL'
 
   #  ds_path = '/Users/akond/SECU_REPOS/ostk-chef/'
   #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_OSTK_CHEF.csv'
