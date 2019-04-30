@@ -65,7 +65,7 @@ rule "SECURITY", "Use of HTTP should be avoided (V2)" do
       text_content=File.open(filename_).read
       text_content.gsub!(/\r\n?/, "\n")
       text_content.each_line do |line_as_str|
-         if (! line_as_str.include?('#')) && ( line_as_str.include?('=>')) 
+         if (! line_as_str.include?('#')) && ( line_as_str.include?('=>')  || line_as_str.include?(':') || line_as_str.include?('=') )  
                single_line = line_as_str.downcase
                if (single_line.include?("http://"))  
                   print "SECURITY:::HTTP:::Do not use HTTP without TLS. This may cause a man in the middle attack. Use TLS with HTTP."
@@ -113,7 +113,7 @@ rule "SECURITY", "Use of empty password should be avoided" do
          reso_dict = resource_attributes(indi_reso)
          reso_dict.each do |key_, val_|
                key2see = key_.to_s.downcase
-               if ((key2see.include? "pwd") || (key2see.include? "password") || (key2see.include? "pass")) && ((val_.length <=0) || (val_.eql? ' '))
+               if ((key2see.include? "pwd") || (key2see.include? "password") || (key2see.include? "pass")) && ((val_.length <=0) || (val_.eql? ''))
                    print "SECURITY:::EMPTY_PASSWORD:::Do not keep password field empty. This may help an attacker to attack. You can use hiera to avoid this issue."
                    print "\n"
                end
@@ -172,8 +172,6 @@ end
 
 
 
-
-
 rule "SECURITY", "Use of hard-coded secrets should be avoided" do
   tags %w{security akondrahman}
   recipe do |ast_|
@@ -184,10 +182,10 @@ rule "SECURITY", "Use of hard-coded secrets should be avoided" do
                key2see = key_.to_s.downcase
                val2see = val_.to_s.downcase
                if (((key2see.include? 'pwd') || (key2see.include? 'password') || (key2see.include? 'pass') ||
-                    (key2see.include? 'uuid') || (key2see.include? 'key') || (key2see.include? 'crypt') ||
-                    (key2see.include? 'secret') || (key2see.include? 'certificate') || (key2see.include? 'id') ||
+                    (key2see.include? 'key') || (key2see.include? 'crypt') ||
+                    (key2see.include? 'secret') || (key2see.include? 'certificate') || 
                     (key2see.include? 'cert') || (key2see.include? 'token') || (key2see.include? 'ssh_key') ||
-                    (key2see.include? 'md5') || (key2see.include? 'rsa') || (key2see.include? 'ssl')) && (val2see.length > 0) && (!key2see.include?('#') || !val2see.include?('#')) )
+                    (key2see.include? 'md5') || (key2see.include? 'rsa') || (key2see.include? 'ssl')) && (val2see.length > 0) && (!key2see.include?('#') || !val2see.include?('#') || !val2see.include?('recipe') ) )
                       print "SECURITY:::HARD_CODED_SECRET_:::Do not hard code secrets. This may help an attacker to attack the system. You can use 'data bags' to avoid this issue."
                       print "\n"
                end
@@ -247,9 +245,11 @@ rule "SECURITY", "Locations of secrets should not be exposed (V2)" do
       text_content.each_line do |line_as_str|
                single_line = line_as_str.downcase
                if (((single_line.include? 'rsa') || (single_line.include? 'ssh') || (single_line.include? 'pem') ||
+                    ((single_line.include? 'user') && (single_line.include? 'root'))  ||
                     (single_line.include? 'crt') || (single_line.include? 'key') || (single_line.include? 'ssl') ||
                     (single_line.include? 'certificate') || (single_line.include? 'crl') || (single_line.include? 'pub') ||
-                    (single_line.include? 'id')) && ((single_line.include? '/') || ((single_line.include? '\\') && (single_line.include? ':')))
+                    (single_line.include? 'id')) && ((single_line.include? '/') || ((single_line.include? '\\') && (single_line.include? ':'))) &&
+                    (! single_line.include? 'recipe') 
                   )
                       # puts "VALUE: #{single_line}"
                       print "SECURITY:::EXPOSING_SECRET_LOCATION_V2:::Do not expose location of secrets. This may help an attacker to attack. You can use 'data bags' to avoid this issue."
@@ -423,12 +423,12 @@ rule "SECURITY", "Do not use weak crypotgraphy algorithms such as MD5" do
 
  rule "SECURITY", "Use of admin as default users should be avoided" do
    tags %w{security akondrahman}
-   kw_list = ['admin']
+   kw_list = ['admin'] 
    recipe do |ast_, filename_|
        text_content=File.open(filename_).read
        text_content.gsub!(/\r\n?/, "\n")
        text_content.each_line do |line_as_str|
-          if (! line_as_str.include?('#')) && (! line_as_str.include?('=>')) 
+          if (! line_as_str.include?('#')) && (! line_as_str.include?('=>') && ( (line_as_str.include?('=') || line_as_str.include?(':') ) && line_as_str.include?('default') )) 
              single_line = line_as_str.downcase
              kw_list.each do |kw_|
                 if (single_line.include?(kw_)) 
@@ -441,4 +441,4 @@ rule "SECURITY", "Do not use weak crypotgraphy algorithms such as MD5" do
    end
  end
 
-##command foodcritic -I SPrules4chef/my-rules/my_rules.rb SPrules4chef/create_win_dir.rb 
+ ##command foodcritic -I SPrules4chef/my-rules/my_rules.rb SPrules4chef/create_win_dir.rb 
