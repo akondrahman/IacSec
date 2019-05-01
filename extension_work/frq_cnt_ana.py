@@ -88,7 +88,7 @@ def perfAnal(df_pa, header_pa, ds_name):
             at_least_one_files = np.unique( mon_df[mon_df[head_] > 0 ]['FILE_NAME'].tolist() )
             all_files          = np.unique( mon_df['FILE_NAME'].tolist() )
             prop_metric        = round(float(len(at_least_one_files)) / float(len(all_files)), 5) * 100 
-            print 'MON:{}, AT_LEAST_ONE_CNT:{}, ALL_FILE_CNT:{}, SMELL_DENS:{}, PROP:{}, TYPE:{}'.format(mon_, len(at_least_one_files), len(all_files), smell_density, prop_metric , head_)
+            print 'MON:{}, AT_LEAST_ONE_CNT:{}, ALL_FILE_CNT:{}, RAW_COUNT:{}, SMELL_DENS:{}, PROP:{}, TYPE:{}'.format(mon_, len(at_least_one_files), len(all_files), per_mon_cnt, smell_density, prop_metric , head_)
             print '-'*25
 
 if __name__=='__main__':
@@ -105,9 +105,9 @@ if __name__=='__main__':
 #    results_df   = pd.read_csv(results_file)
 #    ds_nam = 'GITHUB'
 
-#    results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_OSTK_CHEF.csv'
-#    results_df   = pd.read_csv(results_file)
-#    ds_nam = 'OPENSTACK'
+   results_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_OSTK_CHEF.csv'
+   results_df   = pd.read_csv(results_file)
+   ds_nam = 'OPENSTACK'
 
    perfAnal(results_df, needed_header, ds_nam)
    print '='*100 

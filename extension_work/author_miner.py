@@ -132,7 +132,7 @@ def getRecentExp(file_path, repo_path):
        recent_exp_final = sum(recent_exp_list) 
        #  print k_, recent_exp_final 
        final_recent_exp_dict[k_] = recent_exp_final 
-   print final_recent_exp_dict 
+   # print final_recent_exp_dict 
    return final_recent_exp_dict
 
        
@@ -152,8 +152,9 @@ def getProcessMetrics(file_path_p, repo_path_p):
     return all_process_metrics, DEV
 
 if __name__=='__main__':
-    SLIC_OUTPUT_FILE   = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_TEST_CHEF.csv'
-    AUTHOR_OUTPUT_FILE = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_TEST_AUHTOR_CHEF.csv'
+   #  SLIC_OUTPUT_FILE   = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_OSTK_CHEF.csv'
+   #  AUTHOR_OUTPUT_FILE = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_OSTK_AUHTOR_CHEF.csv'
+
 
     final_str = ''
     SLIC_OUT_DF = pd.read_csv(SLIC_OUTPUT_FILE) 

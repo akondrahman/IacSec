@@ -68,24 +68,24 @@ if __name__=='__main__':
    # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_SYM_ALL_GIT_PUP.PKL'
 
    '''
-   CHEF DIRECTORIES
+   CHEF DIRECTORIES FINAL_AUTHOR_ANSIBLE_DATASET.csv
    '''
 
-   ds_path = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/curated2019NEW/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_CURATED_CHEF.csv'
-   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_CURATED_SLAC_CHEF.PKL'
+  #  ds_path = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/curated2019NEW/'
+  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_CURATED_CHEF.csv'
+  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_CURATED_SLAC_CHEF.PKL'
 
   #  ds_path = '/Users/akond/SECU_REPOS/test-chef/'
   #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_TEST_CHEF.csv'
   #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_SYM_TEST_SLAC_CHEF.PKL'
 
   #  ds_path = '/Users/akond/SECU_REPOS/ostk-chef/'
-  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_OSTK_CHEF.csv'
-  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_SYM_OSTK_CHEF.PKL'
+  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_OSTK_CHEF.csv'
+  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_OSTK_CHEF.PKL'
 
-  #  ds_path = '/Users/akond/SECU_REPOS/ghub-chef/'
-  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_ALL_GHUB_CHEF.csv'
-  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V1_SYM_GHUB_SLIC_CHEF.PKL'
+   ds_path = '/Users/akond/SECU_REPOS/ghub-chef/'
+   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_GHUB_CHEF.csv'
+   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_GHUB_SLAC_CHEF.PKL'
 
    final_output_str, sym_out_full = executor.sniffSmells(ds_path) # 1. count, 2. symbols for which we observe smells
    final_output_str = constants.HEADER_STR + '\n' +  final_output_str   ### header is used here
