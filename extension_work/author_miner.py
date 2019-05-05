@@ -145,7 +145,7 @@ def getProcessMetrics(file_path_p, repo_path_p):
     MINOR        = getMinorContribCount(file_path_p, repo_path_p, LOC)
     MAJOR        = getMajorContribCount(file_path_p, repo_path_p, LOC)
     OWNER_LINES  = getHighestContribsPerc(file_path_p, repo_path_p, LOC)
-    RECENT_EXP   = getRecentExp(file_path_p, repo_path_p) ## computed but not used 
+    RECENT_EXP   = getRecentExp(file_path_p, repo_path_p) ## computed for future purposes 
 
     all_process_metrics = str(DEV) + ',' + str(MINOR) + ',' + str(MAJOR) + ',' + str(OWNER_LINES) 
 
@@ -155,6 +155,8 @@ if __name__=='__main__':
    #  SLIC_OUTPUT_FILE   = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_OSTK_CHEF.csv'
    #  AUTHOR_OUTPUT_FILE = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_OSTK_AUHTOR_CHEF.csv'
 
+   #  SLIC_OUTPUT_FILE   = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_GHUB_CHEF.csv'
+   #  AUTHOR_OUTPUT_FILE = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_GHUB_AUHTOR_CHEF.csv'
 
     final_str = ''
     SLIC_OUT_DF = pd.read_csv(SLIC_OUTPUT_FILE) 

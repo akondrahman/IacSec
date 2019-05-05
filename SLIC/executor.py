@@ -80,7 +80,7 @@ def getVisited():
 def sniffSmells(path_to_dir):
     already_visited = []
     # how many files are already done ?
-    # already_visited = getVisited()
+    already_visited = getVisited()
     counter = 0
     final_str = ''
     all_sym_list = []

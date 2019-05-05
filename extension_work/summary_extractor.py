@@ -18,8 +18,8 @@ def giveTimeStamp():
 # github_file    = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_AUTHOR_ANSIBLE_DATASET_GHUB.csv'
 # openstack_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_AUTHOR_ANSIBLE_DATASET_OSTK.csv' 
 
-# github_file    = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_GHUB_AUHTOR_CHEF.csv'
-# openstack_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_OSTK_AUHTOR_CHEF.csv'
+github_file    = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_GHUB_AUHTOR_CHEF.csv'
+openstack_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_OSTK_AUHTOR_CHEF.csv'
 
 dataset_files = [github_file, openstack_file]
 
