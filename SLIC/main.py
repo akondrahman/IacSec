@@ -34,6 +34,7 @@ if __name__=='__main__':
    '''
    PUPPET DIRECTORIES
    '''
+
    # ds_path =    '/Users/akond/SECU_REPOS/curated/agreed/'
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_CURATED_AGREE_PUPPET.csv'
    # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_SYM_CURATED_AGREE_PUP.PKL'
@@ -42,9 +43,11 @@ if __name__=='__main__':
    # output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_CURATED_DISAGREE_PUPPET.csv'
    # sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_SYM_CURATED_DISAGREE_PUP.PKL'
 
+
+  #  header_str = constants.PUPP_HEADER_STR
   #  ds_path = '/Users/akond/SECU_REPOS/test-pupp/'
-  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_TEST_PUPPET.csv'
-  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V10_SYM_TEST_PUP.PKL'
+  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V11_TEST_PUPPET.csv'
+  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V11_SYM_TEST_PUP.PKL'
 
    ### CCS Rebuttal code
    # ds_path = '/Users/akond.rahman/Documents/Personal/misc/ccs-rebuttal-work/test/'
@@ -69,7 +72,9 @@ if __name__=='__main__':
 
    '''
    CHEF DIRECTORIES FINAL_AUTHOR_ANSIBLE_DATASET.csv
+
    '''
+  #  header_str = constants.CHEF_HEADER_STR
 
   #  ds_path = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/closed-coding-2019/curated2019NEW/'
   #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_CURATED_CHEF.csv'
@@ -83,12 +88,27 @@ if __name__=='__main__':
   #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_OSTK_CHEF.csv'
   #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_OSTK_CHEF.PKL'
 
-   ds_path = '/Users/akond/SECU_REPOS/ghub-chef/'
-   output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_GHUB_CHEF.csv'
-   sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_GHUB_SLAC_CHEF.PKL'
+  #  ds_path = '/Users/akond/SECU_REPOS/ghub-chef/'
+  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_GHUB_CHEF.csv'
+  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_GHUB_SLAC_CHEF.PKL'
+   '''
+   grant work 
+   '''
+  #  ds_path = '/Users/akond/Documents/AkondOneDrive/OneDrive/JobSearch2018/grant-drafts/grant_root_repos/'
+  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/JobSearch2018/grant-drafts/grant_root_repos/OUTPUT_GRANT_ROOT_CHEF.csv'
+  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/JobSearch2018/grant-drafts/grant_root_repos/OUTPUT_GRANT_ROOT_CHEF.PKL'
+
+  #  ds_path         = '/Users/akond/Documents/AkondOneDrive/OneDrive/JobSearch2018/grant-drafts/grant_fork_repos/tmp_docker/'
+  #  output_file     = '/Users/akond/Documents/AkondOneDrive/OneDrive/JobSearch2018/grant-drafts/grant_fork_repos/tmp_docker/OUTPUT_GRANT_DOCKER_FORK_CHEF.csv'
+  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/JobSearch2018/grant-drafts/grant_fork_repos/tmp_docker/OUTPUT_GRANT_DOCKER_FORK_CHEF.PKL'
+
+  #  ds_path = '/Users/akond/Documents/AkondOneDrive/OneDrive/JobSearch2018/grant-drafts/grant_root_repos/tmp/docker/'
+  #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/JobSearch2018/grant-drafts/grant_root_repos/tmp/docker/OUTPUT_GRANT_ROOT_TEMP_CHEF.csv'
+  #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/JobSearch2018/grant-drafts/grant_root_repos/tmp/docker/OUTPUT_GRANT_ROOT_TEMP_CHEF.PKL'
+
 
    final_output_str, sym_out_full = executor.sniffSmells(ds_path) # 1. count, 2. symbols for which we observe smells
-   final_output_str = constants.HEADER_STR + '\n' +  final_output_str   ### header is used here
+   final_output_str = header_str + '\n' +  final_output_str   ### header is used here
    print '*'*100
    # print sym_out_full
    bytes_out = dumpContentIntoFile(final_output_str, output_file)

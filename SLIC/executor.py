@@ -49,7 +49,8 @@ def buildSymOut(sym_tup_par, mon_par, fil_par):
                  9:constants.LINT_MIS_DEFAU,
                  10:constants.LINT_HARD_CODE_UNAME,
                  11:constants.LINT_HARD_CODE_PASS,
-                 12:constants.LINT_INTEG_VIO 
+                 12:constants.LINT_INTEG_VIO, 
+                 13:constants.PUPP_MISS_DEFA 
                 }
     # str2ret   = ''
     list_ = []
@@ -98,6 +99,8 @@ def sniffSmells(path_to_dir):
     all_iac_scripts_list = np.unique(all_iac_scripts_list)
     for full_p_file in all_iac_scripts_list:
         if (os.path.exists(full_p_file) and ((constants.CH_DIR_RECIPE in full_p_file) or (constants.CH_DIR_COOKBOOK in full_p_file)) and (full_p_file.endswith(constants.CH_EXT)==True) and (constants.HIDDEN_GIT not in full_p_file) ):
+            relevant_iac_list.append(full_p_file)
+        elif ( os.path.exists(full_p_file) and (constants.PP_EXT in full_p_file) and (constants.HIDDEN_GIT not in full_p_file) ):
             relevant_iac_list.append(full_p_file)
     print '*'*100
     print 'Final set of scripts to analyze:', len(relevant_iac_list)
