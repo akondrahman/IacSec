@@ -3,7 +3,7 @@ Akond Rahman
 Feb 08, 2018
 This code executes the lint engine
 '''
-import cPickle as pickle
+import pickle
 import executor
 import time
 import datetime
@@ -28,8 +28,8 @@ def giveTimeStamp():
 
 if __name__=='__main__':
    t1 = time.time()
-   print 'Started at:', giveTimeStamp()
-   print '*'*100
+   print('Started at:', giveTimeStamp())
+   print('*'*100)
 
    '''
    PUPPET DIRECTORIES
@@ -92,7 +92,7 @@ if __name__=='__main__':
   #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_ALL_GHUB_CHEF.csv'
   #  sym_output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/SecurityInIaC/output/V4_SYM_GHUB_SLAC_CHEF.PKL'
    '''
-   grant work 
+   grant work
    '''
   #  ds_path = '/Users/akond/Documents/AkondOneDrive/OneDrive/JobSearch2018/grant-drafts/grant_root_repos/'
   #  output_file = '/Users/akond/Documents/AkondOneDrive/OneDrive/JobSearch2018/grant-drafts/grant_root_repos/OUTPUT_GRANT_ROOT_CHEF.csv'
@@ -109,17 +109,17 @@ if __name__=='__main__':
 
    final_output_str, sym_out_full = executor.sniffSmells(ds_path) # 1. count, 2. symbols for which we observe smells
    final_output_str = header_str + '\n' +  final_output_str   ### header is used here
-   print '*'*100
+   print('*'*100)
    # print sym_out_full
    bytes_out = dumpContentIntoFile(final_output_str, output_file)
-   print 'Dumped CSV output file of {} bytes'.format(bytes_out)
-   print '*'*100
+   print('Dumped CSV output file of {} bytes'.format(bytes_out))
+   print('*'*100)
    sym_out = dumpContentIntoPickle(sym_out_full, sym_output_file)
-   print 'Dumped symbolic output PICKLE of {} bytes'.format(sym_out)
-   print '*'*100
-   print 'Ended at:', giveTimeStamp()
-   print '*'*100
+   print('Dumped symbolic output PICKLE of {} bytes'.format(sym_out))
+   print('*'*100)
+   print('Ended at:', giveTimeStamp())
+   print('*'*100)
    t2 = time.time()
    diff = (t2 - t1 ) / 60
-   print "Duration: {} minutes".format(diff)
-   print '*'*100
+   print("Duration: {} minutes".format(diff))
+   print('*'*100)

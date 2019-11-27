@@ -6,13 +6,13 @@ Executor : detects the script type, and triggers the linter
 import os
 import constants
 import lint_engine
-import numpy as np  
+import numpy as np
 
 def checkValidity(file_path):
     # skip files that are in hidden directories, and in spec folders
     flag2ret = False
     ## the previosu conditions have to be removded as now we dont have any Puppet files in spec or acceptance directories
-    if ((file_path.count(constants.DOT) == 1)): 
+    if ((file_path.count(constants.DOT) == 1)):
     # if ((file_path.count(constants.DOT) == 1) and (constants.TEST_DIR_SPEC not in file_path) and (constants.TEST_DIR_ACCE not in file_path)):
     # if ((file_path.count(constants.DOT) <= 5) and (constants.TEST_DIR_SPEC not in file_path) and (constants.TEST_DIR_ACCE not in file_path)):
         flag2ret  = True
@@ -49,8 +49,8 @@ def buildSymOut(sym_tup_par, mon_par, fil_par):
                  9:constants.LINT_MIS_DEFAU,
                  10:constants.LINT_HARD_CODE_UNAME,
                  11:constants.LINT_HARD_CODE_PASS,
-                 12:constants.LINT_INTEG_VIO, 
-                 13:constants.PUPP_MISS_DEFA 
+                 12:constants.LINT_INTEG_VIO,
+                 13:constants.PUPP_MISS_DEFA
                 }
     # str2ret   = ''
     list_ = []
@@ -73,8 +73,8 @@ def dumpContentIntoFile(strP, fileP):
 
 
 def getVisited():
-    import pandas as pd 
-    df_ = pd.read_csv(constants.ALREADY_VISITED_LOCATION) 
+    import pandas as pd
+    df_ = pd.read_csv(constants.ALREADY_VISITED_LOCATION)
     already_visited = df_[constants.ALREADY_VISITED_FIELD].tolist()
     return already_visited
 
@@ -86,7 +86,7 @@ def sniffSmells(path_to_dir):
     final_str = ''
     all_sym_list = []
     '''
-    to get sense how many files to analyze 
+    to get sense how many files to analyze
     '''
     all_iac_scripts_list, relevant_iac_list = [], []
     for root_, dirs, files_ in os.walk(path_to_dir):
@@ -95,21 +95,21 @@ def sniffSmells(path_to_dir):
                    full_p_file = os.path.join(root_, file_)
                    if full_p_file not in already_visited:
                       all_iac_scripts_list.append(full_p_file)
-    
+
     all_iac_scripts_list = np.unique(all_iac_scripts_list)
     for full_p_file in all_iac_scripts_list:
         if (os.path.exists(full_p_file) and ((constants.CH_DIR_RECIPE in full_p_file) or (constants.CH_DIR_COOKBOOK in full_p_file)) and (full_p_file.endswith(constants.CH_EXT)==True) and (constants.HIDDEN_GIT not in full_p_file) ):
             relevant_iac_list.append(full_p_file)
         elif ( os.path.exists(full_p_file) and (constants.PP_EXT in full_p_file) and (constants.HIDDEN_GIT not in full_p_file) ):
             relevant_iac_list.append(full_p_file)
-    print '*'*100
-    print 'Final set of scripts to analyze:', len(relevant_iac_list)
-    print '*'*100
+    print('*'*100)
+    print('Final set of scripts to analyze:', len(relevant_iac_list))
+    print('*'*100)
     for full_p_file in relevant_iac_list:
                  # for analyzing Puppet scripts
                  if (os.path.exists(full_p_file) and checkValidity(full_p_file) and (full_p_file.endswith(constants.CH_EXT)==False)):
-                    counter += 1 
-                    print 'Analyzing:{},Index:{}'.format(full_p_file, counter)
+                    counter += 1
+                    print('Analyzing:{},Index:{}'.format(full_p_file, counter))
                     month_str      = getMonthData(full_p_file, path_to_dir)
                     secu_lint_outp = lint_engine.runLinter(full_p_file)
                     lint_cnt_out   = secu_lint_outp[0]
@@ -125,11 +125,11 @@ def sniffSmells(path_to_dir):
                  # for analyzing Chef scripts
                  elif (os.path.exists(full_p_file) and ((constants.CH_DIR_RECIPE in full_p_file) or (constants.CH_DIR_COOKBOOK in full_p_file)) and (full_p_file.endswith(constants.CH_EXT)==True)):
                  # elif ( (os.path.exists(full_p_file)) and  (full_p_file.endswith(constants.CH_EXT)==True) ):
-                     path_list = full_p_file.split( constants.PATH_SPLITTER ) 
-                     repo_dir_list = path_list[0:constants.PATH_INDEX]  
+                     path_list = full_p_file.split( constants.PATH_SPLITTER )
+                     repo_dir_list = path_list[0:constants.PATH_INDEX]
                      dir_of_file = constants.PATH_SPLITTER.join(repo_dir_list) + constants.PATH_SPLITTER
                      counter += 1
-                     print 'Analyzing:{},Repo:{},Index:{}'.format(full_p_file, dir_of_file , counter)
+                     print('Analyzing:{},Repo:{},Index:{}'.format(full_p_file, dir_of_file , counter))
                      #  month_str      = getMonthData(full_p_file, path_to_dir)
                      month_str      = '2019-03'
                      secu_lint_outp = lint_engine.runLinter(full_p_file)
@@ -143,8 +143,8 @@ def sniffSmells(path_to_dir):
                      per_file_sym = buildSymOut(symbol_out, month_str, full_p_file)
                      all_sym_list = all_sym_list + per_file_sym
                  else:
-                     print "Not analyzing, failed validity checks:", full_p_file
-                 print "="*50
+                     print("Not analyzing, failed validity checks:", full_p_file)
+                 print("="*50)
                  if ((counter % 1000) == 0):
-                    dumpContentIntoFile(final_str, constants.TEMP_HOLDER) 
+                    dumpContentIntoFile(final_str, constants.TEMP_HOLDER)
     return final_str, all_sym_list
