@@ -55,9 +55,9 @@ if __name__=='__main__':
     # VALID_MAPPING_FILE = '/Users/arahman/Documents/OneDriveWingUp/OneDrive-TennesseeTechUniversity/Research/IaC/ICP_Localization/FILTERED_DATASETS/FILTERED_OPENSTACK_COLOCATION.csv'
     # FINAL_OUTPUT_FILE  = '/Users/arahman/Documents/OneDriveWingUp/OneDrive-TennesseeTechUniversity/Research/IaC/ICP_Localization/FILTERED_DATASETS/LOCKED_OPENSTACK_COLOCATION.csv'
 
-    RAW_DATASET_FILE   = '/Users/arahman/Documents/OneDriveWingUp/OneDrive-TennesseeTechUniversity/Research/IaC/ICP_Localization/RAW_DATASETS/V2_ALL_WIKIMEDIA_PUPPET.csv'
-    VALID_MAPPING_FILE = '/Users/arahman/Documents/OneDriveWingUp/OneDrive-TennesseeTechUniversity/Research/IaC/ICP_Localization/FILTERED_DATASETS/FILTERED_WIKIPEDIA_COLOCATION.csv'
-    FINAL_OUTPUT_FILE  = '/Users/arahman/Documents/OneDriveWingUp/OneDrive-TennesseeTechUniversity/Research/IaC/ICP_Localization/FILTERED_DATASETS/LOCKED_WIKIPEDIA_COLOCATION.csv'
+    # RAW_DATASET_FILE   = '/Users/arahman/Documents/OneDriveWingUp/OneDrive-TennesseeTechUniversity/Research/IaC/ICP_Localization/RAW_DATASETS/V2_ALL_WIKIMEDIA_PUPPET.csv'
+    # VALID_MAPPING_FILE = '/Users/arahman/Documents/OneDriveWingUp/OneDrive-TennesseeTechUniversity/Research/IaC/ICP_Localization/FILTERED_DATASETS/FILTERED_WIKIPEDIA_COLOCATION.csv'
+    # FINAL_OUTPUT_FILE  = '/Users/arahman/Documents/OneDriveWingUp/OneDrive-TennesseeTechUniversity/Research/IaC/ICP_Localization/FILTERED_DATASETS/LOCKED_WIKIPEDIA_COLOCATION.csv'
 
     RAW_DATAFRAME   = pd.read_csv(RAW_DATASET_FILE)
     VALID_DATAFRAME = pd.read_csv(VALID_MAPPING_FILE)    
